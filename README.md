@@ -28,3 +28,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 3. Bổ sung tiến hóa, Gym, boss và hệ thống kỹ năng/thuộc tính sâu hơn.
 4. Thêm âm thanh, cài đặt và kiểm thử hiệu năng trên Android.
 5. Đóng gói APK sau khi gameplay web ổn định.
+
+
+## Nội dung vừa bổ sung
+- Tiến hóa theo cấp cho ba Pokémon khởi đầu: Bulbasaur → Ivysaur → Venusaur; Charmander → Charmeleon → Charizard; Squirtle → Wartortle → Blastoise.
+- Nút tiến hóa chỉ xuất hiện khi Pokémon đạt cấp yêu cầu; tiến hóa thay đổi tên, hình biểu tượng, kỹ năng và chỉ số.
+- Thử thách Nhà Thi Đấu Đá với Thủ Lĩnh cấp 10, lượng HP và sức tấn công cao hơn, thưởng 300 vàng khi chiến thắng.
+- Tiến trình tiến hóa và phần thưởng được ghi vào dữ liệu lưu trình duyệt.
