@@ -217,3 +217,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - **Giai đoạn cuối (30% HP trở xuống):** Boss cuồng nộ, sát thương tăng 42%; có cơ hội 68% tung chiêu tối thượng trong mỗi lượt cho đến khi tung thành công một lần, với xác suất gây trạng thái cao hơn.
 - Chuyển giai đoạn theo thứ tự, không bỏ qua giai đoạn 2 nếu một đòn đánh lớn làm HP tụt thẳng xuống ngưỡng cuối. Mỗi lần chuyển giai đoạn tiêu tốn lượt hành động của Boss và có thông báo riêng.
 - Đấu trường đổi ánh sáng/viền theo giai đoạn; hiệu ứng giai đoạn cuối tôn trọng cài đặt giảm chuyển động. AI dùng luật cục bộ, không gọi API hoặc mô hình học máy.
+
+
+### AI Boss thích nghi và chiêu cuối nhiều nhịp
+- Boss theo dõi chuỗi đòn cùng hệ của người chơi trong trận. Nếu người chơi lặp lại cùng hệ ít nhất hai lượt liên tiếp, boss có 18% cơ hội né đòn một lần trong mỗi giai đoạn và chuẩn bị phản công.
+- Sau khi né thành công, đòn đánh kế tiếp của boss được tăng 12% sát thương; đổi Pokémon hoặc dùng thuốc sẽ đặt lại chuỗi đọc đòn để tránh tính nhầm hành động hỗ trợ thành lặp chiêu.
+- Chiêu tối thượng ở giai đoạn cuối có trình tự báo hiệu → tích tụ → xung kích → gây sát thương. Người chơi có khoảng chờ ngắn để nhận biết đòn quyết định trước khi sát thương được áp dụng.
+- Hoạt ảnh có hiệu ứng riêng theo hệ và tôn trọng cài đặt giảm chuyển động. Cơ chế là AI luật cục bộ, không dùng API hoặc mô hình học máy.
