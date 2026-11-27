@@ -561,7 +561,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  const updateBossPhase=()=>{
   if(!isBossBattle)return false;
   const ratio=wild.current/Math.max(1,wild.maxHp);
-  const nextPhase=ratio<=.3?3:ratio<=.65?2:1;
+  const nextPhase=bossPhase===1?(ratio<=.65?2:1):bossPhase===2&&ratio<=.3?3:bossPhase;
   if(nextPhase<=bossPhase)return false;
   bossPhase=nextPhase;$('battle').dataset.bossPhase=String(bossPhase);
   const arena=$('battle').querySelector('.battlefield');
