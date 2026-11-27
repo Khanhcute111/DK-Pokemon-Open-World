@@ -181,6 +181,8 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 
 ## Đội hình huấn luyện viên nhiều Pokémon
 - Huấn luyện viên Minh sử dụng Rattata và Pidgey; Lan sử dụng Caterpie, Oddish và Bellsprout; Nam sử dụng Geodude, Sandshrew và Zubat.
+
+- HUD trận đấu hiển thị bộ đếm đội hình huấn luyện viên (ví dụ 1/3 → 2/3 → 3/3); bộ đếm tự ẩn khi không phải trận huấn luyện viên và được dọn khi đóng trận.
 - Khi một Pokémon của huấn luyện viên bị hạ, Pokémon tiếp theo tự động vào sân với HP đầy, hiệu ứng xuất trận và trạng thái riêng được làm mới.
 - Phần thưởng và đánh dấu đã thắng chỉ được trao sau khi đánh bại toàn bộ đội hình; không thể bắt Pokémon thuộc đội hình huấn luyện viên.
 - Hệ thống vẫn dùng AI chiến thuật luật cục bộ hiện có cho từng Pokémon đang xuất trận; chưa phải AI học máy hoặc cơ chế phối hợp đòn đánh đồng đội.
