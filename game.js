@@ -143,7 +143,7 @@ function skillIconFor(mon){
 function updateSpecialButton(mon){
  const button=$('special');if(!button||!mon)return;
  const move=signatureMoveFor(mon);
- button.innerHTML='<span class="skill-art">'+skillIconFor(mon)+'</span><span class="skill-copy"><b>'+move.name+'</b><small>KỸ NĂNG ĐẶC TRƯNG</small></span>';
+ button.innerHTML='<span class="moba-icon skill-moba-icon">'+skillIconFor(mon)+'</span><small>'+move.name+'</small>';button.classList.add('moba-btn');
  button.setAttribute('aria-label','Dùng kỹ năng '+move.name);
 }
 function signatureMoveFor(mon){return signatureMoves[mon&&mon.name]||{name:mon&&mon.skill||'Đòn đặc biệt',kind:'type-burst',bonus:7,description:'Đòn đặc biệt'};}
@@ -932,6 +932,8 @@ function bindControls(){
   stick.addEventListener('contextmenu',e=>e.preventDefault());
  }
  const audioBtn=$('audioToggle');if(audioBtn)audioBtn.onclick=()=>{audioEnabled=!audioEnabled;audioBtn.textContent=audioEnabled?'ÂM THANH: BẬT':'ÂM THANH: TẮT';if(audioEnabled)sound('win')};
+ const fullBtn=$('fullscreenToggle');if(fullBtn)fullBtn.onclick=async()=>{try{if(!document.fullscreenElement){await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape').catch(()=>{});fullBtn.textContent='⤢';fullBtn.setAttribute('aria-label','Thoát toàn màn hình')}else{await document.exitFullscreen();fullBtn.textContent='⛶';fullBtn.setAttribute('aria-label','Bật toàn màn hình')}}catch{toast('Trình duyệt chưa cho phép toàn màn hình. Hãy mở game bằng Chrome và nhấn lại.')}};
+ document.addEventListener('fullscreenchange',()=>{if(fullBtn){fullBtn.textContent=document.fullscreenElement?'⤢':'⛶';fullBtn.setAttribute('aria-label',document.fullscreenElement?'Thoát toàn màn hình':'Bật toàn màn hình')}});
  window.addEventListener('keydown',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;keys[k]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault()});
  window.addEventListener('keyup',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;keys[k]=false});
  window.addEventListener('blur',()=>{keys={};stopMove()});
