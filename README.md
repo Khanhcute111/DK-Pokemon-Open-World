@@ -11,7 +11,8 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 
 ## Tính năng trong bản nâng cấp
 - 9 minh họa SVG Pokémon tự thiết kế trong thư mục `assets/pokemon/`; được dùng ở màn chọn Pokémon, đội hình và trận đấu.
-- Pokémon có chuyển động nhàn rỗi/hiệu ứng xuất hiện; hình tiến hóa dùng minh họa cùng dòng trong khi chờ bộ tiến hóa riêng.
+- Pokémon có chuyển động nhàn rỗi/hiệu ứng xuất hiện; nhân vật huấn luyện viên có hoạt ảnh hai chân luân phiên khi di chuyển.
+- Âm thanh hiệu ứng được tạo trực tiếp bằng Web Audio (đánh, kỹ năng, bắt Pokémon, chiến thắng, tiến hóa), có nút bật/tắt; hình tiến hóa dùng minh họa cùng dòng trong khi chờ bộ tiến hóa riêng.
 - Nhân vật huấn luyện viên vẽ theo phong cách pixel-art bằng các lớp hình, có nhịp bước/chuyển động chờ và xoay hướng theo di chuyển.
 - Hiệu ứng xuất hiện và chuyển động nhàn rỗi cho Pokémon trong màn hình chiến đấu.
 - Bản đồ Kanto cuộn theo nhân vật, có thị trấn, đường, rừng, hồ, nhà và vùng cỏ cao.
@@ -24,7 +25,7 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Tự động lưu tiến trình bằng localStorage trên trình duyệt hiện tại.
 
 ## Lưu ý
-Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có bộ sprite-sheet Pokémon pixel-art riêng, âm thanh/nhạc nền, multiplayer hay APK Android. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
+Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có sprite-sheet nhiều khung hình cho từng Pokémon, nhạc nền, multiplayer hay APK Android. Hiệu ứng âm thanh hiện là âm tổng hợp, chưa phải lồng tiếng/nhạc nền. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
 
 ## Lộ trình tiếp theo
 1. Tạo bộ sprite-sheet Pokémon pixel-art riêng và hoạt ảnh di chuyển/chiêu thức.
