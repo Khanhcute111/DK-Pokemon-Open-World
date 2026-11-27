@@ -101,3 +101,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Hệ chiêu tạo hiệu ứng màu/burst riêng cho Lửa, Nước, Cỏ, Đất/Đá, Bay, Độc, Tâm linh và Băng.
 - Tỉ lệ né phản công có điều chỉnh theo hệ Bay/Nước; khi né thành công không bị trừ HP.
 - Đây là hoạt ảnh CSS kết hợp sprite-sheet 4 khung hiện có và biến thể chuyển động theo loài, chưa phải hoạt ảnh khung hình vẽ tay riêng cho từng đòn đánh.
+
+
+### Overworld animation and ambience
+- Trainer movement includes alternating leg/boot motion, body sway and sprint cadence.
+- NPCs have ground shadows, clearer nameplates and a subtle pulsing halo.
+- Footstep dust appears periodically while the player moves.
+- The world clock controls ambient fireflies at night and drifting leaf motes during daytime; rain visibility remains weather-aware.
