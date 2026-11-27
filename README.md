@@ -80,3 +80,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Thanh nhiệm vụ ưu tiên hiển thị tiến độ nhiệm vụ phụ đang thực hiện: ngọc trai Đảo San Hô hoặc tinh thể Hang Thạch Anh.
 - Bộ sprite-sheet SVG 4 khung hình cho 18 loài Pokémon; hoạt ảnh được dùng trong đội hình, Pokédex, màn hình chiến đấu và Pokémon đồng hành.
 - Pokémon mới: Seel, Lapras, Dratini và Sandshrew.
+
+
+## Hoạt ảnh chuyển động Pokémon
+- Pokémon đồng hành thay đổi nhịp hoạt ảnh theo trạng thái đứng yên, đi bộ và chạy; khi chạy có độ nảy, nghiêng và nhịp khung hình mạnh hơn.
+- Đòn đánh thường và chiêu đặc biệt có trạng thái chuyển động riêng; chiêu đặc biệt có cú lao, nhấn sáng và quầng năng lượng rõ hơn.
+- Tôn trọng cài đặt giảm chuyển động của thiết bị.
+- Các sprite-sheet hiện tại vẫn là bộ 4 khung idle được biến đổi nhẹ; đây chưa phải bộ pose walk/run/attack vẽ riêng cho từng loài.
