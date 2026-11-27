@@ -238,3 +238,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Đòn đánh tạo phản lực lùi riêng trên Pokémon trúng đòn; cú chí mạng có nhịp chớp sáng và rung đấu trường mạnh hơn.
 - Pokémon né đòn, trúng đòn và kiệt sức có trạng thái chuyển động riêng; hoạt ảnh hạ gục chỉ mang tính trình bày, không thay đổi HP, lượt đánh hoặc phần thưởng.
 - Tôn trọng tùy chọn giảm chuyển động của thiết bị.
+
+
+### Chuyển động thế giới mở
+- Pokémon đồng hành đổi hướng theo hướng di chuyển ngang, tăng nhịp sprite khi chạy và có nhịp nảy/bóng đổ tương ứng.
+- Pokémon hoang dã nghiêng người theo hướng chạy, đổi tỷ lệ khung hình nhẹ khi bước, bóng đổ phản hồi theo nhịp.
+- Nhân vật người chơi có biên độ bước chân, độ nghiêng thân và nhịp chạy rõ hơn; bụi bước chân dày và lớn hơn khi giữ nút chạy.
+- Không thay đổi tốc độ di chuyển, vùng va chạm, xác suất gặp Pokémon hoặc logic nhiệm vụ.
