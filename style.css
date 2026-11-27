@@ -495,3 +495,58 @@ button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .monart.skill-strike[data-species="oddish"] .pokemon-sprite,
 .monart.skill-strike[data-species="bellsprout"] .pokemon-sprite{filter:drop-shadow(0 0 12px #9bea79)}
 @media(prefers-reduced-motion:reduce){.monart.attack-lunge .pokemon-sprite,.monart.skill-strike .pokemon-sprite{animation:none!important}}
+
+
+/* DK Mobile Play Space v2 — fullscreen landscape and larger touch controls */
+html,body{width:100%;height:100%;min-height:100%;overscroll-behavior:none}
+#app{position:relative;width:100vw;max-width:none;height:100dvh;min-height:100dvh;margin:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);overflow:hidden}
+.topbar{height:clamp(38px,8vh,52px);padding:0 8px;gap:8px}
+.brand b{font-size:clamp(13px,2.1vh,17px)}
+.brand small{font-size:clamp(8px,1.35vh,10px)}
+.resources{gap:6px}
+.resources span{font-size:clamp(11px,1.8vh,14px);padding:6px 9px}
+.audio-toggle{font-size:clamp(9px,1.45vh,11px);padding:6px 8px}
+#stage{flex:1;min-height:0;margin:2px 0 0;border-width:1px;border-radius:8px}
+footer{display:contents}
+.questbar{position:absolute;z-index:4;left:12px;right:12px;top:calc(env(safe-area-inset-top) + clamp(42px,8vh,54px));min-height:30px;padding:5px 10px;gap:8px;background:#071827c9;backdrop-filter:blur(5px);font-size:clamp(10px,1.7vh,13px);pointer-events:none}
+.questbar b{font-size:inherit}
+.questbar>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.controlbar{position:absolute;z-index:6;left:calc(env(safe-area-inset-left) + 10px);right:calc(env(safe-area-inset-right) + 10px);bottom:calc(env(safe-area-inset-bottom) + 8px);min-height:0;padding:8px 10px;gap:clamp(12px,2vw,28px);align-items:flex-end;background:linear-gradient(90deg,#061421d9,#071827b8 58%,#061421d9);border:1px solid #6b91a955;border-radius:18px;backdrop-filter:blur(7px);box-shadow:0 5px 22px #0007}
+.dpad{gap:7px}
+.joystick{width:clamp(112px,19vh,154px);height:clamp(112px,19vh,154px);border-width:3px;box-shadow:inset 0 0 0 9px #ffffff10,0 7px 20px #000a}
+.joystick-ring{border-width:2px}
+.joystick-knob{width:46%;height:46%;border-width:3px;box-shadow:0 5px 13px #000b,inset 0 3px 7px #fff}
+.sprint-btn{height:clamp(38px,6vh,48px);min-width:clamp(104px,14vw,142px);font-size:clamp(12px,1.9vh,15px);border-width:2px}
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;flex:1;min-width:0;align-content:end}
+.quick button{height:clamp(42px,7vh,54px);min-width:0;padding:0 9px;font-size:clamp(10px,1.65vh,13px);border-radius:11px;white-space:normal;line-height:1.1}
+#interact{min-width:0;grid-column:span 2;background:linear-gradient(#b97922,#75420f);border:2px solid #f6d27b;font-size:clamp(12px,1.9vh,15px)}
+#stage .overlay{padding:clamp(8px,2vh,18px)}
+.dialog{max-height:90%;padding:clamp(12px,2.4vh,22px)}
+.battlefield{min-height:clamp(130px,28vh,210px)}
+@media(orientation:landscape) and (max-height:520px){
+ .topbar{height:38px}
+ .brand small{display:none}
+ .resources span{padding:4px 7px}
+ .questbar{top:calc(env(safe-area-inset-top) + 40px);left:10px;right:10px;min-height:25px;padding:3px 8px}
+ .controlbar{bottom:calc(env(safe-area-inset-bottom) + 5px);padding:5px 8px;gap:10px}
+ .joystick{width:clamp(100px,25vh,132px);height:clamp(100px,25vh,132px)}
+ .sprint-btn{height:34px;min-width:100px}
+ .quick{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+ .quick button{height:clamp(36px,9vh,44px);font-size:clamp(9px,2.25vh,11px);padding:0 5px}
+ #interact{font-size:clamp(10px,2.5vh,13px)}
+ .battlefield{min-height:120px;margin:6px 0;padding:5px 8px}
+}
+@media(orientation:portrait){
+ .controlbar{left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom) + 6px);align-items:center}
+ .joystick{width:clamp(96px,15vh,126px);height:clamp(96px,15vh,126px)}
+ .quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .quick button{height:42px}
+ .questbar{top:calc(env(safe-area-inset-top) + 44px)}
+}
+@media(max-width:360px) and (orientation:landscape){
+ .resources span{font-size:10px;padding:3px 5px}
+ .audio-toggle{font-size:8px;padding:4px}
+ .controlbar{left:5px;right:5px;padding:4px 5px;gap:6px}
+ .joystick{width:94px;height:94px}
+ .quick button{height:34px;font-size:9px}
+}
