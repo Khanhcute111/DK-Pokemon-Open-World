@@ -68,3 +68,9 @@
 .move-burst.special i{background:linear-gradient(#fff,#d7a2ff 55%,#7540cb);box-shadow:0 0 14px #c18aff}
 .move-burst.normal i{background:linear-gradient(#fff,#e7d7a8 55%,#9a7b50)}
 @keyframes dkBurst{0%{opacity:0;transform:rotate(var(--angle)) translateY(-8px) scale(.2)}18%{opacity:1}65%{opacity:.95;transform:rotate(var(--angle)) translateY(-88px) scale(1)}100%{opacity:0;transform:rotate(var(--angle)) translateY(-132px) scale(.25)}}
+
+/* DK movement update: hold-to-run touch control and stronger impact feedback */
+.sprint-btn{display:block;margin:5px auto 0;background:#60451a;color:#ffe5a1;border:1px solid #e8bb55;border-radius:7px;padding:6px 10px;font-size:9px;font-weight:900;letter-spacing:.3px;touch-action:none;user-select:none}.sprint-btn.active{background:#b46a18;color:#fff;box-shadow:0 0 16px #ffc45a88;transform:scale(.97)}
+.battlefield.impact{animation:dk-arena-impact .38s ease-out}
+@keyframes dk-arena-impact{0%,100%{transform:translateX(0)}18%{transform:translateX(-5px) rotate(-.4deg)}38%{transform:translateX(5px) rotate(.4deg)}58%{transform:translateX(-3px)}78%{transform:translateX(2px)}}
+@media(prefers-reduced-motion:reduce){.battlefield.impact{animation:none}}
