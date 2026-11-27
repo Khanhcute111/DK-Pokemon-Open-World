@@ -467,14 +467,34 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  let trainerTeamIndex=0;
  const updateTeamCounter=()=>{const el=$('battleTeam');if(!el)return;el.textContent=trainer?'ĐỘI HÌNH '+(trainerTeamIndex+1)+'/'+trainerTeamTotal:'';el.classList.toggle('active',!!trainer)};
  updateTeamCounter();
- const chooseTrainerCounter=(ally)=>{
+ const trainerRoleFor=(candidate,ally)=>{
+  const attackEdge=typeEffect(candidate.type,ally.type).multiplier;
+  const incomingRisk=typeEffect(ally.type,candidate.type).multiplier;
+  if(attackEdge>=1.5&&incomingRisk<=1)return 'counter';
+  if(incomingRisk<1&&attackEdge<=1)return 'guardian';
+  return 'support';
+ };
+ const trainerRosterScore=(candidate,ally,active=null)=>{
+  const attackEdge=typeEffect(candidate.type,ally.type).multiplier;
+  const incomingRisk=typeEffect(ally.type,candidate.type).multiplier;
+  const hpRatio=candidate.current/Math.max(1,candidate.maxHp);
+  const role=trainerRoleFor(candidate,ally);
+  let score=attackEdge*70+(1/incomingRisk)*55+hpRatio*8+candidate.atk*.1;
+  if(active){
+   const activeRole=trainerRoleFor(active,ally);
+   if(candidate.type!==active.type)score+=10;
+   if(role!==activeRole)score+=14;
+   else score-=5;
+   if(typeEffect(candidate.type,active.type).multiplier>1)score+=5;
+  }
+  return {score,role,attackEdge,incomingRisk};
+ };
+ const chooseTrainerCounter=(ally,active=wild)=>{
   let bestIndex=0,bestScore=-Infinity;
   trainerTeam.forEach((name,index)=>{
    const candidate=makeMon(name,trainer.level+Math.min(2,trainerTeamIndex));
-   const matchup=typeEffect(candidate.type,ally.type).multiplier;
-   const hpRatio=candidate.current/Math.max(1,candidate.maxHp);
-   const score=matchup*100+hpRatio*12+candidate.atk*.18+Math.random()*2;
-   if(score>bestScore){bestScore=score;bestIndex=index}
+   const plan=trainerRosterScore(candidate,ally,active);
+   if(plan.score>bestScore){bestScore=plan.score;bestIndex=index}
   });
   return bestIndex;
  };
@@ -495,11 +515,8 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   return true;
  };
  let trainerSwitchUsed=false;
- const trainerCombatScore=(candidate,ally)=>{
-  const attackEdge=typeEffect(candidate.type,ally.type).multiplier;
-  const incomingRisk=typeEffect(ally.type,candidate.type).multiplier;
-  const hpRatio=candidate.current/Math.max(1,candidate.maxHp);
-  return attackEdge*70+(1/incomingRisk)*55+hpRatio*8+candidate.atk*.1;
+ const trainerCombatScore=(candidate,ally,active=wild)=>{
+  return trainerRosterScore(candidate,ally,active).score;
  };
  const maybeTrainerSwitch=ally=>{
   if(!trainer||trainerSwitchUsed||!trainerTeam.length)return false;
@@ -508,7 +525,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   let bestIndex=-1,bestMon=null,bestScore=-Infinity;
   trainerTeam.forEach((name,index)=>{
    const candidate=makeMon(name,trainer.level+Math.min(2,trainerTeamIndex));
-   const score=trainerCombatScore(candidate,ally);
+   const score=trainerCombatScore(candidate,ally,wild);
    if(score>bestScore){bestScore=score;bestIndex=index;bestMon=candidate}
   });
   if(!bestMon)return false;
@@ -542,7 +559,11 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   const hp=enemy.current/Math.max(1,enemy.maxHp),allyHp=ally.current/Math.max(1,ally.maxHp);
   const advantage=typeEffect(enemy.type,ally.type).multiplier;
   const incoming=typeEffect(ally.type,enemy.type).multiplier;
+  const role=trainer?trainerRoleFor(enemy,ally):'solo';
   if(battleStatuses.ally&&hp>.2)return 'pressure';
+  if(role==='guardian'&&(incoming>1||hp<.55))return 'defensive';
+  if(role==='counter'&&(advantage>1||allyHp<.38))return 'aggressive';
+  if(role==='support'&&!battleStatuses.ally&&hp>.45)return 'setup';
   if(hp<.38&&(advantage<1||incoming>1))return 'defensive';
   if(advantage>1||allyHp<.38)return 'aggressive';
   if(incoming>1&&hp<.68)return 'defensive';
