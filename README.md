@@ -282,3 +282,18 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Geodude có phản ứng bảo vệ lãnh thổ, đẩy Pokémon khác ra khỏi vùng sát cạnh.
 - Caterpie, Oddish và Bellsprout có thể tranh chỗ kiếm ăn; Pokémon thua cuộc sẽ bị đẩy khỏi điểm đó.
 - Đây là mô phỏng hành vi theo luật trong game, không phải mô hình AI học máy. Hệ thống không thay đổi chỉ số chiến đấu hoặc dữ liệu đội hình đã lưu.
+
+
+## Đóng gói APK Android (bản Debug)
+
+Repository đã có cấu hình Capacitor để đóng gói game thành ứng dụng Android màn hình ngang. Phaser 3 được đóng gói cục bộ trong APK, vì vậy game không cần tải Phaser từ CDN khi khởi động.
+
+### Tạo APK tự động bằng GitHub Actions
+1. Mở tab **Actions** của repository.
+2. Chọn workflow **Build Android APK**.
+3. Nhấn **Run workflow** để bắt đầu build (các thay đổi liên quan trên nhánh `main` cũng tự kích hoạt workflow).
+4. Chờ job **Build Android APK** hoàn tất.
+5. Mở lần chạy thành công, kéo xuống **Artifacts** và tải `DK-Pokemon-Open-World-debug`.
+6. Giải nén ZIP để lấy `app-debug.apk`, sau đó cài trên điện thoại Android.
+
+Bản Debug dùng để cài thử, chưa phải bản phát hành ký số. Workflow đặt hướng màn hình ngang. APK hiện cần quyền Internet cho những nội dung hoặc dịch vụ bên ngoài nếu game có sử dụng; phần thư viện Phaser đã được đóng gói nội bộ.
