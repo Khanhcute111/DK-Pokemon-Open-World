@@ -577,3 +577,33 @@ footer{display:contents}
 @media(orientation:landscape) and (max-height:520px){#battle .battlebox{padding-top:44px}#battle .battlehead{top:5px;padding:5px 9px}#battle .battlefield{height:clamp(150px,53vh,270px);margin-top:5px}#battle .moba-controls{bottom:8px;width:clamp(124px,18vw,168px);gap:5px}#battle .moba-btn{width:clamp(54px,10vh,68px);height:clamp(54px,10vh,68px)}#battle .battletext{bottom:8px;padding:7px 9px}}
 @media(max-width:620px) and (orientation:landscape){#battle .battlefield{width:calc(100% - 142px)}#battle .moba-controls{width:132px;right:7px;gap:5px}#battle .moba-btn{width:58px;height:58px}#battle .battletext{right:145px}}
 @media(orientation:portrait){#battle .battlebox{padding:54px 10px 12px}#battle .battlefield{width:100%;height:42vh;margin-top:5px}#battle .battletext{left:10px;right:10px;bottom:126px}#battle .moba-controls{right:10px;bottom:10px;width:100%;display:flex;justify-content:center;gap:12px}#battle .moba-btn{width:clamp(58px,16vw,76px);height:clamp(58px,16vw,76px)}}
+
+/* MOBA layout v2: large basic attack + ability cluster */
+#battle .moba-controls{width:clamp(190px,25vw,258px);height:clamp(150px,27vh,202px);display:block;right:clamp(9px,2.2vw,26px);bottom:clamp(10px,2.5vh,24px);pointer-events:none}
+#battle .moba-controls .moba-btn{position:absolute;pointer-events:auto;margin:0;justify-self:auto}
+#battle .moba-controls .attack-btn{width:clamp(76px,10.8vw,104px);height:clamp(76px,10.8vw,104px);right:0;bottom:0;z-index:3;border-width:3px;box-shadow:0 0 0 5px #ff9b5530,0 7px 20px #0009,inset 0 0 0 4px #ffffff20}
+#battle .moba-controls .special-btn{width:clamp(66px,9vw,84px);height:clamp(66px,9vw,84px);right:clamp(88px,11vw,112px);bottom:clamp(28px,5vh,48px);z-index:4;border-width:3px;box-shadow:0 0 0 4px #b88cff30,0 5px 15px #0009,inset 0 0 0 4px #ffffff20}
+#battle .moba-controls .catch-btn{width:clamp(50px,6.4vw,62px);height:clamp(50px,6.4vw,62px);right:clamp(100px,13vw,132px);bottom:0;z-index:2}
+#battle .moba-controls .run-btn{width:clamp(48px,6.1vw,58px);height:clamp(48px,6.1vw,58px);right:clamp(100px,13vw,132px);bottom:clamp(94px,16vh,116px);z-index:2}
+#battle .moba-controls .moba-btn .moba-icon{width:68%;height:62%}
+#battle .moba-controls .attack-btn .moba-icon{font-size:clamp(34px,5.5vh,48px)}
+#battle .moba-controls .special-btn .skill-moba-icon{font-size:clamp(29px,4.8vh,42px)}
+#battle .moba-controls .catch-btn .moba-icon,#battle .moba-controls .run-btn .moba-icon{font-size:clamp(20px,3.3vh,28px)}
+#battle .moba-controls .catch-btn small,#battle .moba-controls .run-btn small{font-size:8px}
+@media(max-width:620px) and (orientation:landscape){
+ #battle .moba-controls{width:184px;height:150px;right:6px;bottom:7px}
+ #battle .moba-controls .attack-btn{width:74px;height:74px}
+ #battle .moba-controls .special-btn{width:62px;height:62px;right:78px;bottom:27px}
+ #battle .moba-controls .catch-btn{width:46px;height:46px;right:90px;bottom:0}
+ #battle .moba-controls .run-btn{width:44px;height:44px;right:90px;bottom:92px}
+ #battle .battlefield{width:calc(100% - 196px)}
+ #battle .battletext{right:192px}
+}
+@media(orientation:portrait){
+ #battle .moba-controls{width:230px;height:150px;right:50%;transform:translateX(50%);bottom:8px}
+ #battle .moba-controls .attack-btn{width:76px;height:76px}
+ #battle .moba-controls .special-btn{width:66px;height:66px;right:90px;bottom:26px}
+ #battle .moba-controls .catch-btn{width:48px;height:48px;right:104px;bottom:0}
+ #battle .moba-controls .run-btn{width:46px;height:46px;right:104px;bottom:96px}
+ #battle .battletext{bottom:158px}
+}
