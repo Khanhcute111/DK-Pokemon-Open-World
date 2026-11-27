@@ -463,8 +463,9 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  const refreshLead=()=>{const lead=state.party[0];$('allyName').textContent=lead.name;$('allyLv').textContent='Lv. '+lead.level;setMonArt('allyEmoji',lead.name,lead.emoji);$('allyHp').style.width=(lead.current/lead.maxHp*100)+'%'};
  const battleStatuses={ally:null,enemy:null};
  const trainerTeam=trainer&&Array.isArray(trainer.team)?trainer.team.slice():[];
+ const trainerTeamTotal=trainerTeam.length+1;
  let trainerTeamIndex=0;
- const updateTeamCounter=()=>{const el=$('battleTeam');if(!el)return;const total=trainerTeam.length+1;el.textContent=trainer?'ĐỘI HÌNH '+(trainerTeamIndex+1)+'/'+total:'';el.classList.toggle('active',!!trainer)};
+ const updateTeamCounter=()=>{const el=$('battleTeam');if(!el)return;el.textContent=trainer?'ĐỘI HÌNH '+(trainerTeamIndex+1)+'/'+trainerTeamTotal:'';el.classList.toggle('active',!!trainer)};
  updateTeamCounter();
  const chooseTrainerCounter=(ally)=>{
   let bestIndex=0,bestScore=-Infinity;
@@ -490,7 +491,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   $('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');
   setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
   const tactic=matchup>1?'Đối thủ chọn Pokémon có lợi thế hệ!':matchup<1?'Đối thủ chọn phương án cân bằng trước hệ của bạn.':'Đối thủ chọn Pokémon phù hợp với đội hình.';
-  $('battleText').textContent=trainer.label+' cân nhắc đội hình và tung '+wild.name+' ra sân! '+tactic+' ('+(trainerTeamIndex+1)+'/'+(trainerTeamIndex+trainerTeam.length+1)+')';
+  $('battleText').textContent=trainer.label+' cân nhắc đội hình và tung '+wild.name+' ra sân! '+tactic+' ('+(trainerTeamIndex+1)+'/'+trainerTeamTotal+')';
   return true;
  };
  const ensureStatusBadges=()=>{[['ally','.battlemon.ally'],['enemy','.battlemon.enemy']].forEach(([side,selector])=>{const host=$('battle').querySelector(selector);if(host&&!host.querySelector('#'+side+'Status')){const badge=document.createElement('div');badge.className='battle-status';badge.id=side+'Status';host.appendChild(badge)}})};
