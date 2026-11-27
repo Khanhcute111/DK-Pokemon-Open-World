@@ -177,3 +177,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Khi HP thấp và đang bất lợi về hệ, đối thủ có cơ hội dựng thế phòng thủ; đòn kế tiếp của người chơi bị giảm sát thương rồi thế thủ tự tiêu hao.
 - AI là hệ luật chiến thuật cục bộ, không dùng mô hình học máy hoặc kết nối API.
 - Cân bằng sát thương hiện tại được giữ trong phạm vi hệ thống chiến đấu hiện có; cần kiểm thử thực tế để tinh chỉnh xác suất và độ khó.
+
+
+## Đội hình huấn luyện viên nhiều Pokémon
+- Huấn luyện viên Minh sử dụng Rattata và Pidgey; Lan sử dụng Caterpie, Oddish và Bellsprout; Nam sử dụng Geodude, Sandshrew và Zubat.
+- Khi một Pokémon của huấn luyện viên bị hạ, Pokémon tiếp theo tự động vào sân với HP đầy, hiệu ứng xuất trận và trạng thái riêng được làm mới.
+- Phần thưởng và đánh dấu đã thắng chỉ được trao sau khi đánh bại toàn bộ đội hình; không thể bắt Pokémon thuộc đội hình huấn luyện viên.
+- Hệ thống vẫn dùng AI chiến thuật luật cục bộ hiện có cho từng Pokémon đang xuất trận; chưa phải AI học máy hoặc cơ chế phối hợp đòn đánh đồng đội.
