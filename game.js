@@ -67,6 +67,16 @@ let game,scene,player,keys={},heldDir=null,moveLoop=null,busy=false,lastEncounte
 let audioEnabled=true,audioCtx=null;
 function sound(kind){if(!audioEnabled)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;if(!audioCtx)audioCtx=new C();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);const tones={hit:[180,95,.12,'square'],special:[320,720,.24,'sawtooth'],catch:[540,880,.22,'sine'],win:[440,660,.34,'triangle'],evolve:[260,980,.55,'sine'],step:[90,70,.035,'triangle']};const t=tones[kind]||tones.hit;o.type=t[3];o.frequency.setValueAtTime(t[0],now);o.frequency.exponentialRampToValueAtTime(t[1],now+t[2]);g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.11,now+.015);g.gain.exponentialRampToValueAtTime(.0001,now+t[2]);o.start(now);o.stop(now+t[2]+.02)}catch(e){}}
 function setZone(z){state.zone=z;const names={island:'ĐẢO SAN HÔ · KANTO',viridian:'THÀNH PHỐ VIRIDIAN · KANTO',caveInterior:'HANG ĐÁ THẠCH ANH · TẦNG SÂU',shop:'CỬA HÀNG PALLET · KANTO',center:'TRUNG TÂM POKÉMON · KANTO',pallet:'THỊ TRẤN PALLET · KANTO',route:'ĐƯỜNG 1 · KANTO',forest:'RỪNG THANH MỘC · KANTO',lake:'HỒ XANH · KANTO',cave:'HANG ĐÁ THẠCH ANH · KANTO'};$('zone').textContent=names[z];$('maptag').textContent=names[z]}
+function addDepthTree(s,x,y,scale=1){
+ const root=s.add.container(x,y).setDepth(y);
+ const shadow=s.add.ellipse(3,15,48*scale,13*scale,0x173a25,.38);
+ const trunk=s.add.rectangle(0,2,12*scale,42*scale,0x795037).setStrokeStyle(2,0x513623,.8);
+ const canopy=s.add.container(0,-20*scale);
+ canopy.add([s.add.ellipse(0,-7*scale,58*scale,47*scale,0x245b39),s.add.ellipse(-13*scale,-12*scale,38*scale,38*scale,0x347d49),s.add.ellipse(14*scale,-15*scale,39*scale,37*scale,0x438f51),s.add.ellipse(0,-27*scale,34*scale,28*scale,0x68a95c),s.add.ellipse(-9*scale,-30*scale,11*scale,7*scale,0xb1d77b,.58)]);
+ root.add([shadow,trunk,canopy]);
+ s.tweens.add({targets:canopy,angle:1.8,duration:1700+(x%5)*130,yoyo:true,repeat:-1,ease:'Sine.easeInOut',delay:(x+y)%900});
+ return root;
+}
 function drawWorld(s){
  const g=s.add.graphics(),W=1500,H=1050;
  g.fillStyle(0x438c59,1);g.fillRect(0,0,W,H);
@@ -77,6 +87,8 @@ function drawWorld(s){
  g.fillStyle(0x2479a5,1);g.fillRoundedRect(1060,680,330,250,36);g.lineStyle(5,0x72c8dc,.9);g.strokeRoundedRect(1060,680,330,250,36);for(let i=0;i<24;i++){g.lineStyle(2,0x9ce3ed,.7);g.lineBetween(1080+(i*47)%285,700+(i*29)%205,1100+(i*47)%285,700+(i*29)%205)}
  // Forest canopy patches
  for(let i=0;i<65;i++){const x=20+(i*197)%570,y=20+(i*113)%390;g.fillStyle(0x285c3e,1);g.fillCircle(x,y,22);g.fillStyle(0x347d4a,1);g.fillCircle(x-9,y-9,19);g.fillStyle(0x4c9a59,1);g.fillCircle(x+7,y-12,12)}
+ // Foreground trees: layered crowns, trunks and shadows add a stronger depth cue.
+ [[48,390,.9],[150,365,1.05],[260,395,.92],[365,355,1.08],[500,390,.95],[65,505,.82],[530,520,.9],[1120,610,.85]].forEach(([tx,ty,sc])=>addDepthTree(s,tx,ty,sc));
  // Houses
  const house=(x,y,c)=>{g.fillStyle(0x4c4a55,1);g.fillRect(x-8,y+28,150,95);g.fillStyle(c,1);g.fillTriangle(x-18,y+32,x+65,y-28,x+158,y+32);g.fillStyle(0xe5d2a9,1);g.fillRect(x+48,y+65,34,58);g.fillStyle(0x7eb4ca,1);g.fillRect(x+12,y+51,26,25);g.fillRect(x+96,y+51,26,25)};
  house(160,180,0xa64e50);house(380,180,0x477ca1);house(880,160,0x9b704b);
@@ -117,6 +129,7 @@ function drawViridian(s){
  for(let yy=y;yy<y+h;yy+=52)for(let xx=x;xx<x+w;xx+=52){g.fillStyle(((xx+yy)/52)%2?0x4c965c:0x478b55,1);g.fillRect(xx,yy,50,50)}
  g.fillStyle(0xc9b58d,1);g.fillRect(x,y+420,w,120);g.fillRect(x+690,y,130,960);
  g.fillStyle(0xead9b3,1);for(let xx=x;xx<x+w;xx+=48)g.fillRect(xx,y+475,28,4);for(let yy=y;yy<y+h;yy+=42)g.fillRect(x+750,yy,4,25);
+ [[x+60,y+170,.9],[x+380,y+165,.85],[x+1280,y+170,1.05],[x+1350,y+610,.9],[x+80,y+770,.95],[x+760,y+830,.85]].forEach(([tx,ty,sc])=>addDepthTree(s,tx,ty,sc));
  const house=(hx,hy,col)=>{g.fillStyle(0x4b4140,1);g.fillRect(hx,hy+35,190,115);g.fillStyle(col,1);g.fillTriangle(hx-15,hy+40,hx+95,hy-35,hx+205,hy+40);g.fillStyle(0xe4d2ad,1);g.fillRect(hx+75,hy+82,40,68);g.fillStyle(0x77b5cb,1);g.fillRect(hx+20,hy+65,35,32);g.fillRect(hx+135,hy+65,35,32)};
  house(x+160,y+150,0x9c5d58);house(x+1100,y+150,0x527da5);house(x+160,y+680,0x98744f);
  g.fillStyle(0x343d4d,1);g.fillRect(x+850,y+230,310,245);g.fillStyle(0x587c57,1);g.fillTriangle(x+820,y+245,x+1005,y+105,x+1190,y+245);g.fillStyle(0xe5d4a8,1);g.fillRect(x+965,y+340,82,135);g.fillStyle(0x9bd16b,1);g.fillCircle(x+1005,y+285,30);g.lineStyle(5,0xe4d9ad,1);g.strokeCircle(x+1005,y+285,30);
@@ -237,11 +250,14 @@ function createWorldClock(s){
  const shade=s.add.rectangle(0,0,900,560,0x08152f,0).setOrigin(0).setScrollFactor(0).setDepth(99990);
  const label=s.add.text(12,34,'09:00 · TRỜI QUANG',{fontFamily:'monospace',fontSize:'11px',color:'#fff7d6',backgroundColor:'#102b3dcc',padding:{x:7,y:5}}).setScrollFactor(0).setDepth(99991);
  const rain=[];for(let i=0;i<34;i++){const line=s.add.rectangle(Math.random()*900,Math.random()*560,1.5,12,0xb9e8ff,.55).setScrollFactor(0).setDepth(99989);rain.push(line)}
+ const caveMist=[];for(let i=0;i<14;i++){const puff=s.add.ellipse(Math.random()*900,Math.random()*560,20+Math.random()*24,5+Math.random()*5,0x9ad8d0,.0).setScrollFactor(0).setDepth(99986);caveMist.push(puff);s.tweens.add({targets:puff,x:puff.x+65,alpha:.22,duration:3600+Math.random()*1800,yoyo:true,repeat:-1,delay:Math.random()*1800,ease:'Sine.easeInOut'})}
+ const seaGlints=[];for(let i=0;i<18;i++){const glint=s.add.ellipse(Math.random()*900,Math.random()*560,7,2,0xc4f5ff,.0).setScrollFactor(0).setDepth(99985);seaGlints.push(glint);s.tweens.add({targets:glint,alpha:.8,scaleX:1.7,duration:700+Math.random()*800,yoyo:true,repeat:-1,delay:Math.random()*1200,ease:'Sine.easeInOut'})}
  const fireflies=[];for(let i=0;i<18;i++){const dot=s.add.circle(Math.random()*900,Math.random()*560,1.5+Math.random()*1.5,0xc9ff9b,.0).setScrollFactor(0).setDepth(99988);fireflies.push(dot);s.tweens.add({targets:dot,alpha:.85,y:dot.y-12,duration:900+Math.random()*1300,yoyo:true,repeat:-1,delay:Math.random()*1500,ease:'Sine.easeInOut'})}
  const leafMotes=[];for(let i=0;i<12;i++){const leaf=s.add.ellipse(Math.random()*900,Math.random()*560,5,2,0xb6df83,.0).setScrollFactor(0).setDepth(99987);leafMotes.push(leaf);s.tweens.add({targets:leaf,alpha:.5,angle:360,x:leaf.x+45,y:leaf.y+24,duration:4200+Math.random()*2400,repeat:-1,delay:Math.random()*3000,ease:'Sine.easeInOut'})}
- const refresh=()=>{const mins=state.worldMinutes%1440,h=Math.floor(mins/60),m=mins%60;const night=h<6||h>=19,dusk=h>=17&&h<19||h>=6&&h<7;shade.setFillStyle(night?0x07152f:0x13243c);shade.setAlpha(night?.42:dusk?.18:.02);label.setText(String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+' · '+(night?'BAN ĐÊM':dusk?'HOÀNG HÔN':'BAN NGÀY')+(state.weather==='rain'?' · MƯA':' · TRỜI QUANG'));rain.forEach(p=>p.setVisible(state.weather==='rain'&&!night));fireflies.forEach(p=>p.setVisible(night&&state.weather!=='rain'));leafMotes.forEach(p=>p.setVisible(!night));};
+ const refresh=()=>{const mins=state.worldMinutes%1440,h=Math.floor(mins/60),m=mins%60;const night=h<6||h>=19,dusk=h>=17&&h<19||h>=6&&h<7;shade.setFillStyle(night?0x07152f:0x13243c);shade.setAlpha(night?.42:dusk?.18:.02);label.setText(String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+' · '+(night?'BAN ĐÊM':dusk?'HOÀNG HÔN':'BAN NGÀY')+(state.weather==='rain'?' · MƯA':' · TRỜI QUANG'));const zone=state.zone||'route',openAir=['route','forest','lake','viridian','island','pallet'].includes(zone);rain.forEach(p=>p.setVisible(state.weather==='rain'&&!night&&openAir));fireflies.forEach(p=>p.setVisible(night&&state.weather!=='rain'&&(zone==='forest'||zone==='route'||zone==='island')));leafMotes.forEach(p=>p.setVisible(!night&&(zone==='forest'||zone==='viridian'||zone==='pallet')));caveMist.forEach(p=>p.setVisible(zone==='cave'||zone==='caveInterior'));seaGlints.forEach(p=>p.setVisible(zone==='island'||zone==='lake'));};
  s.scale.on('resize',(size)=>{shade.setSize(size.width,size.height);});
- s.events.on('update',()=>{if(state.weather==='rain')rain.forEach(p=>{p.y+=5;if(p.y>600){p.y=-12;p.x=Math.random()*1000}})});
+ s.events.on('update',()=>{const zone=state.zone||'route';const openAir=['route','forest','lake','viridian','island','pallet'].includes(zone);if(state.weather==='rain'&&openAir)rain.forEach(p=>{p.y+=zone==='island'?6:5;if(p.y>600){p.y=-12;p.x=Math.random()*1000}})});
+
  s.time.addEvent({delay:60000,loop:true,callback:()=>{state.worldMinutes=(state.worldMinutes+30)%1440;if(Math.random()<.16)state.weather=state.weather==='rain'?'clear':'rain';refresh();save()}});
  state.weather=state.weather==='rain'?'rain':'clear';refresh();
 }
