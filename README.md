@@ -208,3 +208,12 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - **Combo hỗ trợ → khắc chế:** Pokémon mang vai trò hỗ trợ ưu tiên chiêu đặc trưng khi có thể gây trạng thái; nếu gây trạng thái thành công, Pokémon mang vai trò khắc chế có thể tận dụng trạng thái đó ở lượt sau.
 - Khi mục tiêu đang chịu trạng thái và Pokémon khắc chế ra sân, AI tăng ưu tiên chiêu đặc trưng và nhận thêm 18% sát thương cho đòn phối hợp. Nhật ký trận đấu thông báo rõ lúc mở combo và lúc kích hoạt combo.
 - Combo chỉ áp dụng cho đội huấn luyện viên; trạng thái vẫn tuân theo thời hạn và quy tắc hiện có. Đây là cơ chế chiến thuật theo luật, không phải học máy.
+
+
+### AI Boss nhiều giai đoạn
+- Áp dụng cho thủ lĩnh Nhà Thi Đấu và Mewtwo Hộ Vệ Tinh Thể.
+- **Giai đoạn 1 (trên 65% HP):** Boss chiến đấu theo AI chiến thuật cơ bản và tương khắc hệ.
+- **Giai đoạn 2 (65% HP trở xuống):** Boss thức tỉnh khiên năng lượng một lần, giảm 28% sát thương của đòn đánh tiếp theo; chiêu đặc trưng xuất hiện thường xuyên hơn và sát thương tăng 12%.
+- **Giai đoạn cuối (30% HP trở xuống):** Boss cuồng nộ, sát thương tăng 42%; có cơ hội 68% tung chiêu tối thượng trong mỗi lượt cho đến khi tung thành công một lần, với xác suất gây trạng thái cao hơn.
+- Chuyển giai đoạn theo thứ tự, không bỏ qua giai đoạn 2 nếu một đòn đánh lớn làm HP tụt thẳng xuống ngưỡng cuối. Mỗi lần chuyển giai đoạn tiêu tốn lượt hành động của Boss và có thông báo riêng.
+- Đấu trường đổi ánh sáng/viền theo giai đoạn; hiệu ứng giai đoạn cuối tôn trọng cài đặt giảm chuyển động. AI dùng luật cục bộ, không gọi API hoặc mô hình học máy.
