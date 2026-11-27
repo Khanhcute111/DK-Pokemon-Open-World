@@ -337,3 +337,24 @@
 
 /* Trainer multi-Pokémon team counter */
 #battleTeam{display:none;align-self:center;padding:4px 8px;border:1px solid #e8bd68;border-radius:999px;color:#ffe2a1;background:#5b3b1d;font-size:9px;font-weight:900;letter-spacing:.06em;white-space:nowrap}#battleTeam.active{display:inline-flex}
+
+
+/* Multi-phase boss arena states */
+#battle[data-boss-phase="2"] .battlefield{
+ border-color:#9b8cff;
+ box-shadow:inset 0 0 24px #8c70ff38,0 0 14px #8c70ff42;
+ background:radial-gradient(ellipse at 50% 55%,#7754ad66,#102c3b 72%);
+}
+#battle[data-boss-phase="3"] .battlefield{
+ border-color:#ff806f;
+ box-shadow:inset 0 0 28px #ff4d6d55,0 0 18px #ff4d6d66;
+ background:radial-gradient(ellipse at 50% 55%,#a52f4c88,#241a32 74%);
+ animation:dk-boss-enrage 1.25s ease-in-out infinite alternate;
+}
+@keyframes dk-boss-enrage{
+ from{filter:saturate(1.05) brightness(.98)}
+ to{filter:saturate(1.45) brightness(1.13)}
+}
+@media(prefers-reduced-motion:reduce){
+ #battle[data-boss-phase="3"] .battlefield{animation:none}
+}
