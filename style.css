@@ -39,3 +39,7 @@
 .badge-status{background:#172f42;border:1px solid #c9a44d;color:#f6d77f;border-radius:7px;padding:10px;margin:8px 0;font-size:12px;font-weight:800}
 .primary:disabled{opacity:.55;filter:grayscale(.5);cursor:not-allowed}
 @media(max-width:390px){.quick button{font-size:8px;padding:0 4px}.dex-grid{gap:5px}.dex-card{padding:5px}}
+
+/* Cave and trainer interaction polish */
+.battlehead b{letter-spacing:.08em}
+@media(max-width:420px){.battlehead{font-size:9px}.battletext{font-size:11px}}
