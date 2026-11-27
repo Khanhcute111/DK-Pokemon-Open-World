@@ -213,3 +213,28 @@
 .battlefield.impact{animation:dk-arena-impact .24s ease-out}
 @keyframes dk-arena-impact{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}55%{transform:translateX(4px)}}
 @media(prefers-reduced-motion:reduce){#battle.battle-intro .battlebox,#battle.battle-intro .battlefield,#battle.battle-intro .monart,.monart.attack-lunge .pokemon-sprite,.monart.enemy-lunge .pokemon-sprite,.monart.hit-flash .pokemon-sprite,.monart.skill-strike .pokemon-sprite,.battlefield.impact{animation:none!important}}
+
+
+/* DK elemental attack identities: fire, water, grass, ice, earth, air, poison and psychic */
+.move-burst{width:0;height:0;inset:50% auto auto 50%;transform:translate(-50%,-50%);z-index:8;pointer-events:none}
+.move-burst i{position:absolute;left:0;top:0;width:12px;height:24px;opacity:0;border-radius:50% 50% 45% 45%;transform:rotate(var(--angle)) translateY(-10px) scale(.2);animation:dk-element-particle .78s cubic-bezier(.16,.75,.3,1) var(--delay) both}
+.move-burst .impact-core{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border:3px solid #fff;border-radius:50%;opacity:0;animation:dk-element-core .55s ease-out both}
+.move-burst.fire i{background:linear-gradient(#fff8b5,#ff9b31 45%,#e33a1d);box-shadow:0 0 15px #ff6b2b;clip-path:polygon(50% 0,90% 42%,76% 100%,25% 88%,5% 40%)}
+.move-burst.fire .impact-core{border-color:#ffb34d;box-shadow:0 0 24px #ff5a24;background:#ff7a24}
+.move-burst.water i{width:11px;height:17px;background:linear-gradient(#fff,#7eeaff 45%,#268bdc);border-radius:65% 65% 60% 10%;box-shadow:0 0 13px #57cfff}
+.move-burst.water .impact-core{border-color:#79e8ff;box-shadow:0 0 24px #31baff}
+.move-burst.grass i{width:18px;height:9px;border-radius:100% 0 100% 0;background:linear-gradient(120deg,#edffd1,#8bdc55 60%,#348b3b);box-shadow:0 0 10px #9be86a}
+.move-burst.grass .impact-core{border-color:#b8f58a;box-shadow:0 0 24px #75d64c}
+.move-burst.ice i{width:13px;height:26px;border-radius:2px;background:linear-gradient(90deg,#c8f9ff,#fff,#60d9ff);clip-path:polygon(50% 0,100% 40%,72% 100%,28% 100%,0 40%);box-shadow:0 0 15px #9df4ff}
+.move-burst.ice .impact-core{border-color:#b6f8ff;box-shadow:0 0 25px #75eaff}
+.move-burst.earth i{width:15px;height:15px;border-radius:3px;background:linear-gradient(135deg,#e4c28b,#8c6847);clip-path:polygon(20% 0,100% 25%,78% 100%,0 72%);box-shadow:0 0 9px #b58a5b}
+.move-burst.earth .impact-core{border-color:#d8b17b;box-shadow:0 0 22px #b58a5b}
+.move-burst.air i{width:28px;height:5px;border:2px solid #d8f8ff;border-left-color:transparent;border-right-color:transparent;background:transparent;box-shadow:0 0 9px #8eeaff}
+.move-burst.air .impact-core{border-color:#d4fbff;box-shadow:0 0 24px #9befff}
+.move-burst.poison i{width:12px;height:12px;border:2px solid #e6b0ff;background:radial-gradient(circle at 30% 25%,#fff,#b85be2 55%,#54217d);box-shadow:0 0 13px #c66bfa}
+.move-burst.poison .impact-core{border-color:#dc9bff;box-shadow:0 0 24px #b84de8}
+.move-burst.psychic i{width:8px;height:30px;border-radius:50%;background:linear-gradient(#fff,#e5b4ff,#8548e9);box-shadow:0 0 14px #c58bff}
+.move-burst.psychic .impact-core{border-color:#e7c2ff;box-shadow:0 0 26px #a45bff}
+@keyframes dk-element-particle{0%{opacity:0;transform:rotate(var(--angle)) translateY(-8px) scale(.2)}18%{opacity:1}68%{opacity:.95;transform:rotate(var(--angle)) translateY(calc(-1 * var(--distance))) scale(1)}100%{opacity:0;transform:rotate(var(--angle)) translateY(calc(-1.35 * var(--distance))) scale(.15)}}
+@keyframes dk-element-core{0%{opacity:0;transform:scale(.1)}24%{opacity:.95}100%{opacity:0;transform:scale(3.8)}}
+@media(prefers-reduced-motion:reduce){.move-burst,.move-burst i,.move-burst .impact-core{animation:none!important;opacity:0!important}}
