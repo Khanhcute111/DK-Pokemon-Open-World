@@ -397,14 +397,24 @@ function addAmbientWildlife(s){
  const patches=grassAreas.filter(a=>a.w>90&&a.h>90);
  if(!patches.length)return;
  const count=Math.min(9,patches.length*2+1);
+ const mins=state.worldMinutes%1440,hour=Math.floor(mins/60),night=hour<6||hour>=19,dawn=hour>=5&&hour<8;
+ const rarePool=[];
+ if(state.zone==='lake'&&night)rarePool.push(['🐉','Dratini','calm']);
+ if(state.zone==='island'&&(state.weather==='rain'||state.weather==='storm'))rarePool.push(['🦕','Lapras','calm']);
+ if((state.zone==='forest'||state.zone==='route')&&dawn)rarePool.push(['🌿','Oddish','shy']);
+ if((state.zone==='cave'||state.zone==='caveInterior')&&night)rarePool.push(['🦇','Zubat','bold']);
  for(let i=0;i<count;i++){
-  const a=patches[i%patches.length],look=looks[(i*3+Math.floor(Math.random()*looks.length))%looks.length];
-  const x=a.x+28+Math.random()*Math.max(10,a.w-56),y=a.y+28+Math.random()*Math.max(10,a.h-56);
+  const a=patches[i%patches.length],groupBase=ambientWildlife[Math.floor(i/3)*3];
+  let look=looks[(i*3+Math.floor(Math.random()*looks.length))%looks.length],isRare=false;
+  if(rarePool.length&&Math.random()<.12){look=rarePool[Math.floor(Math.random()*rarePool.length)];isRare=true}
+  const anchor=groupBase&&i%3!==0?groupBase:null;
+  const x=anchor?Phaser.Math.Clamp(anchor.x+(Math.random()-.5)*74,a.x+18,a.x+a.w-18):a.x+28+Math.random()*Math.max(10,a.w-56);
+  const y=anchor?Phaser.Math.Clamp(anchor.y+(Math.random()-.5)*62,a.y+18,a.y+a.h-18):a.y+28+Math.random()*Math.max(10,a.h-56);
   const shadow=s.add.ellipse(x,y+12,19,6,0x10291b,.38).setDepth(y-1);
-  const sprite=s.add.text(x,y,look[0],{fontSize:'23px'}).setOrigin(.5).setDepth(y+1);
-  sprite.setData('species',look[1]);
+  const sprite=s.add.text(x,y,look[0],{fontSize:isRare?'26px':'23px'}).setOrigin(.5).setDepth(y+1);
+  sprite.setData('species',look[1]);if(isRare){sprite.setData('rare',true);sprite.setTint(0xffe7a1)}
   s.tweens.add({targets:sprite,y:y-3,duration:550+Math.random()*450,yoyo:true,repeat:-1,ease:'Sine.easeInOut',delay:Math.random()*500});
-  ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true});
+  ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true,rare:isRare,restUntil:0});
  }
 }
 function beginWildEncounter(w){
@@ -431,7 +441,16 @@ function updateAmbientWildlife(delta){
   if(!busy&&dist<155&&w.temper==='bold'){w.mode='chase'}
   else if(!busy&&dist<125&&w.temper==='shy'){w.mode='flee'}
   else if(dist>230&&w.mode!=='idle'){w.mode='return'}
+  if(w.mode==='rest'){
+   w.vx=0;w.vy=0;
+   if(Date.now()>=w.restUntil){w.mode='idle';w.thinkAt=Date.now()+500+Math.random()*900;w.sprite.setAlpha(1);w.sprite.setAngle(0)}
+  }
+  if(w.mode==='drink'){
+   w.vx=0;w.vy=0;
+   if(Date.now()>=w.restUntil){w.mode='idle';w.thinkAt=Date.now()+1200;w.sprite.setAlpha(1);w.sprite.setAngle(0)}
+  }
   if(Date.now()>w.thinkAt&&w.mode==='idle'){
+   if(Math.random()<.2){w.mode='rest';w.restUntil=Date.now()+1800+Math.random()*2600;w.sprite.setAlpha(.82);w.sprite.setAngle(8);continue}
    const tx=Phaser.Math.Clamp(w.homeX+(Math.random()-.5)*Math.min(100,w.area.w*.5),w.area.x+18,w.area.x+w.area.w-18);
    const ty=Phaser.Math.Clamp(w.homeY+(Math.random()-.5)*Math.min(80,w.area.h*.45),w.area.y+18,w.area.y+w.area.h-18);
    const len=Math.hypot(tx-w.x,ty-w.y)||1;w.vx=(tx-w.x)/len;w.vy=(ty-w.y)/len;w.thinkAt=Date.now()+1300+Math.random()*1800;w.goalX=tx;w.goalY=ty;
@@ -443,11 +462,12 @@ function updateAmbientWildlife(delta){
    if(w.mode==='return'&&len<18){w.mode='idle';w.thinkAt=Date.now()+800}
   }
   if(w.mode==='idle'&&w.goalX!==undefined){const gx=w.goalX-w.x,gy=w.goalY-w.y;if(Math.hypot(gx,gy)<7){w.vx=0;w.vy=0;w.goalX=undefined;w.thinkAt=Date.now()+700+Math.random()*1200}}
-  const speed=w.mode==='chase'?48:w.mode==='flee'?82:w.mode==='return'?42:18;
+  const speed=w.mode==='chase'?48:w.mode==='flee'?82:w.mode==='return'?42:state.weather==='rain'||state.weather==='storm'?12:18;
   const nx=w.x+w.vx*speed*dt,ny=w.y+w.vy*speed*dt;
   if(w.mode==='idle'||w.mode==='return'){w.x=Phaser.Math.Clamp(nx,w.area.x+14,w.area.x+w.area.w-14);w.y=Phaser.Math.Clamp(ny,w.area.y+14,w.area.y+w.area.h-14)}
   else{w.x=nx;w.y=ny}
   w.sprite.setPosition(w.x,w.y);w.sprite.setDepth(w.y+1);w.shadow.setPosition(w.x,w.y+12);w.shadow.setDepth(w.y-1);
+  if(state.zone==='lake'&&w.temper==='calm'&&w.x>1060&&w.x<1390&&w.y>680&&w.y<930&&w.mode==='idle'&&Math.random()<.0015){w.mode='drink';w.restUntil=Date.now()+2600+Math.random()*2200;w.sprite.setAngle(18);w.sprite.setAlpha(.9)}
   const moving=Math.abs(w.vx)+Math.abs(w.vy)>.08,stepPhase=Date.now()/(w.mode==='chase'||w.mode==='flee'?72:145);
   const baseScale=w.mode==='chase'||w.mode==='flee'?1.12:1;
   w.sprite.setScale((w.vx<-.03?-1:1)*baseScale*(moving?1+Math.abs(Math.sin(stepPhase))*.045:1),baseScale*(moving?1-Math.abs(Math.sin(stepPhase))*.035:1));
