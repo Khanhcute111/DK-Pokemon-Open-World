@@ -160,14 +160,14 @@ function setCompanionMon(){
  companionName=name;
  if(companionArt){companionArt.destroy();companionArt=null}
  const key='dk-follow-'+name.toLowerCase().replace(/[^a-z0-9]/g,'');
- const sheet=spriteSheetFor(name),animKey=key+'-idle';
+ const sheet=spriteSheetFor(name)?.replace('-idle.svg','-move.svg')||null,animKey=key+'-move';
  if(sheet){
   const mount=()=>{
    if(!companion||!companion.active||companionName!==name)return;
    if(companionArt)companionArt.destroy();
-   if(!scene.anims.exists(animKey))scene.anims.create({key:animKey,frames:scene.anims.generateFrameNumbers(key,{start:0,end:3}),frameRate:6,repeat:-1});
+   if(!scene.anims.exists(animKey))scene.anims.create({key:animKey,frames:scene.anims.generateFrameNumbers(key,{start:0,end:3}),frameRate:8,repeat:-1});
    const sprite=scene.add.sprite(0,-5,key,0).setDisplaySize(42,42);
-   companion.add(sprite);companionArt=sprite;sprite.play(animKey);
+   companion.add(sprite);companionArt=sprite;sprite.play(animKey);sprite.anims.timeScale=.72;
   };
   if(scene.textures.exists(key)){mount();return}
   scene.load.spritesheet(key,sheet,{frameWidth:128,frameHeight:128});
@@ -202,14 +202,12 @@ function updateCompanion(vx,vy,running){
  const tx=player.x-dx,ty=player.y+dy;
  companion.x=Phaser.Math.Linear(companion.x,tx,.16);
  companion.y=Phaser.Math.Linear(companion.y,ty,.16);
- if(companionArt&&companionArt.type==='Image'){
-  const phase=Date.now()/(running?62: moving?95:420);
-  companionArt.setAngle(moving?Math.sin(phase)*(running?10:5):0);
-  companionArt.setScale(1+(moving?Math.abs(Math.sin(phase))*(running?.13:.06):0));
+ if(companionArt){
+  const phase=Date.now()/(running?62:moving?95:420);
   if(companionArt.anims&&companionArt.anims.currentAnim)companionArt.anims.timeScale=running?1.8:moving?1.15:.72;
+  if(companionArt.setAngle)companionArt.setAngle(moving?Math.sin(phase)*(running?8:4):0);
+  if(companionArt.setScale)companionArt.setScale(1+(moving?Math.abs(Math.sin(phase))*(running?.10:.045):0));
   companionArt.y=-5+(moving?Math.abs(Math.sin(phase))*(running?5:2):Math.sin(phase)*1.5);
- }else if(companionArt){
-  companionArt.y=-5+(moving?Math.abs(Math.sin(Date.now()/(running?62:105)))*(running?5:2):Math.sin(Date.now()/420)*2);
  }
  companion.setDepth(player.y+1);
 }
