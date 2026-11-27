@@ -57,3 +57,14 @@
 #battle[data-move="water"] .battlefield{filter:saturate(1.12)}
 #battle[data-move="grass"] .battlefield{filter:hue-rotate(8deg) saturate(1.12)}
 #battle[data-move="special"] .battlefield{filter:brightness(1.08) saturate(1.2)}
+
+/* Multi-frame CSS move bursts: ten animated fragments per attack */
+.battlefield{position:relative;overflow:hidden}
+.move-burst{position:absolute;left:50%;top:50%;width:10px;height:10px;pointer-events:none;z-index:5}
+.move-burst i{position:absolute;left:0;top:0;width:9px;height:26px;border-radius:9px;opacity:0;transform:rotate(var(--angle)) translateY(-8px) scale(.25);animation:dkBurst .68s cubic-bezier(.16,.75,.3,1) var(--delay) both}
+.move-burst.fire i{background:linear-gradient(#fff7b0,#ff6b27 55%,#b92c21);box-shadow:0 0 12px #ff783b}
+.move-burst.water i{background:linear-gradient(#efffff,#62d8ff 55%,#2875d8);box-shadow:0 0 12px #62d8ff}
+.move-burst.grass i{background:linear-gradient(#e7ffd0,#8cdb61 55%,#328c49);border-radius:100% 0 100% 0;box-shadow:0 0 10px #8cdb61}
+.move-burst.special i{background:linear-gradient(#fff,#d7a2ff 55%,#7540cb);box-shadow:0 0 14px #c18aff}
+.move-burst.normal i{background:linear-gradient(#fff,#e7d7a8 55%,#9a7b50)}
+@keyframes dkBurst{0%{opacity:0;transform:rotate(var(--angle)) translateY(-8px) scale(.2)}18%{opacity:1}65%{opacity:.95;transform:rotate(var(--angle)) translateY(-88px) scale(1)}100%{opacity:0;transform:rotate(var(--angle)) translateY(-132px) scale(.25)}}
