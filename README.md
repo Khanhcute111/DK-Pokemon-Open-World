@@ -186,3 +186,5 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Khi một Pokémon của huấn luyện viên bị hạ, Pokémon tiếp theo tự động vào sân với HP đầy, hiệu ứng xuất trận và trạng thái riêng được làm mới.
 - Phần thưởng và đánh dấu đã thắng chỉ được trao sau khi đánh bại toàn bộ đội hình; không thể bắt Pokémon thuộc đội hình huấn luyện viên.
 - Hệ thống vẫn dùng AI chiến thuật luật cục bộ hiện có cho từng Pokémon đang xuất trận; chưa phải AI học máy hoặc cơ chế phối hợp đòn đánh đồng đội.
+
+- AI đội hình huấn luyện viên: trước khi tung Pokémon dự bị, hệ thống chấm điểm các lựa chọn còn lại theo tương khắc hệ, tỷ lệ HP và sức tấn công; Pokémon phù hợp nhất với Pokémon người chơi đang dùng sẽ được ưu tiên. Danh sách dự bị được cập nhật sau khi chọn, bộ đếm vẫn giữ tổng quân số ban đầu. Đây là chiến thuật luật cục bộ, không dùng API hoặc mô hình học máy.
