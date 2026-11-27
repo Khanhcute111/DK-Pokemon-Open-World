@@ -78,4 +78,5 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Nút cưỡi Lapras tăng tốc độ di chuyển; có thể xuống bất cứ lúc nào.
 - HUD hiển thị đúng tên khu vực Đảo San Hô khi người chơi cập bến.
 - Thanh nhiệm vụ ưu tiên hiển thị tiến độ nhiệm vụ phụ đang thực hiện: ngọc trai Đảo San Hô hoặc tinh thể Hang Thạch Anh.
+- Bộ sprite-sheet SVG 4 khung hình cho 18 loài Pokémon; hoạt ảnh được dùng trong đội hình, Pokédex, màn hình chiến đấu và Pokémon đồng hành.
 - Pokémon mới: Seel, Lapras, Dratini và Sandshrew.
