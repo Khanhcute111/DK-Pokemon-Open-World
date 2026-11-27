@@ -567,10 +567,10 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   const arena=$('battle').querySelector('.battlefield');
   if(bossPhase===2){
    enemyGuard=true;enemyGuardUsed=true;setArenaEnvironment(arena,'psychic');spawnElementalImpact(arena,'psychic');sound('psychic');
-   $('battleText').textContent=wild.name+'เข้าสู่ระยะที่ 2! พลัง thức tỉnh: dựng khiên năng lượng, giảm 28% sát thương đòn đánh kế tiếp.';
+   $('battleText').textContent=wild.name+' bước vào GIAI ĐOẠN 2! Dựng khiên năng lượng, giảm 28% sát thương đòn đánh kế tiếp.';
   }else{
    enemyGuard=false;enemyGuardUsed=true;bossUltimateUsed=false;setArenaEnvironment(arena,moveVisualType(wild.type));spawnElementalImpact(arena,moveVisualType(wild.type));sound('special');
-   $('battleText').textContent=wild.name+'เข้าสู่ GIAI ĐOẠN CUỐI! Sức mạnh bùng nổ, chuẩn bị tung chiêu tối thượng!';
+   $('battleText').textContent=wild.name+' bước vào GIAI ĐOẠN CUỐI! Sức mạnh bùng nổ, chuẩn bị tung chiêu tối thượng!';
   }
   return true;
  };
@@ -593,7 +593,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   if(ended)return;
   const m=state.party[0];if(maybeTrainerSwitch(m)){turn=false;return}const statusTick=tickStatus('enemy',wild,'enemyHp');
   if(wild.current<=0){if(trainer&&loadTrainerNext()){turn=false;return}$('battleText').textContent=wild.name+' gục ngã do trạng thái!';sound('win');const reward=25+wild.level*8;state.gold+=reward;m.xp+=18;hud();setTimeout(end,1200);return}
-  if(updateBossPhase()){turn=false;return}
+  updateBossPhase();
   if(statusTick.skip){$('battleText').textContent=wild.name+(statusTick.kind==='freeze'?' bị đóng băng, không thể hành động!':' bị choáng và bỏ lỡ lượt!')+statusTick.message;turn=false;return}
   enemyStrategy=chooseEnemyStrategy(wild,m);
   const activeRole=trainer?trainerRoleFor(wild,m):'solo';
