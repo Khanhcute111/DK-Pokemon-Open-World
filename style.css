@@ -26,3 +26,6 @@
 .monart.hit-flash img{animation:dk-hit .32s ease-out}
 @keyframes dk-lunge{0%{transform:translateX(0) scale(1)}45%{transform:translateX(24px) translateY(-8px) scale(1.08)}100%{transform:translateX(0) scale(1)}}
 @keyframes dk-hit{0%,100%{transform:translateX(0);filter:brightness(1)}20%{transform:translateX(-9px);filter:brightness(2)}45%{transform:translateX(7px);filter:brightness(1.5)}70%{transform:translateX(-4px)}}
+
+.audio-toggle{background:#173d38;color:#c7ffe4;border:1px solid #61b991;border-radius:7px;padding:5px 7px;font-size:9px;font-weight:800;white-space:nowrap}
+@media(max-width:440px){.audio-toggle{font-size:8px;padding:4px 5px}.resources{gap:3px}}
