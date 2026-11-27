@@ -110,3 +110,16 @@
 .monart.enemy-lunge .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-enemy-lunge .3s ease-out}
 @media(max-width:420px){.monart .pokemon-sprite{width:clamp(86px,25vw,112px);height:clamp(86px,25vw,112px)}}
 @media(prefers-reduced-motion:reduce){.pokemon-sprite{animation:none;background-position:0 0}}
+
+/* DK motion states: companion walk/run cadence and distinct special-skill strike */
+.monart.skill-strike .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-skill-strike .58s cubic-bezier(.16,.8,.25,1)}
+.monart.skill-strike{filter:drop-shadow(0 0 13px #f5d36a)}
+@keyframes dk-skill-strike{
+  0%{transform:translateX(0) scale(1) rotate(0);filter:brightness(1)}
+  22%{transform:translateX(13px) translateY(-12px) scale(1.16) rotate(7deg);filter:brightness(1.8)}
+  48%{transform:translateX(29px) translateY(-3px) scale(1.22) rotate(-5deg);filter:brightness(1.35)}
+  72%{transform:translateX(-5px) translateY(2px) scale(.96) rotate(2deg);filter:brightness(1.1)}
+  100%{transform:translateX(0) scale(1) rotate(0);filter:brightness(1)}
+}
+.monart.skill-strike .pokemon-sprite{filter:drop-shadow(0 0 12px #f8d56b)}
+@media(prefers-reduced-motion:reduce){.monart.skill-strike .pokemon-sprite{animation:none}}
