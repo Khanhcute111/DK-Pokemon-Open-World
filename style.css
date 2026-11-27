@@ -95,3 +95,5 @@
 
 /* Day/night and rain ambience */
 #game canvas{position:relative;z-index:1}
+
+#ride{background:#15536b;border-color:#66c8df;color:#e4fbff}
