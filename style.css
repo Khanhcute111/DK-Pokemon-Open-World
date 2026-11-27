@@ -238,3 +238,37 @@
 @keyframes dk-element-particle{0%{opacity:0;transform:rotate(var(--angle)) translateY(-8px) scale(.2)}18%{opacity:1}68%{opacity:.95;transform:rotate(var(--angle)) translateY(calc(-1 * var(--distance))) scale(1)}100%{opacity:0;transform:rotate(var(--angle)) translateY(calc(-1.35 * var(--distance))) scale(.15)}}
 @keyframes dk-element-core{0%{opacity:0;transform:scale(.1)}24%{opacity:.95}100%{opacity:0;transform:scale(3.8)}}
 @media(prefers-reduced-motion:reduce){.move-burst,.move-burst i,.move-burst .impact-core{animation:none!important;opacity:0!important}}
+
+
+/* Reactive battle arena: elemental atmosphere and ground response */
+.battlefield{position:relative;isolation:isolate;overflow:hidden;transition:background .25s ease,filter .25s ease}
+.battlefield:before,.battlefield:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;transition:opacity .18s ease}
+.battlefield:before{background:radial-gradient(ellipse at 50% 100%,#fff5 0,transparent 58%);mix-blend-mode:screen}
+.battlefield:after{inset:auto 0 0;height:38%;background:linear-gradient(0deg,#08172266,transparent)}
+.battlefield>*{position:relative;z-index:2}
+.battlefield.environment-active:before{opacity:.8;animation:dk-arena-atmosphere 1.1s ease-out both}
+.battlefield[data-environment="fire"]{background:radial-gradient(ellipse at 50% 100%,#b64b24 0,#593b39 42%,#172b3a 85%)}
+.battlefield[data-environment="fire"]:before{background:radial-gradient(ellipse at 50% 100%,#ff9a35aa,transparent 64%),repeating-linear-gradient(105deg,transparent 0 24px,#ffb34b12 26px 29px)}
+.battlefield[data-environment="water"]{background:linear-gradient(165deg,#173c59,#176b83 58%,#12364c)}
+.battlefield[data-environment="water"]:before{opacity:.75;background:repeating-linear-gradient(0deg,transparent 0 10px,#9cefff38 11px 13px,transparent 15px 24px);animation:dk-water-ripple 1.1s ease-out}
+.battlefield[data-environment="grass"]{background:radial-gradient(ellipse at 50% 100%,#3b844d,#205342 50%,#132f3b)}
+.battlefield[data-environment="grass"]:before{opacity:.75;background:repeating-linear-gradient(105deg,transparent 0 22px,#b5f58b22 23px 25px,transparent 26px 40px);transform-origin:bottom;animation:dk-grass-sway .85s ease-in-out}
+.battlefield[data-environment="ice"]{background:linear-gradient(145deg,#234c68,#6cb6c8 50%,#21465f)}
+.battlefield[data-environment="ice"]:before{opacity:.9;background:linear-gradient(135deg,transparent 40%,#e7ffff88 41%,transparent 43%),linear-gradient(35deg,transparent 48%,#b8f6ff66 49%,transparent 51%),radial-gradient(ellipse at 50% 100%,#d7ffff88,transparent 65%);animation:dk-frost-spread .95s ease-out}
+.battlefield[data-environment="earth"]{background:radial-gradient(ellipse at 50% 100%,#795a3d,#4d443c 45%,#1b303b)}
+.battlefield[data-environment="earth"]:before{opacity:.9;background:linear-gradient(22deg,transparent 47%,#e5c59b99 48%,#38291f 49%,transparent 51%),linear-gradient(155deg,transparent 47%,#d1ad7b88 48%,#33281e 49%,transparent 51%),linear-gradient(90deg,transparent 48%,#e1c69a66 49%,transparent 50%);animation:dk-earth-crack .5s ease-out}
+.battlefield[data-environment="air"]{background:radial-gradient(ellipse at 50% 55%,#3d7181,#173b50 75%)}
+.battlefield[data-environment="air"]:before{opacity:.85;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0 22px,#c8f7ff55 24px 26px,transparent 28px 45px);animation:dk-air-gust 1s ease-out}
+.battlefield[data-environment="poison"]{background:radial-gradient(ellipse at 50% 100%,#613a79,#302a4a 55%,#172c3b)}
+.battlefield[data-environment="poison"]:before{opacity:.8;background:radial-gradient(ellipse at 20% 85%,#b76ce966,transparent 45%),radial-gradient(ellipse at 80% 90%,#69d18a55,transparent 40%);animation:dk-poison-mist 1.1s ease-out}
+.battlefield[data-environment="psychic"]{background:radial-gradient(ellipse at 50% 50%,#684a9d,#312d62 60%,#152b40)}
+.battlefield[data-environment="psychic"]:before{opacity:.9;background:repeating-radial-gradient(ellipse at 50% 55%,transparent 0 15px,#e0c5ff55 16px 18px,transparent 20px 34px);animation:dk-psychic-pulse 1s ease-out}
+@keyframes dk-arena-atmosphere{0%{filter:brightness(2.1);opacity:0}22%{opacity:1}100%{filter:brightness(1);opacity:.55}}
+@keyframes dk-water-ripple{0%{transform:translateY(-22px);opacity:0}35%{opacity:1}100%{transform:translateY(18px);opacity:.5}}
+@keyframes dk-grass-sway{0%{transform:skewX(-8deg) scaleY(.7);opacity:0}40%{opacity:1}100%{transform:skewX(5deg) scaleY(1);opacity:.7}}
+@keyframes dk-frost-spread{0%{transform:scale(.35);opacity:0}65%{opacity:1}100%{transform:scale(1);opacity:.8}}
+@keyframes dk-earth-crack{0%{transform:scale(.35);opacity:0}45%{opacity:1}100%{transform:scale(1);opacity:.8}}
+@keyframes dk-air-gust{0%{transform:scale(.4) rotate(-12deg);opacity:0}45%{opacity:1}100%{transform:scale(1.15) rotate(12deg);opacity:.4}}
+@keyframes dk-poison-mist{0%{transform:translateY(24px);opacity:0}45%{opacity:1}100%{transform:translateY(-8px);opacity:.7}}
+@keyframes dk-psychic-pulse{0%{transform:scale(.4);opacity:0}40%{opacity:1}100%{transform:scale(1.2);opacity:.45}}
+@media(prefers-reduced-motion:reduce){.battlefield.environment-active:before,.battlefield[data-environment]:before{animation:none!important}}
