@@ -334,3 +334,6 @@
 .battle-status[data-status="bind"]{border-color:#9bdd9b;color:#d8ffd8;background:#1b4932}
 @keyframes dk-status-pulse{from{filter:brightness(.9);transform:translateY(0)}to{filter:brightness(1.2);transform:translateY(-1px)}}
 @media(prefers-reduced-motion:reduce){.battle-status.active{animation:none}}
+
+/* Trainer multi-Pokémon team counter */
+#battleTeam{display:none;align-self:center;padding:4px 8px;border:1px solid #e8bd68;border-radius:999px;color:#ffe2a1;background:#5b3b1d;font-size:9px;font-weight:900;letter-spacing:.06em;white-space:nowrap}#battleTeam.active{display:inline-flex}
