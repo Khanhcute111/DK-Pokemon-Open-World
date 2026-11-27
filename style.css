@@ -123,3 +123,34 @@
 }
 .monart.skill-strike .pokemon-sprite{filter:drop-shadow(0 0 12px #f8d56b)}
 @media(prefers-reduced-motion:reduce){.monart.skill-strike .pokemon-sprite{animation:none}}
+
+/* DK species-aware battle choreography */
+.monart{--dk-strike-x:26px;--dk-strike-y:-9px;--dk-strike-tilt:8deg;--dk-skill-x:38px;--dk-skill-y:-16px}
+.monart[data-species="bulbasaur"]{--dk-strike-x:20px;--dk-strike-y:-13px;--dk-strike-tilt:-10deg;--dk-skill-x:31px}
+.monart[data-species="charmander"]{--dk-strike-x:34px;--dk-strike-y:-11px;--dk-strike-tilt:13deg;--dk-skill-x:48px}
+.monart[data-species="squirtle"]{--dk-strike-x:22px;--dk-strike-y:-5px;--dk-strike-tilt:6deg;--dk-skill-x:36px}
+.monart[data-species="pidgey"],.monart[data-species="spearow"]{--dk-strike-x:31px;--dk-strike-y:-22px;--dk-strike-tilt:17deg;--dk-skill-x:45px}
+.monart[data-species="rattata"]{--dk-strike-x:37px;--dk-strike-y:-4px;--dk-strike-tilt:19deg;--dk-skill-x:43px}
+.monart[data-species="caterpie"],.monart[data-species="oddish"],.monart[data-species="bellsprout"]{--dk-strike-x:19px;--dk-strike-y:-7px;--dk-strike-tilt:-15deg;--dk-skill-x:33px}
+.monart[data-species="psyduck"]{--dk-strike-x:25px;--dk-strike-y:-12px;--dk-strike-tilt:10deg;--dk-skill-x:40px}
+.monart[data-species="geodude"],.monart[data-species="sandshrew"]{--dk-strike-x:16px;--dk-strike-y:-5px;--dk-strike-tilt:5deg;--dk-skill-x:29px}
+.monart[data-species="zubat"]{--dk-strike-x:33px;--dk-strike-y:-24px;--dk-strike-tilt:-17deg;--dk-skill-x:46px}
+.monart[data-species="diglett"]{--dk-strike-x:13px;--dk-strike-y:-17px;--dk-strike-tilt:0deg;--dk-skill-x:27px}
+.monart[data-species="seel"],.monart[data-species="lapras"]{--dk-strike-x:22px;--dk-strike-y:-7px;--dk-strike-tilt:-7deg;--dk-skill-x:39px}
+.monart[data-species="dratini"]{--dk-strike-x:32px;--dk-strike-y:-12px;--dk-strike-tilt:14deg;--dk-skill-x:47px}
+.monart[data-species="mewtwo"]{--dk-strike-x:36px;--dk-strike-y:-17px;--dk-strike-tilt:4deg;--dk-skill-x:54px}
+.monart.attack-lunge .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-species-strike .34s cubic-bezier(.16,.8,.25,1)}
+.monart.skill-strike .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-species-skill .58s cubic-bezier(.16,.8,.25,1)}
+.monart.hit-flash .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-species-hit .34s ease-out}
+.monart.dodge .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-species-dodge .42s cubic-bezier(.2,.8,.25,1)}
+@keyframes dk-species-strike{0%{transform:translate(0,0) scale(1) rotate(0)}38%{transform:translate(var(--dk-strike-x),var(--dk-strike-y)) scale(1.13) rotate(var(--dk-strike-tilt))}66%{transform:translate(calc(var(--dk-strike-x)*.68),4px) scale(.94) rotate(calc(var(--dk-strike-tilt)*-.45))}100%{transform:translate(0,0) scale(1) rotate(0)}}
+@keyframes dk-species-skill{0%{transform:translate(0,0) scale(1);filter:brightness(1)}22%{transform:translate(calc(var(--dk-skill-x)*.45),var(--dk-skill-y)) scale(1.16) rotate(-8deg);filter:brightness(1.7)}52%{transform:translate(var(--dk-skill-x),-2px) scale(1.23) rotate(9deg);filter:brightness(1.35)}78%{transform:translate(-5px,2px) scale(.96);filter:brightness(1.1)}100%{transform:translate(0,0) scale(1);filter:brightness(1)}}
+@keyframes dk-species-hit{0%,100%{transform:translateX(0) rotate(0);filter:brightness(1)}25%{transform:translateX(-10px) rotate(-7deg);filter:brightness(2) sepia(.5)}58%{transform:translateX(6px) rotate(4deg);filter:brightness(1.5)}}
+@keyframes dk-species-dodge{0%,100%{transform:translateX(0) scale(1)}32%{transform:translate(-25px,-12px) scale(.9) rotate(-12deg)}66%{transform:translate(12px,-5px) scale(1.04) rotate(5deg)}}
+#battle[data-move="earth"] .move-burst i{background:linear-gradient(#fff1c7,#c89a59 55%,#76502e);box-shadow:0 0 12px #c89a59}
+#battle[data-move="air"] .move-burst i{background:linear-gradient(#fff,#d8e9f5 55%,#789dbb);box-shadow:0 0 12px #b9d8ed}
+#battle[data-move="poison"] .move-burst i{background:linear-gradient(#f5d8ff,#b86bd4 55%,#66358b);box-shadow:0 0 12px #b86bd4}
+#battle[data-move="psychic"] .move-burst i{background:linear-gradient(#fff,#ff9bd3 55%,#9b4bb8);box-shadow:0 0 14px #dc8aff}
+#battle[data-move="ice"] .move-burst i{background:linear-gradient(#fff,#a7efff 55%,#5a9dd5);box-shadow:0 0 13px #a7efff}
+#battle[data-action="skill"] .battlehead b{color:#e9c1ff;text-shadow:0 0 10px #bb83ff}
+@media(prefers-reduced-motion:reduce){.monart.attack-lunge .pokemon-sprite,.monart.skill-strike .pokemon-sprite,.monart.hit-flash .pokemon-sprite,.monart.dodge .pokemon-sprite{animation:none}}
