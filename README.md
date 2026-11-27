@@ -252,3 +252,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Khi nhấn tương tác, NPC có nhịp bật người và lời chào ngắn theo vai trò (Giáo sư Oak, người câu cá, người dẫn đường, nhà nghiên cứu, người giữ đảo, cửa hàng, y tá và huấn luyện viên).
 - Lời chào chỉ là lớp trình bày; các nhiệm vụ, phần thưởng, điều kiện chiến đấu và tiến trình lưu hiện có không bị thay đổi.
 - Hiệu ứng được cập nhật theo khoảng cách trong thế giới mở và dùng tween sẵn có của Phaser.
+
+
+### Hành vi sinh thái Pokémon hoang dã
+- Pokémon xuất hiện theo cụm nhỏ thay vì rải đều; chúng tuần tra, nghỉ ngắn và chậm lại khi trời mưa hoặc giông.
+- Pokémon tính cách bình tĩnh có thể dừng uống nước khi ở gần Hồ Xanh; hành vi chỉ kích hoạt trong vùng hồ.
+- Một số Pokémon hiếm có cơ hội xuất hiện theo điều kiện môi trường: Dratini ban đêm ở Hồ Xanh, Lapras khi mưa/giông ở Đảo San Hô, Oddish lúc bình minh ở Rừng/Đường 1 và Zubat ban đêm trong khu hang.
+- Pokémon hiếm có kích thước và ánh sáng nhận diện riêng; hệ thống vẫn dùng cơ chế chạm để bắt đầu trận chiến hiện có.
