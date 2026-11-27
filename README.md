@@ -10,7 +10,7 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 5. Mở địa chỉ GitHub Pages do GitHub cung cấp. Phaser 3 được tải từ jsDelivr nên lần đầu cần Internet.
 
 ## Tính năng trong bản nâng cấp
-- 9 minh họa SVG Pokémon tự thiết kế trong thư mục `assets/pokemon/`; được dùng ở màn chọn Pokémon, đội hình và trận đấu.
+- Bộ minh họa SVG Pokémon tự thiết kế trong thư mục `assets/pokemon/`, gồm các loài Kanto và Pokémon bổ sung cho Hang Thạch Anh/Đảo San Hô; được dùng ở màn chọn Pokémon, đội hình và trận đấu.
 - Pokémon có chuyển động nhàn rỗi/hiệu ứng xuất hiện; nhân vật huấn luyện viên có hoạt ảnh hai chân luân phiên khi di chuyển.
 - Âm thanh hiệu ứng được tạo trực tiếp bằng Web Audio (đánh, kỹ năng, bắt Pokémon, chiến thắng, tiến hóa), có nút bật/tắt; hình tiến hóa dùng minh họa cùng dòng trong khi chờ bộ tiến hóa riêng.
 - Nhân vật huấn luyện viên vẽ theo phong cách pixel-art bằng các lớp hình, có nhịp bước/chuyển động chờ và xoay hướng theo di chuyển.
@@ -31,14 +31,14 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Tự động lưu tiến trình bằng localStorage trên trình duyệt hiện tại.
 
 ## Lưu ý
-Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có sprite-sheet nhiều khung hình cho từng Pokémon, nhạc nền, multiplayer, nội thất hang động chuyển cảnh riêng, nhiều Gym hoặc APK Android. Hiệu ứng âm thanh hiện là âm tổng hợp, chưa phải lồng tiếng/nhạc nền. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
+Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có sprite-sheet nhiều khung hình riêng cho từng Pokémon, nhạc nền/lồng tiếng, multiplayer hoặc APK Android hoàn chỉnh. Hiệu ứng âm thanh hiện là âm tổng hợp, chưa phải lồng tiếng/nhạc nền. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
 
 ## Lộ trình tiếp theo
 1. Tạo bộ sprite-sheet Pokémon pixel-art riêng và hoạt ảnh di chuyển/chiêu thức.
 2. Hoàn thiện va chạm địa hình, bản đồ từng khu vực và NPC/nhiệm vụ theo chương.
 3. Bổ sung tiến hóa, Gym, boss và hệ thống kỹ năng/thuộc tính sâu hơn.
-4. Thêm âm thanh, cài đặt và kiểm thử hiệu năng trên Android.
-5. Đóng gói APK sau khi gameplay web ổn định.
+4. Hoàn thiện hoạt ảnh sprite-sheet, âm thanh và tối ưu điều khiển cảm ứng.
+5. Kiểm thử gameplay trên trình duyệt Android, sau đó mới đóng gói APK ngang.
 
 
 ## Nội dung vừa bổ sung
@@ -76,4 +76,5 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Thuyền trưởng tại bến Viridian đưa người chơi đến đảo.
 - Người Giữ Đảo giao nhiệm vụ tìm ba viên ngọc trai; hoàn thành nhận 700 vàng, 4 bóng Poké và mở khóa cưỡi Lapras.
 - Nút cưỡi Lapras tăng tốc độ di chuyển; có thể xuống bất cứ lúc nào.
+- HUD hiển thị đúng tên khu vực Đảo San Hô khi người chơi cập bến.
 - Pokémon mới: Seel, Lapras, Dratini và Sandshrew.
