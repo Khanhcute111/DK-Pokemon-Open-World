@@ -10,6 +10,8 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 5. Mở địa chỉ GitHub Pages do GitHub cung cấp. Phaser 3 được tải từ jsDelivr nên lần đầu cần Internet.
 
 ## Tính năng trong bản nâng cấp
+- Nhân vật huấn luyện viên vẽ theo phong cách pixel-art bằng các lớp hình, có nhịp bước/chuyển động chờ và xoay hướng theo di chuyển.
+- Hiệu ứng xuất hiện và chuyển động nhàn rỗi cho Pokémon trong màn hình chiến đấu.
 - Bản đồ Kanto cuộn theo nhân vật, có thị trấn, đường, rừng, hồ, nhà và vùng cỏ cao.
 - Điều khiển bằng nút cảm ứng hoặc WASD/phím mũi tên; có giới hạn biên bản đồ và vật cản cơ bản.
 - Chọn Bulbasaur, Charmander hoặc Squirtle làm Pokémon đầu tiên.
@@ -20,10 +22,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Tự động lưu tiến trình bằng localStorage trên trình duyệt hiện tại.
 
 ## Lưu ý
-Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Các sinh vật trong bản này dùng biểu tượng emoji làm placeholder; chưa có sprite-sheet hoạt họa, nhạc nền, hệ thống tiến hóa, Gym, multiplayer hay APK Android. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
+Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Pokémon trong bản này vẫn dùng emoji làm hình tạm trong chiến đấu; chưa có bộ sprite-sheet Pokémon pixel-art riêng, âm thanh/nhạc nền, multiplayer hay APK Android. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
 
 ## Lộ trình tiếp theo
-1. Thay placeholder bằng sprite pixel-art có hoạt ảnh và hiệu ứng chiến đấu.
+1. Tạo bộ sprite-sheet Pokémon pixel-art riêng và hoạt ảnh di chuyển/chiêu thức.
 2. Hoàn thiện va chạm địa hình, bản đồ từng khu vực và NPC/nhiệm vụ theo chương.
 3. Bổ sung tiến hóa, Gym, boss và hệ thống kỹ năng/thuộc tính sâu hơn.
 4. Thêm âm thanh, cài đặt và kiểm thử hiệu năng trên Android.
