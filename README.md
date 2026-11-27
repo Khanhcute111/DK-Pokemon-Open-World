@@ -25,11 +25,13 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Hệ thống Huy hiệu Đá lưu theo tiến trình; không thể bắt Pokémon của thủ lĩnh hoặc nhận thưởng Gym lặp lại.
 - Tương khắc hệ cơ bản ảnh hưởng sát thương: một số cặp hệ mạnh/yếu có hệ số rõ ràng trong thông báo trận đấu.
 - NPC Giáo sư Oak, người câu cá và ba huấn luyện viên có Pokémon/cấp độ/phần thưởng riêng; thắng xong được ghi nhớ để không farm thưởng lặp.
+- Cửa hàng Pallet và Trung tâm Pokémon là hai nội thất có thể đi vào/đi ra; mua bóng/thuốc và hồi phục toàn đội tại y tá Joy.
+- Hiệu ứng nền trận đấu đổi sắc theo hệ chiêu của Pokémon: Lửa, Nước, Cỏ và kỹ năng đặc biệt.
 - Khu Hang Đá Thạch Anh có cửa hang minh họa, vùng địa hình riêng và nhóm Pokémon hoang dã khác.
 - Tự động lưu tiến trình bằng localStorage trên trình duyệt hiện tại.
 
 ## Lưu ý
-Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có sprite-sheet nhiều khung hình cho từng Pokémon, nhạc nền, multiplayer, nội thất hang động chuyển cảnh riêng hoặc APK Android. Hiệu ứng âm thanh hiện là âm tổng hợp, chưa phải lồng tiếng/nhạc nền. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
+Đây là bản chơi thử đang phát triển, chưa phải game hoàn chỉnh. Một số NPC và thông báo vẫn dùng emoji; chưa có sprite-sheet nhiều khung hình cho từng Pokémon, nhạc nền, multiplayer, nội thất hang động chuyển cảnh riêng, nhiều Gym hoặc APK Android. Hiệu ứng âm thanh hiện là âm tổng hợp, chưa phải lồng tiếng/nhạc nền. Nhân vật người chơi đã được vẽ lại bằng các lớp pixel-art và có hoạt ảnh cơ bản. Phaser 3 cần tải từ CDN khi mở game. Dữ liệu lưu nằm trên trình duyệt/thiết bị, không tự đồng bộ giữa các máy.
 
 ## Lộ trình tiếp theo
 1. Tạo bộ sprite-sheet Pokémon pixel-art riêng và hoạt ảnh di chuyển/chiêu thức.
