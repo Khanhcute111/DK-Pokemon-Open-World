@@ -43,3 +43,11 @@
 /* Cave and trainer interaction polish */
 .battlehead b{letter-spacing:.08em}
 @media(max-width:420px){.battlehead{font-size:9px}.battletext{font-size:11px}}
+
+/* DK interior scenes and type-colored battle impact */
+#battle[data-move="fire"] .battlefield{background:radial-gradient(ellipse at 72% 45%,#e8793b55,transparent 48%)}
+#battle[data-move="water"] .battlefield{background:radial-gradient(ellipse at 72% 45%,#55b9e855,transparent 48%)}
+#battle[data-move="grass"] .battlefield{background:radial-gradient(ellipse at 72% 45%,#73d17a55,transparent 48%)}
+#battle[data-move="special"] .battlefield{background:radial-gradient(ellipse at 50% 50%,#c18aff55,transparent 55%)}
+#battle .battlefield{transition:background .18s ease}
+.dex-card img,.slot .icon img{image-rendering:auto}
