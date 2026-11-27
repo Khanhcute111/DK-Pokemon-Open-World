@@ -662,3 +662,37 @@ footer{display:contents}
   #battle .battlebox .battle-extra{top:48px!important;left:10px!important;height:28px!important}
   #battle .battlebox #battlePotion{left:100px!important}
 }
+
+/* Four Pokémon skills in compact MOBA dock */
+#battle .moba-controls{width:clamp(190px,24vw,238px)!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+#battle .moba-controls .moba-btn{width:clamp(52px,7.2vw,70px);height:clamp(52px,7.2vw,70px)}
+#battle .moba-controls .attack-btn{grid-column:1;grid-row:1 / span 2;width:clamp(60px,8vw,78px);height:clamp(60px,8vw,78px);align-self:center}
+#battle .moba-controls .special-btn{grid-column:2;grid-row:1}
+#battle .moba-controls .skill-slot-2{grid-column:3;grid-row:1}
+#battle .moba-controls .skill-slot-3{grid-column:2;grid-row:2}
+#battle .moba-controls .skill-slot-4{grid-column:3;grid-row:2}
+#battle .moba-controls .catch-btn,#battle .moba-controls .run-btn{position:absolute!important;width:39px!important;height:39px!important;right:100%!important;bottom:0!important}
+#battle .moba-controls .run-btn{bottom:45px!important}
+#battle .moba-controls .extra-skill-btn{position:relative;overflow:visible}
+#battle .moba-controls .extra-skill-btn em{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;background:#07111dcc;color:#fff;font-size:20px;font-style:normal;font-weight:950}
+#battle .moba-controls .extra-skill-btn.cooling{filter:grayscale(.8);opacity:.72}
+#battle .battletext{right:clamp(205px,26vw,250px)!important}
+@media(max-width:620px) and (orientation:landscape){
+ #battle .moba-controls{width:190px!important;right:5px!important;grid-template-columns:repeat(3,58px)!important}
+ #battle .moba-controls .moba-btn{width:52px!important;height:52px!important}
+ #battle .moba-controls .attack-btn{width:60px!important;height:60px!important}
+ #battle .battletext{right:198px!important}
+}
+@media(orientation:portrait){
+ #battle .moba-controls{width:100%!important;right:8px!important;left:8px!important;bottom:8px!important;display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:3px!important}
+ #battle .moba-controls .moba-btn{width:min(12vw,58px)!important;height:min(12vw,58px)!important}
+ #battle .moba-controls .attack-btn{width:min(13vw,62px)!important;height:min(13vw,62px)!important;grid-row:1;grid-column:1}
+ #battle .moba-controls .special-btn{grid-row:1;grid-column:2}
+ #battle .moba-controls .skill-slot-2{grid-row:1;grid-column:3}
+ #battle .moba-controls .skill-slot-3{grid-row:1;grid-column:4}
+ #battle .moba-controls .skill-slot-4{grid-row:1;grid-column:5}
+ #battle .moba-controls .catch-btn,#battle .moba-controls .run-btn{position:relative!important;right:auto!important;bottom:auto!important;width:min(10vw,46px)!important;height:min(10vw,46px)!important}
+ #battle .moba-controls .catch-btn{grid-row:1;grid-column:6}
+ #battle .moba-controls .run-btn{grid-row:1;grid-column:7}
+ #battle .battletext{right:8px!important;bottom:78px!important}
+}
