@@ -130,6 +130,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Pokémon đã được tung ra rồi không tự hồi sinh hoặc quay lại đội dự bị; Pokémon dự bị được chọn sẽ rời danh sách chờ, và phần thưởng chỉ trao sau khi đánh bại toàn bộ đội hình.
 - Quyết định đổi Pokémon dùng luật chấm điểm cục bộ dựa trên tương khắc hệ, rủi ro bị khắc chế, HP và sức tấn công; không gọi API hoặc mô hình AI bên ngoài.
 
+- AI chiến đấu đánh giá lợi thế tấn công, nguy cơ bị khắc chế, HP hai bên và trạng thái hiện tại để chọn lối đánh: tấn công, gây áp lực, phòng thủ hoặc chuẩn bị kỹ năng.
+- Ưu tiên kỹ năng có thể gây trạng thái khi đối thủ chưa mắc trạng thái; né tránh và dựng khiên được cân nhắc theo thế trận. Mỗi Pokémon chỉ dựng khiên một lần.
+- Trong trận huấn luyện viên, mỗi Pokémon được hồi sức tối đa một lần khi HP xuống 28% hoặc thấp hơn, hồi 18% HP tối đa; hành động này tiêu tốn lượt. Đổi Pokémon sẽ đặt lại giới hạn riêng cho Pokémon mới.
+
 ### Living overworld, regional weather and surprise events
 - Ambient wild Pokémon now appear inside tall-grass encounter patches and wander short distances with a bobbing idle motion and a separate ground shadow. These are visual overworld creatures; entering grass still uses the existing encounter/battle system.
 - NPCs have extra idle sway and breathing-like shadow movement while their quest markers remain synchronized.
