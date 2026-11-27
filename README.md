@@ -46,3 +46,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Nút tiến hóa chỉ xuất hiện khi Pokémon đạt cấp yêu cầu; tiến hóa thay đổi tên, hình biểu tượng, kỹ năng và chỉ số.
 - Thử thách Nhà Thi Đấu Đá với Thủ Lĩnh cấp 10, lượng HP và sức tấn công cao hơn, thưởng 300 vàng khi chiến thắng.
 - Tiến trình tiến hóa và phần thưởng được ghi vào dữ liệu lưu trình duyệt.
+
+
+## Nội dung mở rộng
+- Hang Thạch Anh có lối vào tầng sâu riêng, bản đồ hang tối, tinh thể phát sáng và lối thoát trở về cửa hang; có thể gặp Zubat và Diglett.
+- Thành phố Viridian có khu phố, công viên, bãi cỏ riêng, NPC hướng dẫn và cổng kết nối Đường 1.
+- Nhà Thi Đấu Viridian là thử thách thứ hai: Thủ Lĩnh Lá cấp 14, 125 HP, thưởng 500 vàng và Huy hiệu Rừng; huy hiệu được lưu riêng và không thể nhận lặp.
+- Bổ sung Bellsprout, Spearow, Zubat và Diglett vào Pokédex và bảng xuất hiện theo khu vực.
