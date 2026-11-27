@@ -154,3 +154,23 @@
 #battle[data-move="ice"] .move-burst i{background:linear-gradient(#fff,#a7efff 55%,#5a9dd5);box-shadow:0 0 13px #a7efff}
 #battle[data-action="skill"] .battlehead b{color:#e9c1ff;text-shadow:0 0 10px #bb83ff}
 @media(prefers-reduced-motion:reduce){.monart.attack-lunge .pokemon-sprite,.monart.skill-strike .pokemon-sprite,.monart.hit-flash .pokemon-sprite,.monart.dodge .pokemon-sprite{animation:none}}
+
+
+/* DK Kanto world map and fast travel */
+.world-map-visual{position:relative;height:clamp(150px,28vh,220px);overflow:hidden;border:2px solid #d9bd73;border-radius:10px;background:linear-gradient(145deg,#286f8d 0 30%,#3e8c57 31% 69%,#286f8d 70%);box-shadow:inset 0 0 25px #071b2b}
+.map-land{position:absolute;left:7%;top:12%;width:74%;height:76%;border-radius:44% 34% 48% 39%;background:linear-gradient(135deg,#80b96b,#397e4b 65%,#b5a36e);border:5px solid #d6c18d;transform:rotate(-8deg);box-shadow:inset 0 0 0 7px #4e9658,inset 0 0 18px #173e31}
+.map-land:before{content:"KANTO";position:absolute;left:35%;top:42%;color:#e9f3bd;font:900 14px monospace;letter-spacing:4px;text-shadow:0 2px 4px #173b2b}
+.map-pin{position:absolute;z-index:2;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;font-size:15px;background:#102b3b;border:2px solid #f4d77c;box-shadow:0 2px 7px #06131eaa}
+.map-pin.locked{background:#273849;color:#c2cbd0;border-color:#82909b;opacity:.65}
+.map-you{position:absolute;right:8px;bottom:7px;padding:4px 7px;border-radius:5px;background:#081b2be8;color:#aaf0c5;font-size:9px;font-weight:900}
+.map-hint{font-size:10px!important;margin:8px 0!important;color:#a9c2d2!important}
+.travel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:32vh;overflow:auto;padding:2px}
+.travel-stop{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto auto;align-items:center;text-align:left;gap:2px 7px;padding:8px;background:#10283a;border:1px solid #45677b;border-radius:8px;color:#eef7ff}
+.travel-stop>span{grid-row:1/4;font-size:25px;text-align:center}
+.travel-stop b{font-size:11px}
+.travel-stop small{font-size:9px;color:#a9c1d0}
+.travel-stop em{font-style:normal;font-size:8px;font-weight:900;color:#8fe0b3;letter-spacing:.5px}
+.travel-stop:disabled{opacity:.55;border-color:#e3c36d}
+.travel-stop:not(:disabled):active{transform:scale(.98);filter:brightness(1.2)}
+#worldMap{background:#315b75;border-color:#a9d6e9;color:#e6f8ff}
+@media(max-width:420px){.world-map-visual{height:155px}.travel-grid{gap:5px}.travel-stop{padding:6px;grid-template-columns:28px 1fr}.travel-stop>span{font-size:21px}.travel-stop b{font-size:10px}.travel-stop small{font-size:8px}}
