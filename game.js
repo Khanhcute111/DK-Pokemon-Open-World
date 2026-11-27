@@ -462,9 +462,81 @@ function beginWildEncounter(w){
   startBattle({kind:'wild',mon:w.mon,actor:w});
  }});
 }
+function updateWildlifeFoodChain(delta){
+ if(!ambientWildlife.length)return;
+ const dt=Math.min(40,delta||16)/1000,now=Date.now();
+ const hunters=new Set(['Zubat','Rattata']),preyNames=new Set(['Caterpie','Pidgey','Oddish','Bellsprout']);
+ const herbivores=new Set(['Caterpie','Oddish','Bellsprout']);
+ // Hunters periodically choose nearby prey; the chase runs independently of player proximity.
+ for(const hunter of ambientWildlife){
+  if(!hunter.alive||!hunters.has(hunter.mon)||hunter.mode==='shelter'||hunter.mode==='rest'||hunter.mode==='drink')continue;
+  if(!hunter.huntTarget||!hunter.huntTarget.alive||now>(hunter.huntUntil||0)){
+   hunter.huntTarget=null;
+   if(now<(hunter.huntCheckAt||0))continue;
+   hunter.huntCheckAt=now+1100+Math.random()*900;
+   let target=null,best=118;
+   for(const candidate of ambientWildlife){
+    if(candidate===hunter||!candidate.alive||!preyNames.has(candidate.mon))continue;
+    const d=Math.hypot(candidate.x-hunter.x,candidate.y-hunter.y);
+    if(d<best){best=d;target=candidate}
+   }
+   if(target){hunter.huntTarget=target;hunter.huntUntil=now+5200;hunter.huntStarted=0;target.fleeingFrom=hunter}
+  }
+  const target=hunter.huntTarget;
+  if(!target||!target.alive)continue;
+  const dx=target.x-hunter.x,dy=target.y-hunter.y,d=Math.hypot(dx,dy)||1;
+  if(d<24){
+   if(!hunter.huntStarted)hunter.huntStarted=now;
+   if(now-hunter.huntStarted>850){
+    target.alive=false;target.sprite.setVisible(false);target.shadow.setVisible(false);
+    hunter.huntTarget=null;hunter.huntStarted=0;hunter.restUntil=now+2100;hunter.mode='rest';
+    hunter.sprite.setAlpha(.9);toast(hunter.mon+' đã săn được '+target.mon+'.');
+   }
+  }else{
+   hunter.huntStarted=0;
+   const step=Math.min(d-20,27*dt);
+   hunter.x+=dx/d*step;hunter.y+=dy/d*step;
+   const escape=Math.min(d-20,39*dt);
+   target.x-=dx/d*escape;target.y-=dy/d*escape;
+   target.x=Phaser.Math.Clamp(target.x,target.area.x+12,target.area.x+target.area.w-12);
+   target.y=Phaser.Math.Clamp(target.y,target.area.y+12,target.area.y+target.area.h-12);
+   hunter.sprite.setPosition(hunter.x,hunter.y).setDepth(hunter.y+1).setAngle(dx<0?-9:9);
+   hunter.shadow.setPosition(hunter.x,hunter.y+12);
+   target.sprite.setPosition(target.x,target.y).setDepth(target.y+1).setAngle(dx<0?12:-12);
+   target.shadow.setPosition(target.x,target.y+12);
+  }
+ }
+ // Geodude protects its small home territory by nudging intruders away.
+ for(const guard of ambientWildlife){
+  if(!guard.alive||guard.mon!=='Geodude'||now<(guard.territoryCheckAt||0))continue;
+  guard.territoryCheckAt=now+1500;
+  const intruder=ambientWildlife.find(w=>w!==guard&&w.alive&&Math.hypot(w.x-guard.x,w.y-guard.y)<52);
+  if(!intruder)continue;
+  const dx=intruder.x-guard.x,dy=intruder.y-guard.y,d=Math.hypot(dx,dy)||1;
+  intruder.x=Phaser.Math.Clamp(intruder.x+dx/d*24,intruder.area.x+12,intruder.area.x+intruder.area.w-12);
+  intruder.y=Phaser.Math.Clamp(intruder.y+dy/d*24,intruder.area.y+12,intruder.area.y+intruder.area.h-12);
+  intruder.sprite.setPosition(intruder.x,intruder.y).setAngle(8);
+  intruder.shadow.setPosition(intruder.x,intruder.y+12);
+  guard.sprite.setAngle(-7);
+ }
+ // Herbivores briefly compete for the same feeding spot; one yields and relocates.
+ for(let i=0;i<ambientWildlife.length;i++){
+  const a=ambientWildlife[i];
+  if(!a.alive||!herbivores.has(a.mon)||now<(a.foodCheckAt||0))continue;
+  const b=ambientWildlife.slice(i+1).find(w=>w.alive&&herbivores.has(w.mon)&&Math.hypot(w.x-a.x,w.y-a.y)<42);
+  a.foodCheckAt=now+2400+Math.random()*1800;
+  if(!b)continue;
+  b.foodCheckAt=now+2600;
+  const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
+  b.x=Phaser.Math.Clamp(b.x+dx/d*20,b.area.x+12,b.area.x+b.area.w-12);
+  b.y=Phaser.Math.Clamp(b.y+dy/d*20,b.area.y+12,b.area.y+b.area.h-12);
+  b.sprite.setPosition(b.x,b.y).setAngle(10);b.shadow.setPosition(b.x,b.y+12);
+ }
+}
 function updateAmbientWildlife(delta){
  if(!player||!ambientWildlife.length)return;
  const dt=Math.min(40,delta||16)/1000;
+ updateWildlifeFoodChain(delta);
  for(const w of ambientWildlife){
   if(!w.alive||!w.sprite.active)continue;
   const dx=player.x-w.x,dy=player.y-w.y,dist=Math.hypot(dx,dy);
