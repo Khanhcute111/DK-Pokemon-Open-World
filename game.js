@@ -466,17 +466,31 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  let trainerTeamIndex=0;
  const updateTeamCounter=()=>{const el=$('battleTeam');if(!el)return;const total=trainerTeam.length+1;el.textContent=trainer?'ĐỘI HÌNH '+(trainerTeamIndex+1)+'/'+total:'';el.classList.toggle('active',!!trainer)};
  updateTeamCounter();
+ const chooseTrainerCounter=(ally)=>{
+  let bestIndex=0,bestScore=-Infinity;
+  trainerTeam.forEach((name,index)=>{
+   const candidate=makeMon(name,trainer.level+Math.min(2,trainerTeamIndex));
+   const matchup=typeEffect(candidate.type,ally.type).multiplier;
+   const hpRatio=candidate.current/Math.max(1,candidate.maxHp);
+   const score=matchup*100+hpRatio*12+candidate.atk*.18+Math.random()*2;
+   if(score>bestScore){bestScore=score;bestIndex=index}
+  });
+  return bestIndex;
+ };
  const loadTrainerNext=()=>{
   if(!trainer||trainerTeamIndex>=trainerTeam.length)return false;
-  const entry=trainerTeam[trainerTeamIndex++];
-  const next=makeMon(entry,trainer.level+Math.min(2,trainerTeamIndex-1));
+  const ally=state.party[0],chosenIndex=chooseTrainerCounter(ally);
+  const entry=trainerTeam.splice(chosenIndex,1)[0];trainerTeamIndex++;
+  const next=makeMon(entry,trainer.level+Math.min(2,trainerTeamIndex));
+  const matchup=typeEffect(next.type,ally.type).multiplier;
   wild=next;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;enemyStrategy='balanced';updateTeamCounter();
   $('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;
   setMonArt('enemyEmoji',wild.name,wild.emoji);$('enemyHp').style.width='100%';
   paintStatus('enemy');
   $('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');
   setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
-  $('battleText').textContent=trainer.label+' tung ra '+wild.name+'! ('+(trainerTeamIndex+1)+'/'+(trainerTeam.length+1)+')';
+  const tactic=matchup>1?'Đối thủ chọn Pokémon có lợi thế hệ!':matchup<1?'Đối thủ chọn phương án cân bằng trước hệ của bạn.':'Đối thủ chọn Pokémon phù hợp với đội hình.';
+  $('battleText').textContent=trainer.label+' cân nhắc đội hình và tung '+wild.name+' ra sân! '+tactic+' ('+(trainerTeamIndex+1)+'/'+(trainerTeamIndex+trainerTeam.length+1)+')';
   return true;
  };
  const ensureStatusBadges=()=>{[['ally','.battlemon.ally'],['enemy','.battlemon.enemy']].forEach(([side,selector])=>{const host=$('battle').querySelector(selector);if(host&&!host.querySelector('#'+side+'Status')){const badge=document.createElement('div');badge.className='battle-status';badge.id=side+'Status';host.appendChild(badge)}})};
@@ -491,9 +505,11 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  let enemyGuard=false,enemyStrategy='balanced';
  const chooseEnemyStrategy=(enemy,ally)=>{
   const hp=enemy.current/Math.max(1,enemy.maxHp),allyHp=ally.current/Math.max(1,ally.maxHp),advantage=typeEffect(enemy.type,ally.type).multiplier;
+  const reserveThreat=trainer&&trainerTeam.some(name=>{const reserve=makeMon(name,trainer.level);return typeEffect(reserve.type,ally.type).multiplier>1});
   if(hp<.3&&advantage<1)return 'defensive';
   if(allyHp<.38||advantage>1)return 'aggressive';
   if(battleStatuses.ally)return 'pressure';
+  if(reserveThreat&&hp>.55)return 'balanced';
   return 'balanced';
  };
  const enemyTurn=()=>{
