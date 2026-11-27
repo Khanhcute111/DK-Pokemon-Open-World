@@ -130,3 +130,9 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - NPCs have extra idle sway and breathing-like shadow movement while their quest markers remain synchronized.
 - The world clock supports clear weather, rain, storms and fog. Storm rain falls faster; fog is shown in forest/lake areas and the existing cave mist remains active underground.
 - Walking through tall grass can trigger a surprise exploration event (once per 90 seconds): find 45 gold, a Potion, two Poké Balls, or a small mixed reward. Claiming the reward pauses movement until the player collects it; the cooldown timestamp is saved.
+
+
+### Wild Pokémon behavior in the overworld
+- Wild Pokémon now have simple behavior states: idle patrol within their grass patch, approach the trainer when a bold species notices them, flee from the trainer when a shy species is approached, and return toward their home area after losing interest.
+- Approaching a visible wild Pokémon closely starts a battle against that exact species instead of selecting a random encounter. The existing battle, capture, reward and Pokédex systems are reused.
+- Ambient creatures are removed from the map after their encounter resolves, preventing duplicate interactions with the same actor. This is lightweight rule-based behavior, not a full pathfinding or learning AI system.
