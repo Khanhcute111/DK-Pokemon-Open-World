@@ -416,6 +416,14 @@ function addAmbientWildlife(s){
   s.tweens.add({targets:sprite,y:y-3,duration:550+Math.random()*450,yoyo:true,repeat:-1,ease:'Sine.easeInOut',delay:Math.random()*500});
   ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true,rare:isRare,restUntil:0});
  }
+ // A small water-side group gives calm species a real shoreline to visit.
+ const lakeArea={x:1060,y:680,w:330,h:250};
+ [['🦆','Psyduck'],['🦭','Seel']].forEach(([emoji,mon],i)=>{
+  const x=1135+i*155,y=770+(i%2)*72,shadow=s.add.ellipse(x,y+12,19,6,0x10291b,.3).setDepth(y-1);
+  const sprite=s.add.text(x,y,emoji,{fontSize:'24px'}).setOrigin(.5).setDepth(y+1);
+  s.tweens.add({targets:sprite,y:y-2,duration:850+i*180,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
+  ambientWildlife.push({sprite,shadow,mon,temper:'calm',area:lakeArea,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:Date.now()+1800,alive:true,rare:false,restUntil:0});
+ });
 }
 function beginWildEncounter(w){
  if(!w||!w.alive||busy)return;
