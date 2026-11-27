@@ -92,3 +92,6 @@
 .battlebox .moves #battlePotion{background:#38577a;border-color:#9bc9f0}
 .battlebox .moves button:disabled{opacity:.45}
 #battle .battletext{padding:7px 9px;background:#0a1b28a8;border-radius:7px}
+
+/* Day/night and rain ambience */
+#game canvas{position:relative;z-index:1}
