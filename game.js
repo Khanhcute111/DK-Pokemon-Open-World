@@ -318,13 +318,27 @@ function addAmbientWildlife(s){
   ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true});
  }
 }
+function beginWildEncounter(w){
+ if(!w||!w.alive||busy)return;
+ w.alive=false;busy=true;stopMove();
+ const cam=scene&&scene.cameras?scene.cameras.main:null;
+ if(cam)cam.shake(180,.0025);
+ const targetX=player.x+(w.x<player.x?-34:34),targetY=player.y-12;
+ scene.tweens.add({targets:w.sprite,x:targetX,y:targetY,scale:1.5,angle:w.x<player.x?18:-18,duration:300,ease:'Back.easeOut',onComplete:()=>{
+  if(w.sprite&&w.sprite.active){w.sprite.setAlpha(0);w.sprite.setScale(1);w.sprite.setAngle(0)}
+  if(w.shadow&&w.shadow.active)w.shadow.setAlpha(0);
+  if(cam)cam.flash(140,255,245,205);
+  busy=false;
+  startBattle({kind:'wild',mon:w.mon,actor:w});
+ }});
+}
 function updateAmbientWildlife(delta){
  if(!player||!ambientWildlife.length)return;
  const dt=Math.min(40,delta||16)/1000;
  for(const w of ambientWildlife){
   if(!w.alive||!w.sprite.active)continue;
   const dx=player.x-w.x,dy=player.y-w.y,dist=Math.hypot(dx,dy);
-  if(!busy&&dist<46){w.alive=false;w.sprite.setAlpha(0);w.shadow.setAlpha(0);startBattle({kind:'wild',mon:w.mon,actor:w});return}
+  if(!busy&&dist<46){beginWildEncounter(w);return}
   if(!busy&&dist<155&&w.temper==='bold'){w.mode='chase'}
   else if(!busy&&dist<125&&w.temper==='shy'){w.mode='flee'}
   else if(dist>230&&w.mode!=='idle'){w.mode='return'}
@@ -407,7 +421,7 @@ function inGrass(x,y){return grassAreas.some(a=>x>=a.x&&x<=a.x+a.w&&y>=a.y&&y<=a
 function updateLocation(){if(!player)return;let z='route';if(player.x>=5500&&player.x<7100)z='island';else if(player.x>=3800&&player.x<5300)z='viridian';else if(player.x>=3000&&player.x<3700)z='caveInterior';else if(player.x>=2300)z='center';else if(player.x>=1600)z='shop';else if(player.x<680&&player.y<440)z='pallet';else if(player.x>485&&player.x<650&&player.y>805)z='cave';else if(player.x<650&&player.y>560)z='forest';else if(player.x>1030&&player.y>660)z='lake';if(z!==state.zone){setZone(z);if(z==='forest'&&state.quest===3){setQuest(4);toast('Đã khám phá Rừng Thanh Mộc!')}if(z==='lake'&&state.quest===4){setQuest(5);toast('Đã đến Hồ Xanh! Hãy trò chuyện với người câu cá.')}}}
 
 function stopMove(){heldDir=null;sprintHeld=false;const b=$('sprint');if(b)b.classList.remove('active')}
-function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.kind==='gym'?mode:null;const wildEncounter=mode&&typeof mode==='object'&&mode.kind==='wild'?mode:null;const isGym=mode===true||!!gym;const trainer=mode&&typeof mode==='object'&&!gym&&!wildEncounter?mode:null;if(busy||!state.party.length)return;if(isGym&&state.badges.includes(gym?gym.badge:'Đá'))return toast('Bạn đã sở hữu huy hiệu '+(gym?gym.badge:'Đá')+'!');if(trainer&&state.trainersDefeated.includes(trainer.id))return toast('Bạn đã thắng huấn luyện viên này rồi!');lastEncounter=Date.now();busy=true;const zone=state.zone==='forest'?'forest':state.zone==='lake'?'lake':state.zone==='cave'||state.zone==='caveInterior'?'cave':state.zone==='viridian'?'viridian':state.zone==='island'?'island':'route';const pool=wildByZone[zone]||wildByZone.route;const name=isGym?'Geodude':trainer?trainer.mon:wildEncounter?wildEncounter.mon:pool[Math.floor(Math.random()*pool.length)];const wild=makeMon(name,isGym?(gym?gym.level:10):trainer?trainer.level:2+Math.floor(Math.random()*4));if(trainer){wild.name=trainer.mon;if(trainer.legendary){wild.maxHp=wild.hp=trainer.hp||150;wild.current=wild.maxHp;wild.atk=trainer.atk||25;wild.def=trainer.def||18;wild.type='Tâm linh';}}if(isGym){wild.name=gym?gym.boss:'Thủ Lĩnh Đá';wild.emoji=gym?gym.emoji:'🗿';wild.maxHp=wild.hp=gym?gym.hp:95;wild.current=wild.maxHp;wild.atk=gym?gym.atk:14;wild.def=gym?gym.def:8;wild.type=gym?gym.type:'Đá/Đất';}wild.current=wild.maxHp;let ended=false,turn=false;$('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;setMonArt('enemyEmoji',wild.name,wild.emoji);$('allyName').textContent=state.party[0].name;$('allyLv').textContent='Lv. '+state.party[0].level;setMonArt('allyEmoji',state.party[0].name,state.party[0].emoji);$('enemyHp').style.width='100%';$('allyHp').style.width=(state.party[0].current/state.party[0].maxHp*100)+'%';$('battleText').textContent='Một '+wild.name+' hoang dã nhảy ra từ bụi cỏ!';$('battleWeather').textContent=isGym?'NHÀ THI ĐẤU ĐÁ':trainer?'ĐẤU HUẤN LUYỆN VIÊN':zone==='forest'?'RỪNG THANH MỘC':zone==='lake'?'HỒ XANH':(zone==='cave'||zone==='caveInterior')?'HANG ĐÁ THẠCH ANH':zone==='viridian'?'THÀNH PHỐ VIRIDIAN':'ĐƯỜNG 1';show('battle');
+function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.kind==='gym'?mode:null;const wildEncounter=mode&&typeof mode==='object'&&mode.kind==='wild'?mode:null;const isGym=mode===true||!!gym;const trainer=mode&&typeof mode==='object'&&!gym&&!wildEncounter?mode:null;if(busy||!state.party.length)return;if(isGym&&state.badges.includes(gym?gym.badge:'Đá'))return toast('Bạn đã sở hữu huy hiệu '+(gym?gym.badge:'Đá')+'!');if(trainer&&state.trainersDefeated.includes(trainer.id))return toast('Bạn đã thắng huấn luyện viên này rồi!');lastEncounter=Date.now();busy=true;const zone=state.zone==='forest'?'forest':state.zone==='lake'?'lake':state.zone==='cave'||state.zone==='caveInterior'?'cave':state.zone==='viridian'?'viridian':state.zone==='island'?'island':'route';const pool=wildByZone[zone]||wildByZone.route;const name=isGym?'Geodude':trainer?trainer.mon:wildEncounter?wildEncounter.mon:pool[Math.floor(Math.random()*pool.length)];const wild=makeMon(name,isGym?(gym?gym.level:10):trainer?trainer.level:2+Math.floor(Math.random()*4));if(trainer){wild.name=trainer.mon;if(trainer.legendary){wild.maxHp=wild.hp=trainer.hp||150;wild.current=wild.maxHp;wild.atk=trainer.atk||25;wild.def=trainer.def||18;wild.type='Tâm linh';}}if(isGym){wild.name=gym?gym.boss:'Thủ Lĩnh Đá';wild.emoji=gym?gym.emoji:'🗿';wild.maxHp=wild.hp=gym?gym.hp:95;wild.current=wild.maxHp;wild.atk=gym?gym.atk:14;wild.def=gym?gym.def:8;wild.type=gym?gym.type:'Đá/Đất';}wild.current=wild.maxHp;let ended=false,turn=false;$('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;setMonArt('enemyEmoji',wild.name,wild.emoji);$('allyName').textContent=state.party[0].name;$('allyLv').textContent='Lv. '+state.party[0].level;setMonArt('allyEmoji',state.party[0].name,state.party[0].emoji);$('enemyHp').style.width='100%';$('allyHp').style.width=(state.party[0].current/state.party[0].maxHp*100)+'%';$('battleText').textContent='Một '+wild.name+' hoang dã nhảy ra từ bụi cỏ!';$('battleWeather').textContent=isGym?'NHÀ THI ĐẤU ĐÁ':trainer?'ĐẤU HUẤN LUYỆN VIÊN':zone==='forest'?'RỪNG THANH MỘC':zone==='lake'?'HỒ XANH':(zone==='cave'||zone==='caveInterior')?'HANG ĐÁ THẠCH ANH':zone==='viridian'?'THÀNH PHỐ VIRIDIAN':'ĐƯỜNG 1';show('battle');$('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
  const movesEl=$('battle').querySelector('.moves');
  movesEl.insertAdjacentHTML('beforeend','<button id="switchMon" class="battle-extra">🔄 ĐỔI POKÉMON</button><button id="battlePotion" class="battle-extra">🧪 DÙNG THUỐC ('+state.potions+')</button>');
  const refreshLead=()=>{const lead=state.party[0];$('allyName').textContent=lead.name;$('allyLv').textContent='Lv. '+lead.level;setMonArt('allyEmoji',lead.name,lead.emoji);$('allyHp').style.width=(lead.current/lead.maxHp*100)+'%'};
