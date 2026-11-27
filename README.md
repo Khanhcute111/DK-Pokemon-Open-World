@@ -142,3 +142,9 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - A visible wild Pokémon that reaches the trainer now performs a short approach/leap animation; the camera gives a subtle shake and flash before the battle panel opens.
 - Battle entry now animates the arena, opponent and player's Pokémon separately. Existing normal attacks, special moves, enemy counterattacks and hit effects also animate the four-frame sprite-sheet elements, not only fallback image elements.
 - Reduced-motion preferences disable the added CSS choreography. The effects are presentation-only and reuse the existing battle rules and capture logic.
+
+
+### Elemental combat VFX and audio
+- Player attacks now resolve a visual element from the lead Pokémon's type and spawn a matching impact burst: fire flames, water droplets, grass blades, ice shards, earth fragments, wind arcs, poison globes or psychic energy.
+- Each elemental attack has a distinct synthesized Web Audio tone when sound is enabled. Special moves retain their stronger special-move sound.
+- The combat damage, type-effectiveness multiplier, critical chance, enemy response and rewards are unchanged. Reduced-motion settings suppress the added particle animation.
