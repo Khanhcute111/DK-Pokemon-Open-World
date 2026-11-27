@@ -154,3 +154,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - The battlefield now changes its atmosphere for both the player's move and the opponent's counterattack, using the attacking Pokémon's type.
 - Fire adds a warm heat glow; Water adds moving reflections/ripples; Grass sways with leaf-like light; Ice spreads frost lines; Earth reveals ground-crack patterns; Air creates gust rings; Poison produces colored mist; Psychic creates expanding energy rings.
 - The arena effect is presentation-only and does not alter move power, type effectiveness, HP, or turn order. Reduced-motion settings disable continuous arena animation.
+
+
+### Species signature moves and evolution identities
+- Each of the 18 original species and all six starter evolution forms now has its own named signature move, visual choreography and individual bonus damage value.
+- Examples: Charmander uses Hỏa Tốc, Charizard uses Long Hỏa, Blastoise uses Đại Thủy Pháo, Venusaur uses Bão Hoa, Lapras uses Băng Tuyết, and Mewtwo uses Sóng Tâm Linh.
+- Signature effects use distinct silhouettes and trajectories layered over the elemental arena effects; the battle log displays the move's description. Existing type effectiveness, critical chance, turn flow, capture and reward rules remain intact.
+- The move effects are original CSS/Web Audio game presentation, not official Pokémon animation or imported copyrighted game assets. Reduced-motion preferences suppress the added animation.
