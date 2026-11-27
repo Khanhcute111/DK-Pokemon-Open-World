@@ -38,8 +38,8 @@ function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');
 function hud(){const lead=state.party[0];$('gold').textContent=state.gold;$('balls').textContent=state.balls;$('playerLevel').textContent='Lv. '+(lead?lead.level:1);$('quest').textContent=questText();$('questTitle').textContent='CHƯƠNG '+(state.quest+1)}
 function questText(){if(state.islandQuest&&!state.islandReward)return 'Đảo San Hô: Thu thập ngọc trai '+state.islandShells.length+'/3 và quay lại Người Giữ Đảo.';if(state.crystalQuest&&!state.trainersDefeated.includes('crystal-guardian'))return 'Hang Thạch Anh: Thu thập tinh thể '+state.crystalShards.length+'/3 và quay lại Nhà Nghiên Cứu.';return ['Gặp Giáo sư Oak tại phòng nghiên cứu ở thị trấn Pallet.','Đi vào bãi cỏ Đường 1 và thắng trận đầu tiên.','Bắt thêm một Pokémon để mở rộng đội hình.','Khám phá Rừng Thanh Mộc ở phía tây nam.','Tìm đường đến Hồ Xanh và nói chuyện với người câu cá.','Bạn đã hoàn thành hành trình mở đầu Kanto!'][Math.min(state.quest,5)]}
 function setQuest(n){state.quest=Math.max(state.quest,n);hud();save()}
-function show(id){$(id).classList.remove('hidden')}function hide(id){$(id).classList.add('hidden')}
-function panel(title,eyebrow,html){$('panelTitle').textContent=title;$('panelEyebrow').textContent=eyebrow;$('panelContent').innerHTML=html;show('panel')}
+function show(id){$(id).classList.remove('hidden')}function hide(id){$(id).classList.add('hidden');if(id==='panel'){busy=false;stopMove()}}
+function panel(title,eyebrow,html){busy=true;stopMove();$('panelTitle').textContent=title;$('panelEyebrow').textContent=eyebrow;$('panelContent').innerHTML=html;show('panel')}
 function spriteFor(name){const map={Bulbasaur:'bulbasaur',Ivysaur:'bulbasaur',Venusaur:'bulbasaur',Charmander:'charmander',Charmeleon:'charmander',Charizard:'charmander',Squirtle:'squirtle',Wartortle:'squirtle',Blastoise:'squirtle',Pidgey:'pidgey',Rattata:'rattata',Caterpie:'caterpie',Oddish:'oddish',Psyduck:'psyduck',Geodude:'geodude','Thủ Lĩnh Đá':'geodude',Zubat:'zubat',Diglett:'diglett',Bellsprout:'bellsprout',Spearow:'spearow',Seel:'seel',Lapras:'lapras',Dratini:'dratini',Sandshrew:'sandshrew',Mewtwo:'mewtwo','Thủ Lĩnh Lá':'bellsprout'};return map[name]?'assets/pokemon/'+map[name]+'.svg':null}
 function spriteSheetFor(name){const map={Bulbasaur:'bulbasaur',Ivysaur:'bulbasaur',Venusaur:'bulbasaur',Charmander:'charmander',Charmeleon:'charmander',Charizard:'charmander',Squirtle:'squirtle',Wartortle:'squirtle',Blastoise:'squirtle',Pidgey:'pidgey',Rattata:'rattata',Caterpie:'caterpie',Oddish:'oddish',Psyduck:'psyduck',Geodude:'geodude',Zubat:'zubat',Diglett:'diglett',Bellsprout:'bellsprout',Spearow:'spearow',Seel:'seel',Lapras:'lapras',Dratini:'dratini',Sandshrew:'sandshrew',Mewtwo:'mewtwo'};return map[name]?'assets/sprites/'+map[name]+'-idle.svg':null}
 function monArtMarkup(name,emoji){const sheet=spriteSheetFor(name);if(sheet)return '<span class="pokemon-sprite" role="img" aria-label="'+name+'" style="--sprite-sheet:url(\''+sheet+'\')"></span>';const src=spriteFor(name);return src?'<img src="'+src+'" alt="'+name+'" loading="eager" onerror="this.remove();this.parentElement.textContent=\''+emoji+'\'">':emoji}
@@ -104,7 +104,7 @@ function openWorldMap(){
 function travelTo(id){
  const stop=travelStops.find(p=>p.id===id);
  if(!stop||!state.discoveredZones.includes(id))return toast('Bạn chưa khám phá khu vực này.');
- if(!player||busy)return toast('Không thể dịch chuyển lúc này.');
+ if(!player||(busy&&$('panel').classList.contains('hidden')))return toast('Không thể dịch chuyển lúc này.');
  stopMove();rideActive=false;if(rideBadge)rideBadge.setVisible(false);const rideBtn=$('ride');if(rideBtn)rideBtn.textContent='🌊 CƯỠI LAPRAS';
  player.setPosition(stop.x,stop.y);player.body.reset(stop.x,stop.y);
  scene.physics.world.setBounds(0,0,7100,1400);player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(15,15,7080,1370));
