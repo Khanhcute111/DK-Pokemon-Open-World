@@ -115,3 +115,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Tiến trình khám phá khu vực được lưu trong localStorage cùng dữ liệu trò chơi.
 - Chỉ những khu vực người chơi đã từng ghé thăm mới có thể dịch chuyển nhanh; điểm đến hiện tại bị vô hiệu hóa.
 - Khi dịch chuyển, nhân vật, giới hạn vật lý và camera được đưa về tọa độ an toàn của khu vực.
+
+
+### Quest markers, NPC alerts and exploration rewards
+- Active main-story and side-quest objectives are shown as marked pins on the Kanto map, with a short explanation and target zone.
+- NPCs and collectible quest items display floating !, ?, battle or item markers in the overworld when interaction is available.
+- The quest journal now separates the Kanto story from the Crystal Cave and Coral Island side quests, and shows collection progress.
+- First discovery of each major travel region (excluding Pallet) grants **35 gold and 1 Potion**. The region is recorded in the existing saved discovery list, so its exploration reward cannot be farmed by leaving and returning.
+- Exploration reward is granted once per newly discovered major region; previously saved regions do not retroactively grant rewards.
