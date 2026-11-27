@@ -224,3 +224,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Sau khi né thành công, đòn đánh kế tiếp của boss được tăng 12% sát thương; đổi Pokémon hoặc dùng thuốc sẽ đặt lại chuỗi đọc đòn để tránh tính nhầm hành động hỗ trợ thành lặp chiêu.
 - Chiêu tối thượng ở giai đoạn cuối có trình tự báo hiệu → tích tụ → xung kích → gây sát thương. Người chơi có khoảng chờ ngắn để nhận biết đòn quyết định trước khi sát thương được áp dụng.
 - Hoạt ảnh có hiệu ứng riêng theo hệ và tôn trọng cài đặt giảm chuyển động. Cơ chế là AI luật cục bộ, không dùng API hoặc mô hình học máy.
+
+
+### Phong cách chiến đấu riêng cho từng Boss
+- **Thủ Lĩnh Đá — Địa Tâm Phá:** thiên về sức mạnh địa hệ, kỹ năng nặng hơn và hiệu ứng địa chấn; giai đoạn 2 dựng giáp đá.
+- **Thủ Lĩnh Lá — Độc Hoa Khai Nở:** thiên về trạng thái độc, tăng xác suất gây trạng thái và hiệu ứng hoa lá.
+- **Mewtwo — Sóng Xung Kích Tâm Linh:** thiên về sát thương kỹ năng và áp chế tâm linh; hiệu ứng tím riêng.
+- Từng Boss có hệ số sát thương, sức mạnh kỹ năng, xác suất trạng thái và tên chiêu cuối riêng. Các thông số được giới hạn để tránh tăng độ khó vô hạn.
