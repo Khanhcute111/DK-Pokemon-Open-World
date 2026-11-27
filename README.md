@@ -125,6 +125,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Exploration reward is granted once per newly discovered major region; previously saved regions do not retroactively grant rewards.
 
 
+### Adaptive trainer switching during battle
+- Huấn luyện viên có thể chủ động đổi sang Pokémon dự bị ngay trong trận nếu Pokémon hiện tại bị khắc chế rõ rệt hoặc có lựa chọn dự bị tạo lợi thế tốt hơn; hành động đổi tiêu tốn lượt của đối thủ, mỗi Pokémon đang đấu chỉ kích hoạt một lần để tránh đổi liên tục.
+- Pokémon đã được tung ra rồi không tự hồi sinh hoặc quay lại đội dự bị; Pokémon dự bị được chọn sẽ rời danh sách chờ, và phần thưởng chỉ trao sau khi đánh bại toàn bộ đội hình.
+- Quyết định đổi Pokémon dùng luật chấm điểm cục bộ dựa trên tương khắc hệ, rủi ro bị khắc chế, HP và sức tấn công; không gọi API hoặc mô hình AI bên ngoài.
+
 ### Living overworld, regional weather and surprise events
 - Ambient wild Pokémon now appear inside tall-grass encounter patches and wander short distances with a bobbing idle motion and a separate ground shadow. These are visual overworld creatures; entering grass still uses the existing encounter/battle system.
 - NPCs have extra idle sway and breathing-like shadow movement while their quest markers remain synchronized.
