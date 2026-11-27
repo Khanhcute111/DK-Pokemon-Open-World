@@ -69,3 +69,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Nhà Nghiên Cứu trong Hang Thạch Anh giao nhiệm vụ thu thập ba tinh thể cổ.
 - Thu thập đủ ba tinh thể sẽ mở khóa trận đấu Mewtwo cấp 18 với phần thưởng 900 vàng.
 - Tiến trình tinh thể, nhiệm vụ và thời gian được lưu tự động.
+
+
+## Đảo San Hô và hành trình biển
+- Mở rộng thế giới đến Đảo San Hô, có vùng nước, bãi cát, rừng cọ và bãi cỏ gặp Pokémon.
+- Thuyền trưởng tại bến Viridian đưa người chơi đến đảo.
+- Người Giữ Đảo giao nhiệm vụ tìm ba viên ngọc trai; hoàn thành nhận 700 vàng, 4 bóng Poké và mở khóa cưỡi Lapras.
+- Nút cưỡi Lapras tăng tốc độ di chuyển; có thể xuống bất cứ lúc nào.
+- Pokémon mới: Seel, Lapras, Dratini và Sandshrew.
