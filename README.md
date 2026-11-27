@@ -148,3 +148,9 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Player attacks now resolve a visual element from the lead Pokémon's type and spawn a matching impact burst: fire flames, water droplets, grass blades, ice shards, earth fragments, wind arcs, poison globes or psychic energy.
 - Each elemental attack has a distinct synthesized Web Audio tone when sound is enabled. Special moves retain their stronger special-move sound.
 - The combat damage, type-effectiveness multiplier, critical chance, enemy response and rewards are unchanged. Reduced-motion settings suppress the added particle animation.
+
+
+### Reactive elemental battle arena
+- The battlefield now changes its atmosphere for both the player's move and the opponent's counterattack, using the attacking Pokémon's type.
+- Fire adds a warm heat glow; Water adds moving reflections/ripples; Grass sways with leaf-like light; Ice spreads frost lines; Earth reveals ground-crack patterns; Air creates gust rings; Poison produces colored mist; Psychic creates expanding energy rings.
+- The arena effect is presentation-only and does not alter move power, type effectiveness, HP, or turn order. Reduced-motion settings disable continuous arena animation.
