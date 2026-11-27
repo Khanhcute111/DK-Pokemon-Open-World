@@ -481,7 +481,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  const loadTrainerNext=()=>{
   if(!trainer||trainerTeamIndex>=trainerTeam.length)return false;
   const ally=state.party[0],chosenIndex=chooseTrainerCounter(ally);
-  const entry=trainerTeam.splice(chosenIndex,1)[0];trainerTeamIndex++;
+  const entry=trainerTeam.splice(chosenIndex,1)[0];trainerTeamIndex++;trainerSwitchUsed=false;
   const next=makeMon(entry,trainer.level+Math.min(2,trainerTeamIndex));
   const matchup=typeEffect(next.type,ally.type).multiplier;
   wild=next;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;enemyStrategy='balanced';updateTeamCounter();
@@ -492,6 +492,40 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
   const tactic=matchup>1?'Đối thủ chọn Pokémon có lợi thế hệ!':matchup<1?'Đối thủ chọn phương án cân bằng trước hệ của bạn.':'Đối thủ chọn Pokémon phù hợp với đội hình.';
   $('battleText').textContent=trainer.label+' cân nhắc đội hình và tung '+wild.name+' ra sân! '+tactic+' ('+(trainerTeamIndex+1)+'/'+trainerTeamTotal+')';
+  return true;
+ };
+ let trainerSwitchUsed=false;
+ const trainerCombatScore=(candidate,ally)=>{
+  const attackEdge=typeEffect(candidate.type,ally.type).multiplier;
+  const incomingRisk=typeEffect(ally.type,candidate.type).multiplier;
+  const hpRatio=candidate.current/Math.max(1,candidate.maxHp);
+  return attackEdge*70+(1/incomingRisk)*55+hpRatio*8+candidate.atk*.1;
+ };
+ const maybeTrainerSwitch=ally=>{
+  if(!trainer||trainerSwitchUsed||!trainerTeam.length)return false;
+  const currentPlayerEdge=typeEffect(ally.type,wild.type).multiplier;
+  const currentScore=trainerCombatScore(wild,ally);
+  let bestIndex=-1,bestMon=null,bestScore=-Infinity;
+  trainerTeam.forEach((name,index)=>{
+   const candidate=makeMon(name,trainer.level+Math.min(2,trainerTeamIndex));
+   const score=trainerCombatScore(candidate,ally);
+   if(score>bestScore){bestScore=score;bestIndex=index;bestMon=candidate}
+  });
+  if(!bestMon)return false;
+  const clearDisadvantage=currentPlayerEdge>1;
+  const meaningfulUpgrade=bestScore>=currentScore+28;
+  const candidateCounters=typeEffect(bestMon.type,ally.type).multiplier>=1.5;
+  if(!meaningfulUpgrade||(!clearDisadvantage&&!candidateCounters))return false;
+  trainerTeam.splice(bestIndex,1);
+  const outgoing=wild.name;
+  wild=bestMon;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;
+  enemyStrategy='balanced';trainerSwitchUsed=true;
+  $('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;
+  setMonArt('enemyEmoji',wild.name,wild.emoji);$('enemyHp').style.width='100%';
+  paintStatus('enemy');
+  $('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');
+  setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
+  $('battleText').textContent=trainer.label+' nhận ra bất lợi và đổi '+outgoing+' sang '+wild.name+'! Đối thủ dùng lượt này để điều chỉnh chiến thuật.';
   return true;
  };
  const ensureStatusBadges=()=>{[['ally','.battlemon.ally'],['enemy','.battlemon.enemy']].forEach(([side,selector])=>{const host=$('battle').querySelector(selector);if(host&&!host.querySelector('#'+side+'Status')){const badge=document.createElement('div');badge.className='battle-status';badge.id=side+'Status';host.appendChild(badge)}})};
@@ -515,7 +549,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  };
  const enemyTurn=()=>{
   if(ended)return;
-  const m=state.party[0],statusTick=tickStatus('enemy',wild,'enemyHp');
+  const m=state.party[0];if(maybeTrainerSwitch(m)){turn=false;return}const statusTick=tickStatus('enemy',wild,'enemyHp');
   if(wild.current<=0){if(trainer&&loadTrainerNext()){turn=false;return}$('battleText').textContent=wild.name+' gục ngã do trạng thái!';sound('win');const reward=25+wild.level*8;state.gold+=reward;m.xp+=18;hud();setTimeout(end,1200);return}
   if(statusTick.skip){$('battleText').textContent=wild.name+(statusTick.kind==='freeze'?' bị đóng băng, không thể hành động!':' bị choáng và bỏ lỡ lượt!')+statusTick.message;turn=false;return}
   enemyStrategy=chooseEnemyStrategy(wild,m);
