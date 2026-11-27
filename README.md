@@ -108,3 +108,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - NPCs have ground shadows, clearer nameplates and a subtle pulsing halo.
 - Footstep dust appears periodically while the player moves.
 - The world clock controls ambient fireflies at night and drifting leaf motes during daytime; rain visibility remains weather-aware.
+
+
+### Bản đồ Kanto và dịch chuyển nhanh
+- Nút **BẢN ĐỒ** hiển thị sơ đồ Kanto, khu vực đã khám phá và các điểm chưa mở khóa.
+- Tiến trình khám phá khu vực được lưu trong localStorage cùng dữ liệu trò chơi.
+- Chỉ những khu vực người chơi đã từng ghé thăm mới có thể dịch chuyển nhanh; điểm đến hiện tại bị vô hiệu hóa.
+- Khi dịch chuyển, nhân vật, giới hạn vật lý và camera được đưa về tọa độ an toàn của khu vực.
