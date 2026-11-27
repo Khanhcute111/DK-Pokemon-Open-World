@@ -94,3 +94,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Hoạt ảnh có nhịp riêng cho đứng yên, đi bộ và chạy; chạy tăng tốc phát khung hình.
 - Sprite-sheet idle cũ vẫn được giữ cho giao diện đội hình, Pokédex và khung chiến đấu.
 - Các khung chuyển động hiện là biến thể tư thế bằng biến đổi hình học từ artwork gốc, chưa phải hoạt ảnh khớp xương hoặc vẽ lại từng chi tiết giải phẫu.
+
+
+## Hoạt ảnh chiến đấu Pokémon
+- Đòn đánh thường, kỹ năng đặc biệt, phản đòn và né đòn có chuyển động riêng; chuyển động được tinh chỉnh theo dáng từng loài trong 18 Pokémon có sprite.
+- Hệ chiêu tạo hiệu ứng màu/burst riêng cho Lửa, Nước, Cỏ, Đất/Đá, Bay, Độc, Tâm linh và Băng.
+- Tỉ lệ né phản công có điều chỉnh theo hệ Bay/Nước; khi né thành công không bị trừ HP.
+- Đây là hoạt ảnh CSS kết hợp sprite-sheet 4 khung hiện có và biến thể chuyển động theo loài, chưa phải hoạt ảnh khung hình vẽ tay riêng cho từng đòn đánh.
