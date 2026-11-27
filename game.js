@@ -484,7 +484,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   const entry=trainerTeam.splice(chosenIndex,1)[0];trainerTeamIndex++;trainerSwitchUsed=false;
   const next=makeMon(entry,trainer.level+Math.min(2,trainerTeamIndex));
   const matchup=typeEffect(next.type,ally.type).multiplier;
-  wild=next;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;enemyStrategy='balanced';updateTeamCounter();
+  wild=next;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;enemyGuardUsed=false;enemyRecoveryUsed=false;enemyStrategy='balanced';updateTeamCounter();
   $('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;
   setMonArt('enemyEmoji',wild.name,wild.emoji);$('enemyHp').style.width='100%';
   paintStatus('enemy');
@@ -518,7 +518,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   if(!meaningfulUpgrade||(!clearDisadvantage&&!candidateCounters))return false;
   trainerTeam.splice(bestIndex,1);trainerTeamIndex++;updateTeamCounter();
   const outgoing=wild.name;
-  wild=bestMon;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;
+  wild=bestMon;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;enemyGuardUsed=false;enemyRecoveryUsed=false;
   enemyStrategy='balanced';trainerSwitchUsed=true;
   $('enemyName').textContent=wild.name;$('enemyLv').textContent='Lv. '+wild.level;
   setMonArt('enemyEmoji',wild.name,wild.emoji);$('enemyHp').style.width='100%';
@@ -537,14 +537,16 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
  $('switchMon').onclick=()=>{if(ended||turn)return;const idx=state.party.findIndex((m,i)=>i>0&&m.current>0);if(idx<1){$('battleText').textContent='Không còn Pokémon khỏe mạnh để đổi!';return}const next=state.party.splice(idx,1)[0];state.party.push(state.party.shift());state.party.unshift(next);setCompanionMon();refreshLead();$('battleText').textContent='Bạn gọi '+next.name+' ra sân!';turn=true;save();setTimeout(enemyTurn,550)};
  $('battlePotion').onclick=()=>{if(ended||turn)return;const m=state.party[0];if(state.potions<1){$('battleText').textContent='Bạn đã hết thuốc hồi phục!';return}if(m.current>=m.maxHp){$('battleText').textContent=m.name+' đang đầy HP.';return}state.potions--;m.current=Math.min(m.maxHp,m.current+30);$('battlePotion').textContent='🧪 DÙNG THUỐC ('+state.potions+')';$('allyHp').style.width=(m.current/m.maxHp*100)+'%';$('battleText').textContent=m.name+' hồi phục 30 HP! Đối thủ có cơ hội phản công.';turn=true;save();hud();setTimeout(enemyTurn,550)};
  const end=()=>{if(ended)return;ended=true;const teamCounter=$('battleTeam');if(teamCounter){teamCounter.classList.remove('active');teamCounter.textContent=''}hide('battle');busy=false;stopMove();if(wildEncounter&&wildEncounter.actor){const a=wildEncounter.actor;a.alive=false;if(a.sprite&&a.sprite.active)a.sprite.destroy();if(a.shadow&&a.shadow.active)a.shadow.destroy()}save();hud()};
- let enemyGuard=false,enemyStrategy='balanced';
+ let enemyGuard=false,enemyGuardUsed=false,enemyRecoveryUsed=false,enemyStrategy='balanced';
  const chooseEnemyStrategy=(enemy,ally)=>{
-  const hp=enemy.current/Math.max(1,enemy.maxHp),allyHp=ally.current/Math.max(1,ally.maxHp),advantage=typeEffect(enemy.type,ally.type).multiplier;
-  const reserveThreat=trainer&&trainerTeam.some(name=>{const reserve=makeMon(name,trainer.level);return typeEffect(reserve.type,ally.type).multiplier>1});
-  if(hp<.3&&advantage<1)return 'defensive';
-  if(allyHp<.38||advantage>1)return 'aggressive';
-  if(battleStatuses.ally)return 'pressure';
-  if(reserveThreat&&hp>.55)return 'balanced';
+  const hp=enemy.current/Math.max(1,enemy.maxHp),allyHp=ally.current/Math.max(1,ally.maxHp);
+  const advantage=typeEffect(enemy.type,ally.type).multiplier;
+  const incoming=typeEffect(ally.type,enemy.type).multiplier;
+  if(battleStatuses.ally&&hp>.2)return 'pressure';
+  if(hp<.38&&(advantage<1||incoming>1))return 'defensive';
+  if(advantage>1||allyHp<.38)return 'aggressive';
+  if(incoming>1&&hp<.68)return 'defensive';
+  if(!battleStatuses.ally&&hp>.55)return 'setup';
   return 'balanced';
  };
  const enemyTurn=()=>{
@@ -559,11 +561,22 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   const eff=typeEffect(wild.type,m.type),enemyMove=signatureMoveFor(wild);
   const statusKind=signatureStatus[wild.name]||(String(wild.type).includes('Lửa')?'burn':String(wild.type).includes('Độc')?'poison':String(wild.type).includes('Băng')?'freeze':String(wild.type).includes('Tâm linh')?'stun':String(wild.type).includes('Đá')||String(wild.type).includes('Đất')?'bind':null);
   const canStatus=!!statusKind&&!battleStatuses.ally;
-  const skillChance=enemyStrategy==='aggressive'?.78:enemyStrategy==='pressure'?.62:enemyStrategy==='defensive'?.28:.43;
-  const useSkill=canStatus?Math.random()<Math.max(skillChance,.68):Math.random()<skillChance;
+  const skillChance=canStatus?.82:enemyStrategy==='aggressive'?.76:enemyStrategy==='pressure'?.72:enemyStrategy==='defensive'?.34:enemyStrategy==='setup'?.48:.43;
+  const useSkill=Math.random()<skillChance;
   $('battle').dataset.enemyStrategy=enemyStrategy;
-  if(enemyStrategy==='defensive'&&!enemyGuard&&Math.random()<.52){enemyGuard=true;$('battleText').textContent=wild.name+' nhận thấy bất lợi và dựng thế phòng thủ! Đòn kế tiếp sẽ giảm sát thương.';turn=false;return}
-  const dodgeChance=Math.min(.24,.10+(String(m.type).includes('Bay')?.09:String(m.type).includes('Nước')?.04:0));
+  if(trainer&&!enemyRecoveryUsed&&wild.current/wild.maxHp<=.28){
+   const recovery=Math.max(1,Math.floor(wild.maxHp*.18));
+   wild.current=Math.min(wild.maxHp,wild.current+recovery);enemyRecoveryUsed=true;
+   $('enemyHp').style.width=(wild.current/wild.maxHp*100)+'%';
+   $('battleText').textContent=trainer.label+' ra hiệu cho '+wild.name+' lấy lại bình tĩnh, hồi '+recovery+' HP! Đây là lần hồi sức duy nhất của Pokémon này.';
+   turn=false;return;
+  }
+  if(enemyStrategy==='defensive'&&!enemyGuardUsed&&!enemyGuard){
+   enemyGuard=true;enemyGuardUsed=true;
+   $('battleText').textContent=wild.name+' đọc thế trận và dựng khiên phòng thủ, giảm sát thương đòn đánh kế tiếp!';
+   turn=false;return;
+  }
+  const dodgeChance=Math.min(.3,.06+(enemyStrategy==='defensive'?.12:0)+(String(m.type).includes('Bay')?.09:String(m.type).includes('Nước')?.04:0));
   if(!useSkill&&Math.random()<dodgeChance){sound('step');$('allyEmoji').classList.remove('dodge','hit-flash');void $('allyEmoji').offsetWidth;$('allyEmoji').classList.add('dodge');$('battleText').textContent=m.name+' né đòn trong gang tấc! Không nhận sát thương.';turn=false;return}
   const attackPower=wild.atk+(useSkill?enemyMove.bonus:0),dmg=Math.max(1,Math.floor((attackPower-m.def)*eff.multiplier*(useSkill?1.08:1)));
   sound(useSkill?'special':'hit');$('allyEmoji').classList.remove('dodge','hit-flash');void $('allyEmoji').offsetWidth;$('allyEmoji').classList.add('hit-flash');
