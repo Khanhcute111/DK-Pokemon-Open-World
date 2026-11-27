@@ -231,3 +231,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - **Thủ Lĩnh Lá — Độc Hoa Khai Nở:** thiên về trạng thái độc, tăng xác suất gây trạng thái và hiệu ứng hoa lá.
 - **Mewtwo — Sóng Xung Kích Tâm Linh:** thiên về sát thương kỹ năng và áp chế tâm linh; hiệu ứng tím riêng.
 - Từng Boss có hệ số sát thương, sức mạnh kỹ năng, xác suất trạng thái và tên chiêu cuối riêng. Các thông số được giới hạn để tránh tăng độ khó vô hạn.
+
+
+### Phản ứng va chạm và hạ gục trong trận đấu
+- Chuẩn hóa cách kích hoạt lại hoạt ảnh để đòn đánh liên tiếp không bị mất hiệu ứng do lớp CSS cũ chưa kịp kết thúc.
+- Đòn đánh tạo phản lực lùi riêng trên Pokémon trúng đòn; cú chí mạng có nhịp chớp sáng và rung đấu trường mạnh hơn.
+- Pokémon né đòn, trúng đòn và kiệt sức có trạng thái chuyển động riêng; hoạt ảnh hạ gục chỉ mang tính trình bày, không thay đổi HP, lượt đánh hoặc phần thưởng.
+- Tôn trọng tùy chọn giảm chuyển động của thiết bị.
