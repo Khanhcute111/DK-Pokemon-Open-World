@@ -53,3 +53,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Thành phố Viridian có khu phố, công viên, bãi cỏ riêng, NPC hướng dẫn và cổng kết nối Đường 1.
 - Nhà Thi Đấu Viridian là thử thách thứ hai: Thủ Lĩnh Lá cấp 14, 125 HP, thưởng 500 vàng và Huy hiệu Rừng; huy hiệu được lưu riêng và không thể nhận lặp.
 - Bổ sung Bellsprout, Spearow, Zubat và Diglett vào Pokédex và bảng xuất hiện theo khu vực.
+
+
+## Cập nhật hệ thống chiến đấu
+- Có thể đổi Pokémon đang chiến đấu bằng nút **Đổi Pokémon**; Pokémon được đổi vào cuối đội hình và Pokémon mới trở thành đồng hành trên bản đồ.
+- Có thể dùng thuốc hồi phục ngay trong trận đấu; mỗi lần dùng tiêu thụ một thuốc và đối thủ được phản công.
+- Đòn đánh có xác suất chí mạng; hiệu quả hệ tiếp tục tác động lên sát thương.
+- Bắt Pokémon dễ hơn khi HP đối thủ thấp, nhưng vẫn có xác suất thất bại.
+- Rút lui có xác suất thành công; nếu thất bại, đối thủ được phản công.
