@@ -132,7 +132,7 @@ function signatureMoveFor(mon){return signatureMoves[mon&&mon.name]||{name:mon&&
 function spawnSignatureSkill(arena,move){
  if(!arena||!move)return;
  const fx=document.createElement('div');fx.className='signature-vfx '+move.kind;
- for(let i=0;i<8;i++){const p=document.createElement('i');p.style.setProperty('--i',i);p.style.setProperty('--delay',(i*35)+'ms');fx.appendChild(p)}
+ for(let i=0;i<8;i++){const p=document.createElement('i');p.style.setProperty('--i',i);p.style.setProperty('--delay',(i*35)+'ms');p.style.setProperty('--dx',((i-3.5)*30)+'px');p.style.setProperty('--dy',((i%2?1:-1)*(32+(i%3)*13))+'px');p.style.setProperty('--rot',(i*45)+'deg');fx.appendChild(p)}
  const core=document.createElement('b');core.className='signature-core';fx.appendChild(core);
  arena.appendChild(fx);setTimeout(()=>fx.remove(),1250);
 }
