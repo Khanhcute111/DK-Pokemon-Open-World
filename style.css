@@ -85,3 +85,10 @@
 .team-entry>.slot{margin:0}
 .team-entry>[data-lead]{margin:5px 0 0 48px;font-size:10px;padding:6px 9px}
 .team-entry>[data-lead]:disabled{opacity:.65;color:#f2d88c}
+
+/* DK battle party management and combat feedback */
+.battlebox .moves{grid-template-columns:repeat(2,minmax(0,1fr))}
+.battlebox .moves .battle-extra{background:#1e604e;border-color:#83d7ad;color:#eafff3}
+.battlebox .moves #battlePotion{background:#38577a;border-color:#9bc9f0}
+.battlebox .moves button:disabled{opacity:.45}
+#battle .battletext{padding:7px 9px;background:#0a1b28a8;border-radius:7px}
