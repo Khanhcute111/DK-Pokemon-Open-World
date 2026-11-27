@@ -51,3 +51,9 @@
 #battle[data-move="special"] .battlefield{background:radial-gradient(ellipse at 50% 50%,#c18aff55,transparent 55%)}
 #battle .battlefield{transition:background .18s ease}
 .dex-card img,.slot .icon img{image-rendering:auto}
+
+/* Expanded Kanto region combat palette */
+#battle[data-move="fire"] .battlefield{filter:saturate(1.18)}
+#battle[data-move="water"] .battlefield{filter:saturate(1.12)}
+#battle[data-move="grass"] .battlefield{filter:hue-rotate(8deg) saturate(1.12)}
+#battle[data-move="special"] .battlefield{filter:brightness(1.08) saturate(1.2)}
