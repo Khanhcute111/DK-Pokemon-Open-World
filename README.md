@@ -266,3 +266,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Gió thoảng làm lá bay nhanh hơn ở rừng, Đường 1 và khu thành phố; sương mù phủ nhẹ cảnh quan ngoài trời khi thời tiết chuyển sang sương.
 - Các lớp hiệu ứng được gắn theo camera, cập nhật theo vùng và trạng thái thời tiết; không thay đổi va chạm, tốc độ nhân vật hay logic chiến đấu.
 - Thời gian ngày/đêm và chu kỳ thời tiết tự động tiếp tục cập nhật, đồng thời lưu trạng thái như trước.
+
+### Hệ sinh thái Pokémon theo thời tiết và thời gian
+- Hệ sinh thái phản ứng liên tục khi người chơi đổi khu vực, thời tiết thay đổi hoặc chu kỳ ngày/đêm tiến triển.
+- Caterpie, Oddish, Bellsprout và Pidgey tìm chỗ trú khi có giông; Zubat ẩn ban ngày và hoạt động trở lại vào ban đêm.
+- Pokémon hệ Nước di chuyển linh hoạt hơn khi mưa/giông; một số Pokémon hệ Cỏ và Côn trùng giảm hoạt động khi thời tiết xấu; sương mù làm nhịp di chuyển chậm hơn.
+- Cơ hội bắt gặp Pokémon hiếm được mở theo điều kiện môi trường: Dratini ban đêm ở Hồ Xanh, Lapras khi mưa/giông gần hồ hoặc đảo, Psyduck trong sương mù ở hồ, Seel khi giông ở vùng nước, Oddish lúc bình minh và Zubat ban đêm trong hang.
+- Pokémon hiếm có thể xuất hiện khi người chơi bước vào vùng phù hợp hoặc khi chu kỳ môi trường cập nhật; dấu hiệu màu vàng giúp nhận biết.
+- Các thay đổi chỉ tác động hành vi và phân bố encounter ngoài thế giới; không sửa chỉ số Pokémon, độ khó chiến đấu hoặc dữ liệu save hiện có.
