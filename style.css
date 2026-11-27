@@ -174,3 +174,16 @@
 .travel-stop:not(:disabled):active{transform:scale(.98);filter:brightness(1.2)}
 #worldMap{background:#315b75;border-color:#a9d6e9;color:#e6f8ff}
 @media(max-width:420px){.world-map-visual{height:155px}.travel-grid{gap:5px}.travel-stop{padding:6px;grid-template-columns:28px 1fr}.travel-stop>span{font-size:21px}.travel-stop b{font-size:10px}.travel-stop small{font-size:8px}}
+
+
+/* Quest tracking: map pins, active objectives and NPC alerts */
+.quest-map-pin{position:absolute;z-index:5;display:grid;place-items:center;min-width:25px;height:25px;padding:0 4px;border-radius:50%;background:#ffd56b;color:#3b2611;border:2px solid #fff4bf;font-size:13px;font-weight:1000;box-shadow:0 0 0 3px #e99b37aa,0 2px 8px #071722;animation:quest-pin-pulse 1.25s ease-in-out infinite}
+@keyframes quest-pin-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 2px #e99b3777,0 2px 8px #071722}50%{transform:scale(1.16);box-shadow:0 0 0 6px #e99b3733,0 2px 12px #071722}}
+.map-section-title{margin:12px 0 6px!important;font-size:10px!important;letter-spacing:1.2px;color:#f1d58d!important}
+.quest-target-list{display:grid;gap:6px;max-height:22vh;overflow:auto}
+.quest-target{display:flex;align-items:center;gap:9px;padding:8px;border:1px solid #765e3b;border-left:3px solid #e8bd5e;border-radius:7px;background:linear-gradient(100deg,#293c3d,#172c3b);color:#fff2d4}
+.quest-target>span{display:grid;place-items:center;min-width:28px;height:28px;border-radius:7px;background:#584526;font-size:17px}
+.quest-target b{display:block;font-size:11px}
+.quest-target small{display:block;margin-top:3px;font-size:9px;color:#b8cbd0;line-height:1.35}
+.side-task{border-left:3px solid #72c8b1;background:#183b3b!important}
+@media(prefers-reduced-motion:reduce){.quest-map-pin{animation:none}}
