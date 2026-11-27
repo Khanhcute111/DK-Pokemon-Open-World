@@ -187,3 +187,7 @@
 .quest-target small{display:block;margin-top:3px;font-size:9px;color:#b8cbd0;line-height:1.35}
 .side-task{border-left:3px solid #72c8b1;background:#183b3b!important}
 @media(prefers-reduced-motion:reduce){.quest-map-pin{animation:none}}
+
+
+/* Exploration event reward panel */
+.event-reward{padding:10px;border:1px solid #d9b65d;border-radius:8px;background:linear-gradient(110deg,#443b25,#263c39);color:#ffe7a5;font-weight:900;text-align:center;letter-spacing:.4px}
