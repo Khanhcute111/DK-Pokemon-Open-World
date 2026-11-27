@@ -21,3 +21,8 @@
 .choices .creature{display:flex;align-items:center;justify-content:center;width:76px;height:76px}
 .choices .creature img{width:72px;height:72px;object-fit:contain;image-rendering:pixelated}
 @media(max-width:420px){.monart{min-height:104px}.monart img{width:clamp(86px,25vw,112px);height:clamp(86px,25vw,112px)}}
+
+.monart.attack-lunge img{animation:dk-lunge .28s ease-out}
+.monart.hit-flash img{animation:dk-hit .32s ease-out}
+@keyframes dk-lunge{0%{transform:translateX(0) scale(1)}45%{transform:translateX(24px) translateY(-8px) scale(1.08)}100%{transform:translateX(0) scale(1)}}
+@keyframes dk-hit{0%,100%{transform:translateX(0);filter:brightness(1)}20%{transform:translateX(-9px);filter:brightness(2)}45%{transform:translateX(7px);filter:brightness(1.5)}70%{transform:translateX(-4px)}}
