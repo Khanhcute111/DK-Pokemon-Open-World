@@ -274,3 +274,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Cơ hội bắt gặp Pokémon hiếm được mở theo điều kiện môi trường: Dratini ban đêm ở Hồ Xanh, Lapras khi mưa/giông gần hồ hoặc đảo, Psyduck trong sương mù ở hồ, Seel khi giông ở vùng nước, Oddish lúc bình minh và Zubat ban đêm trong hang.
 - Pokémon hiếm có thể xuất hiện khi người chơi bước vào vùng phù hợp hoặc khi chu kỳ môi trường cập nhật; dấu hiệu màu vàng giúp nhận biết.
 - Các thay đổi chỉ tác động hành vi và phân bố encounter ngoài thế giới; không sửa chỉ số Pokémon, độ khó chiến đấu hoặc dữ liệu save hiện có.
+
+
+## Hệ sinh thái chuỗi thức ăn Pokémon
+- Zubat và Rattata có thể tự phát hiện, rượt đuổi và săn Caterpie, Pidgey, Oddish hoặc Bellsprout trong khu vực hoang dã, kể cả khi người chơi không đứng cạnh.
+- Con mồi tìm cách chạy khỏi kẻ săn; cuộc săn có thời gian giới hạn và Pokémon săn thành công sẽ nghỉ ngơi sau đó.
+- Geodude có phản ứng bảo vệ lãnh thổ, đẩy Pokémon khác ra khỏi vùng sát cạnh.
+- Caterpie, Oddish và Bellsprout có thể tranh chỗ kiếm ăn; Pokémon thua cuộc sẽ bị đẩy khỏi điểm đó.
+- Đây là mô phỏng hành vi theo luật trong game, không phải mô hình AI học máy. Hệ thống không thay đổi chỉ số chiến đấu hoặc dữ liệu đội hình đã lưu.
