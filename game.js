@@ -177,7 +177,7 @@ function setArenaEnvironment(arena,kind){
  setTimeout(()=>arena.classList.remove('environment-active'),1150);
 }
 function sound(kind){if(!audioEnabled)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;if(!audioCtx)audioCtx=new C();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);const tones={hit:[180,95,.12,'square'],special:[320,720,.24,'sawtooth'],fire:[210,920,.3,'sawtooth'],water:[620,280,.28,'sine'],grass:[390,780,.25,'triangle'],ice:[880,430,.3,'sine'],earth:[120,65,.22,'square'],air:[720,1080,.2,'sine'],poison:[260,130,.28,'sawtooth'],psychic:[440,990,.38,'triangle'],catch:[540,880,.22,'sine'],win:[440,660,.34,'triangle'],evolve:[260,980,.55,'sine'],step:[90,70,.035,'triangle']};const t=tones[kind]||tones.hit;o.type=t[3];o.frequency.setValueAtTime(t[0],now);o.frequency.exponentialRampToValueAtTime(t[1],now+t[2]);g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.11,now+.015);g.gain.exponentialRampToValueAtTime(.0001,now+t[2]);o.start(now);o.stop(now+t[2]+.02)}catch(e){}}
-function setZone(z){state.zone=z;if(!state.discoveredZones.includes(z)){state.discoveredZones.push(z);if(travelStops.some(p=>p.id===z)&&z!=='pallet'){state.gold+=35;state.potions+=1;toast('Khám phá mới: +35 vàng và +1 thuốc hồi phục!')}save();hud()}const names={island:'ĐẢO SAN HÔ · KANTO',viridian:'THÀNH PHỐ VIRIDIAN · KANTO',caveInterior:'HANG ĐÁ THẠCH ANH · TẦNG SÂU',shop:'CỬA HÀNG PALLET · KANTO',center:'TRUNG TÂM POKÉMON · KANTO',pallet:'THỊ TRẤN PALLET · KANTO',route:'ĐƯỜNG 1 · KANTO',forest:'RỪNG THANH MỘC · KANTO',lake:'HỒ XANH · KANTO',cave:'HANG ĐÁ THẠCH ANH · KANTO'};$('zone').textContent=names[z];$('maptag').textContent=names[z]}
+function setZone(z){state.zone=z;refreshWildlifeForEnvironment();if(!state.discoveredZones.includes(z)){state.discoveredZones.push(z);if(travelStops.some(p=>p.id===z)&&z!=='pallet'){state.gold+=35;state.potions+=1;toast('Khám phá mới: +35 vàng và +1 thuốc hồi phục!')}save();hud()}const names={island:'ĐẢO SAN HÔ · KANTO',viridian:'THÀNH PHỐ VIRIDIAN · KANTO',caveInterior:'HANG ĐÁ THẠCH ANH · TẦNG SÂU',shop:'CỬA HÀNG PALLET · KANTO',center:'TRUNG TÂM POKÉMON · KANTO',pallet:'THỊ TRẤN PALLET · KANTO',route:'ĐƯỜNG 1 · KANTO',forest:'RỪNG THANH MỘC · KANTO',lake:'HỒ XANH · KANTO',cave:'HANG ĐÁ THẠCH ANH · KANTO'};$('zone').textContent=names[z];$('maptag').textContent=names[z]}
 function addDepthTree(s,x,y,scale=1){
  const root=s.add.container(x,y).setDepth(y);
  const shadow=s.add.ellipse(3,15,48*scale,13*scale,0x173a25,.38);
@@ -400,7 +400,9 @@ function addAmbientWildlife(s){
  const mins=state.worldMinutes%1440,hour=Math.floor(mins/60),night=hour<6||hour>=19,dawn=hour>=5&&hour<8;
  const rarePool=[];
  if(state.zone==='lake'&&night)rarePool.push(['🐉','Dratini','calm']);
- if(state.zone==='island'&&(state.weather==='rain'||state.weather==='storm'))rarePool.push(['🦕','Lapras','calm']);
+ if((state.zone==='island'||state.zone==='lake')&&(state.weather==='rain'||state.weather==='storm'))rarePool.push(['🦕','Lapras','calm']);
+ if(state.zone==='lake'&&state.weather==='fog')rarePool.push(['🦆','Psyduck','calm']);
+ if((state.zone==='island'||state.zone==='lake')&&state.weather==='storm')rarePool.push(['🦭','Seel','calm']);
  if((state.zone==='forest'||state.zone==='route')&&dawn)rarePool.push(['🌿','Oddish','shy']);
  if((state.zone==='cave'||state.zone==='caveInterior')&&night)rarePool.push(['🦇','Zubat','bold']);
  for(let i=0;i<count;i++){
@@ -414,7 +416,7 @@ function addAmbientWildlife(s){
   const sprite=s.add.text(x,y,look[0],{fontSize:isRare?'26px':'23px'}).setOrigin(.5).setDepth(y+1);
   sprite.setData('species',look[1]);if(isRare){sprite.setData('rare',true);sprite.setTint(0xffe7a1)}
   s.tweens.add({targets:sprite,y:y-3,duration:550+Math.random()*450,yoyo:true,repeat:-1,ease:'Sine.easeInOut',delay:Math.random()*500});
-  ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true,rare:isRare,restUntil:0});
+  ambientWildlife.push({sprite,shadow,mon:look[1],temper:look[2],area:a,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:0,alive:true,rare:isRare,restUntil:0,ecologyCheckAt:0});
  }
  // A small water-side group gives calm species a real shoreline to visit.
  const lakeArea={x:1060,y:680,w:330,h:250};
@@ -422,8 +424,29 @@ function addAmbientWildlife(s){
   const x=1135+i*155,y=770+(i%2)*72,shadow=s.add.ellipse(x,y+12,19,6,0x10291b,.3).setDepth(y-1);
   const sprite=s.add.text(x,y,emoji,{fontSize:'24px'}).setOrigin(.5).setDepth(y+1);
   s.tweens.add({targets:sprite,y:y-2,duration:850+i*180,yoyo:true,repeat:-1,ease:'Sine.easeInOut'});
-  ambientWildlife.push({sprite,shadow,mon,temper:'calm',area:lakeArea,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:Date.now()+1800,alive:true,rare:false,restUntil:0});
+  ambientWildlife.push({sprite,shadow,mon,temper:'calm',area:lakeArea,x,y,homeX:x,homeY:y,vx:0,vy:0,mode:'idle',thinkAt:Date.now()+1800,alive:true,rare:false,restUntil:0,ecologyCheckAt:0});
  });
+}
+function refreshWildlifeForEnvironment(){
+ if(!ambientWildlife.length||!player)return;
+ const mins=state.worldMinutes%1440,hour=Math.floor(mins/60),night=hour<6||hour>=19,dawn=hour>=5&&hour<8;
+ const pool=[];
+ if(state.zone==='lake'&&night)pool.push(['Dratini','🐉']);
+ if((state.zone==='island'||state.zone==='lake')&&(state.weather==='rain'||state.weather==='storm'))pool.push(['Lapras','🦕']);
+ if(state.zone==='lake'&&state.weather==='fog')pool.push(['Psyduck','🦆']);
+ if((state.zone==='island'||state.zone==='lake')&&state.weather==='storm')pool.push(['Seel','🦭']);
+ if((state.zone==='forest'||state.zone==='route')&&dawn)pool.push(['Oddish','🌱']);
+ if((state.zone==='cave'||state.zone==='caveInterior')&&night)pool.push(['Zubat','🦇']);
+ if(!pool.length||ambientWildlife.some(w=>w.alive&&w.rare))return;
+ const candidates=ambientWildlife.filter(w=>w.alive&&!w.rare&&w.sprite&&w.sprite.active);
+ if(!candidates.length||Math.random()>.32)return;
+ const nearest=candidates.sort((a,b)=>Math.hypot(a.x-player.x,a.y-player.y)-Math.hypot(b.x-player.x,b.y-player.y))[0];
+ const pick=pool[Math.floor(Math.random()*pool.length)],data=species[pick[0]];
+ if(!data)return;
+ nearest.mon=pick[0];nearest.rare=true;nearest.temper='calm';nearest.mode='idle';nearest.vx=0;nearest.vy=0;
+ nearest.sprite.setText(pick[1]).setFontSize('27px').setTint(0xffe7a1).setAlpha(1);
+ nearest.sprite.setData('species',pick[0]);nearest.sprite.setData('rare',true);
+ toast('Phát hiện Pokémon hiếm: '+pick[0]+'!');
 }
 function beginWildEncounter(w){
  if(!w||!w.alive||busy)return;
@@ -445,6 +468,15 @@ function updateAmbientWildlife(delta){
  for(const w of ambientWildlife){
   if(!w.alive||!w.sprite.active)continue;
   const dx=player.x-w.x,dy=player.y-w.y,dist=Math.hypot(dx,dy);
+  const now=Date.now(),mins=state.worldMinutes%1440,hour=Math.floor(mins/60),night=hour<6||hour>=19;
+  if(now>w.ecologyCheckAt){
+   w.ecologyCheckAt=now+1800+Math.random()*1200;
+   const stormShelter=['Caterpie','Oddish','Bellsprout','Pidgey'].includes(w.mon)&&state.weather==='storm';
+   const nocturnal=w.mon==='Zubat';
+   if(stormShelter||(nocturnal&&!night)){w.mode='shelter';w.vx=0;w.vy=0;w.sprite.setAlpha(.38).setAngle(0)}
+   else if(w.mode==='shelter'){w.mode='idle';w.sprite.setAlpha(1);w.thinkAt=now+500+Math.random()*900}
+  }
+  if(w.mode==='shelter'){w.sprite.setPosition(w.x,w.y);w.sprite.setDepth(w.y+1);w.shadow.setPosition(w.x,w.y+12);continue;}
   if(!busy&&dist<46){beginWildEncounter(w);return}
   if(!busy&&dist<155&&w.temper==='bold'){w.mode='chase'}
   else if(!busy&&dist<125&&w.temper==='shy'){w.mode='flee'}
@@ -470,7 +502,10 @@ function updateAmbientWildlife(delta){
    if(w.mode==='return'&&len<18){w.mode='idle';w.thinkAt=Date.now()+800}
   }
   if(w.mode==='idle'&&w.goalX!==undefined){const gx=w.goalX-w.x,gy=w.goalY-w.y;if(Math.hypot(gx,gy)<7){w.vx=0;w.vy=0;w.goalX=undefined;w.thinkAt=Date.now()+700+Math.random()*1200}}
-  const speed=w.mode==='chase'?48:w.mode==='flee'?82:w.mode==='return'?42:state.weather==='rain'||state.weather==='storm'?12:18;
+  let speed=w.mode==='chase'?48:w.mode==='flee'?82:w.mode==='return'?42:state.weather==='rain'||state.weather==='storm'?12:18;
+  if(state.weather==='rain'||state.weather==='storm'){if(['Psyduck','Seel','Lapras','Dratini'].includes(w.mon))speed*=1.18;else if(['Caterpie','Oddish','Bellsprout'].includes(w.mon))speed*=.72}
+  if(state.weather==='fog')speed*=.76;
+  if(w.mon==='Zubat'&&night)speed*=1.28;
   const nx=w.x+w.vx*speed*dt,ny=w.y+w.vy*speed*dt;
   if(w.mode==='idle'||w.mode==='return'){w.x=Phaser.Math.Clamp(nx,w.area.x+14,w.area.x+w.area.w-14);w.y=Phaser.Math.Clamp(ny,w.area.y+14,w.area.y+w.area.h-14)}
   else{w.x=nx;w.y=ny}
@@ -563,8 +598,8 @@ function createWorldClock(s){
   lightning.setAlpha(.72);s.tweens.add({targets:lightning,alpha:0,duration:310,ease:'Quad.easeOut'});
   if(s.cameras&&s.cameras.main){s.cameras.main.shake(170,.0025);s.cameras.main.flash(100,220,235,255,false)}
  }});
- s.time.addEvent({delay:60000,loop:true,callback:()=>{state.worldMinutes=(state.worldMinutes+30)%1440;if(Math.random()<.22){const roll=Math.random();state.weather=roll<.52?'clear':roll<.82?'rain':roll<.92?'storm':'fog';}refresh();save()}});
- state.weather=['rain','storm','fog'].includes(state.weather)?state.weather:'clear';refresh();
+ s.time.addEvent({delay:60000,loop:true,callback:()=>{state.worldMinutes=(state.worldMinutes+30)%1440;if(Math.random()<.22){const roll=Math.random();state.weather=roll<.52?'clear':roll<.82?'rain':roll<.92?'storm':'fog';}refresh();refreshWildlifeForEnvironment();save()}});
+ state.weather=['rain','storm','fog'].includes(state.weather)?state.weather:'clear';refresh();refreshWildlifeForEnvironment();
 }
 function typeEffect(attacker,defender){const a=String(attacker||''),d=String(defender||'');let mult=1;const has=(s,k)=>s.includes(k);if((has(a,'Lửa')&&(has(d,'Cỏ')||has(d,'Côn trùng'))) || (has(a,'Nước')&&has(d,'Lửa')) || (has(a,'Cỏ')&&has(d,'Nước')) || (has(a,'Đá')&&(has(d,'Bay')||has(d,'Lửa'))))mult=1.5;else if((has(a,'Lửa')&&has(d,'Nước'))||(has(a,'Nước')&&has(d,'Cỏ'))||(has(a,'Cỏ')&&has(d,'Lửa'))||(has(a,'Thường')&&has(d,'Đá')))mult=.7;return {multiplier:mult}}
 function inGrass(x,y){return grassAreas.some(a=>x>=a.x&&x<=a.x+a.w&&y>=a.y&&y<=a.y+a.h)}
