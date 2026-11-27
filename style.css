@@ -12,3 +12,12 @@
 @keyframes mon-idle{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.035)}}
 @keyframes mon-spawn{0%{opacity:0;transform:translateY(26px) scale(.55) rotate(-9deg)}65%{opacity:1;transform:translateY(-8px) scale(1.12) rotate(3deg)}100%{transform:translateY(0) scale(1) rotate(0)}}
 @media(prefers-reduced-motion:reduce){.monart,.monart.spawn{animation:none}}
+
+/* Original DK creature illustrations */
+.monart{display:flex;align-items:center;justify-content:center;min-height:126px;padding:3px}
+.monart img{display:block;width:clamp(100px,22vw,150px);height:clamp(100px,22vw,150px);object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 9px 5px #0008)}
+.slot .icon{display:flex;align-items:center;justify-content:center;flex:0 0 48px;width:48px;height:48px}
+.slot .icon img{width:46px;height:46px;object-fit:contain;image-rendering:pixelated}
+.choices .creature{display:flex;align-items:center;justify-content:center;width:76px;height:76px}
+.choices .creature img{width:72px;height:72px;object-fit:contain;image-rendering:pixelated}
+@media(max-width:420px){.monart{min-height:104px}.monart img{width:clamp(86px,25vw,112px);height:clamp(86px,25vw,112px)}}
