@@ -136,3 +136,9 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Wild Pokémon now have simple behavior states: idle patrol within their grass patch, approach the trainer when a bold species notices them, flee from the trainer when a shy species is approached, and return toward their home area after losing interest.
 - Approaching a visible wild Pokémon closely starts a battle against that exact species instead of selecting a random encounter. The existing battle, capture, reward and Pokédex systems are reused.
 - Ambient creatures are removed from the map after their encounter resolves, preventing duplicate interactions with the same actor. This is lightweight rule-based behavior, not a full pathfinding or learning AI system.
+
+
+### Cinematic wild encounters and battle animation
+- A visible wild Pokémon that reaches the trainer now performs a short approach/leap animation; the camera gives a subtle shake and flash before the battle panel opens.
+- Battle entry now animates the arena, opponent and player's Pokémon separately. Existing normal attacks, special moves, enemy counterattacks and hit effects also animate the four-frame sprite-sheet elements, not only fallback image elements.
+- Reduced-motion preferences disable the added CSS choreography. The effects are presentation-only and reuse the existing battle rules and capture logic.
