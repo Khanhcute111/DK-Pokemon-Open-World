@@ -510,8 +510,10 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   paintStatus('enemy');
   $('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');
   setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
-  const tactic=matchup>1?'Đối thủ chọn Pokémon có lợi thế hệ!':matchup<1?'Đối thủ chọn phương án cân bằng trước hệ của bạn.':'Đối thủ chọn Pokémon phù hợp với đội hình.';
-  $('battleText').textContent=trainer.label+' cân nhắc đội hình và tung '+wild.name+' ra sân! '+tactic+' ('+(trainerTeamIndex+1)+'/'+trainerTeamTotal+')';
+  const role=trainerRoleFor(next,ally);
+  const roleText=role==='counter'?'vai trò khắc chế':role==='guardian'?'vai trò phòng thủ': 'vai trò hỗ trợ chiến thuật';
+  const tactic=matchup>1?'Có lợi thế hệ.':matchup<1?'Ưu tiên giảm rủi ro hệ.':'Giữ thế cân bằng.';
+  $('battleText').textContent=trainer.label+' phối hợp đội hình, tung '+wild.name+' với '+roleText+'! '+tactic+' ('+(trainerTeamIndex+1)+'/'+trainerTeamTotal+')';
   return true;
  };
  let trainerSwitchUsed=false;
@@ -542,7 +544,8 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   paintStatus('enemy');
   $('battle').classList.remove('battle-intro');void $('battle').offsetWidth;$('battle').classList.add('battle-intro');
   setTimeout(()=>$('battle').classList.remove('battle-intro'),850);
-  $('battleText').textContent=trainer.label+' nhận ra bất lợi và đổi '+outgoing+' sang '+wild.name+'! Đối thủ dùng lượt này để điều chỉnh chiến thuật.';
+  const role=trainerRoleFor(wild,ally),roleText=role==='counter'?'mũi nhọn khắc chế':role==='guardian'?'lá chắn phòng thủ':'hỗ trợ chiến thuật';
+  $('battleText').textContent=trainer.label+' điều phối đội hình: đổi '+outgoing+' sang '+wild.name+' ('+roleText+')! Đối thủ dùng lượt này để tái bố trí chiến thuật.';
   return true;
  };
  const ensureStatusBadges=()=>{[['ally','.battlemon.ally'],['enemy','.battlemon.enemy']].forEach(([side,selector])=>{const host=$('battle').querySelector(selector);if(host&&!host.querySelector('#'+side+'Status')){const badge=document.createElement('div');badge.className='battle-status';badge.id=side+'Status';host.appendChild(badge)}})};
