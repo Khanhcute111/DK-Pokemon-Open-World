@@ -696,3 +696,42 @@ footer{display:contents}
  #battle .moba-controls .run-btn{grid-row:1;grid-column:7}
  #battle .battletext{right:8px!important;bottom:78px!important}
 }
+
+
+/* Landscape phone HUD: remove the shared bottom frame and simplify controls */
+@media (orientation:landscape){
+  .controlbar{
+    left:8px!important;right:8px!important;bottom:calc(env(safe-area-inset-bottom) + 8px)!important;
+    min-height:0!important;height:auto!important;padding:0!important;gap:0!important;
+    background:transparent!important;border:0!important;border-radius:0!important;
+    box-shadow:none!important;backdrop-filter:none!important;
+    align-items:flex-end!important;pointer-events:none;
+  }
+  .dpad{pointer-events:auto;flex:0 0 auto;margin:0!important}
+  .joystick{width:clamp(82px,16vh,112px)!important;height:clamp(82px,16vh,112px)!important}
+  .sprint-btn{min-width:82px!important;height:30px!important;margin-top:5px!important;padding:4px 8px!important}
+  .quick{
+    pointer-events:auto;display:grid!important;grid-template-columns:repeat(4,minmax(58px,1fr))!important;
+    width:min(62vw,560px)!important;gap:5px!important;align-content:end!important;
+    margin-left:auto!important;padding:0!important;background:transparent!important;
+  }
+  .quick button{
+    height:clamp(32px,6.2vh,42px)!important;padding:0 5px!important;
+    border-radius:8px!important;background:#10283bd9!important;border:1px solid #789bb477!important;
+    box-shadow:0 2px 8px #0005!important;font-size:clamp(9px,1.55vh,12px)!important;
+    white-space:nowrap!important;
+  }
+  .quick #interact{grid-column:span 2!important;background:#986018ed!important;border-color:#f0c66d!important}
+}
+@media (orientation:landscape) and (max-height:520px){
+  .controlbar{bottom:calc(env(safe-area-inset-bottom) + 7px)!important}
+  .quick{width:min(60vw,500px)!important;gap:4px!important}
+  .quick button{height:clamp(30px,6.6vh,38px)!important}
+}
+@media (orientation:portrait){
+  .controlbar{
+    background:transparent!important;border:0!important;border-radius:0!important;
+    box-shadow:none!important;backdrop-filter:none!important;padding:0!important;
+  }
+  .quick{background:transparent!important}
+}
