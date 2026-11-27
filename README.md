@@ -21,6 +21,9 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Gặp Pokémon theo khu vực; chiến đấu theo lượt, kỹ năng, bắt Pokémon và phần thưởng.
 - Đội hình tối đa 6 Pokémon, Pokédex đã gặp, cấp độ/XP và chỉ số cơ bản.
 - Túi đồ, mua bóng Poké/thuốc hồi phục bằng vàng.
+- Pokédex dạng thẻ: loài chưa gặp được ẩn danh, loài đã gặp hiển thị minh họa và hệ.
+- Hệ thống Huy hiệu Đá lưu theo tiến trình; không thể bắt Pokémon của thủ lĩnh hoặc nhận thưởng Gym lặp lại.
+- Tương khắc hệ cơ bản ảnh hưởng sát thương: một số cặp hệ mạnh/yếu có hệ số rõ ràng trong thông báo trận đấu.
 - NPC Giáo sư Oak và người câu cá; chuỗi nhiệm vụ mở đầu.
 - Tự động lưu tiến trình bằng localStorage trên trình duyệt hiện tại.
 
