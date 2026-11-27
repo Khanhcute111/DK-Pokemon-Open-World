@@ -159,10 +159,24 @@ function setCompanionMon(){
  if(companionName===name&&companionArt)return;
  companionName=name;
  if(companionArt){companionArt.destroy();companionArt=null}
+ const key='dk-follow-'+name.toLowerCase().replace(/[^a-z0-9]/g,'');
+ const sheet=spriteSheetFor(name),animKey=key+'-idle';
+ if(sheet){
+  const mount=()=>{
+   if(!companion||!companion.active||companionName!==name)return;
+   if(companionArt)companionArt.destroy();
+   if(!scene.anims.exists(animKey))scene.anims.create({key:animKey,frames:scene.anims.generateFrameNumbers(key,{start:0,end:3}),frameRate:6,repeat:-1});
+   const sprite=scene.add.sprite(0,-5,key,0).setDisplaySize(42,42);
+   companion.add(sprite);companionArt=sprite;sprite.play(animKey);
+  };
+  if(scene.textures.exists(key)){mount();return}
+  scene.load.spritesheet(key,sheet,{frameWidth:128,frameHeight:128});
+  scene.load.once('filecomplete-spritesheet-'+key,mount);
+  scene.load.start();return;
+ }
  const fallback=scene.add.text(0,-5,emoji,{fontSize:'27px'}).setOrigin(.5);
  companion.add(fallback);companionArt=fallback;
  const src=spriteFor(name);if(!src)return;
- const key='dk-follow-'+name.toLowerCase().replace(/[^a-z0-9]/g,'');
  if(scene.textures.exists(key)){fallback.destroy();const img=scene.add.image(0,-5,key).setDisplaySize(42,42);companion.add(img);companionArt=img;return}
  scene.load.image(key,src);
  scene.load.once('filecomplete-image-'+key,()=>{
