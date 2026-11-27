@@ -93,6 +93,8 @@ function drawCaveInterior(s){
  s.add.text(x+w/2,y+45,'HANG THẠCH ANH · TẦNG SÂU',{fontFamily:'monospace',fontSize:'18px',color:'#d8f3f5',stroke:'#28232d',strokeThickness:5}).setOrigin(.5);
  const wall=(cx,cy,cw,ch)=>{const o=s.add.rectangle(cx,cy,cw,ch,0xffffff,0);s.physics.add.existing(o,true);s.physics.add.collider(player,o)};
  wall(x+w/2,y+8,w,16);wall(x+8,y+h/2,16,h);wall(x+w-8,y+h/2,16,h);wall(x+90,y+h-8,w/2-90,16);wall(x+w-90,y+h-8,w/2-90,16);
+ // Lớp rêu phát sáng là vùng có thể gặp Pokémon trong hang.
+ grassAreas.push({x:x+190,y:y+245,w:270,h:390});for(let i=0;i<38;i++){const px=x+210+(i*61)%240,py=y+260+(i*97)%350;g.fillStyle(i%2?0x397e70:0x4b9a85,.8);g.fillCircle(px,py,5);g.fillStyle(0x9be0bd,.8);g.fillCircle(px+2,py-2,2)}
 }
 function drawViridian(s){
  const g=s.add.graphics(),x=3800,y=80,w=1500,h=960;g.fillStyle(0x4b925b,1);g.fillRect(x,y,w,h);
