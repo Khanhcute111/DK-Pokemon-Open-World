@@ -161,3 +161,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Examples: Charmander uses Hỏa Tốc, Charizard uses Long Hỏa, Blastoise uses Đại Thủy Pháo, Venusaur uses Bão Hoa, Lapras uses Băng Tuyết, and Mewtwo uses Sóng Tâm Linh.
 - Signature effects use distinct silhouettes and trajectories layered over the elemental arena effects; the battle log displays the move's description. Existing type effectiveness, critical chance, turn flow, capture and reward rules remain intact.
 - The move effects are original CSS/Web Audio game presentation, not official Pokémon animation or imported copyrighted game assets. Reduced-motion preferences suppress the added animation.
+
+
+### Trạng thái chiến đấu và hiệu ứng khống chế
+- Bổ sung năm trạng thái: Bỏng và Trúng độc gây sát thương theo lượt; Đóng băng và Choáng có thể khiến mục tiêu bỏ lỡ lượt; Trói chân làm giảm sát thương đòn đánh của Pokémon đang bị trói.
+- Chiêu đặc trưng của từng loài có cơ hội gây trạng thái phù hợp: chiêu Lửa gây bỏng, chiêu Độc gây độc, chiêu Băng gây đóng băng, chiêu Tâm linh/âm thanh gây choáng, dây leo/đất đá gây trói chân.
+- Pokémon đối thủ cũng có xác suất gây trạng thái dựa trên hệ khi phản công.
+- Trạng thái được hiển thị trực tiếp dưới Pokémon trong trận đấu, có màu nhận diện riêng và tự hết sau số lượt quy định. Đây là hiệu ứng trong trận, không làm thay đổi dữ liệu lưu đội hình sau khi kết thúc.
