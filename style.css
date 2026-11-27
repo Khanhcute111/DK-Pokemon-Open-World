@@ -450,32 +450,32 @@ button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .monart.attack-lunge[data-species="oddish"] .pokemon-sprite,
 .monart.skill-strike[data-species="oddish"] .pokemon-sprite,
 .monart.attack-lunge[data-species="bellsprout"] .pokemon-sprite,
-.monart.skill-strike[data-species="bellsprout"] .pokemon-sprite{animation:dk-vine-strike .62s ease-out}
+.monart.skill-strike[data-species="bellsprout"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-vine-strike .62s ease-out}
 .monart.attack-lunge[data-species="charmander"] .pokemon-sprite,
-.monart.skill-strike[data-species="charmander"] .pokemon-sprite{animation:dk-flame-dash .58s ease-out}
+.monart.skill-strike[data-species="charmander"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-flame-dash .58s ease-out}
 .monart.attack-lunge[data-species="squirtle"] .pokemon-sprite,
 .monart.skill-strike[data-species="squirtle"] .pokemon-sprite,
 .monart.attack-lunge[data-species="lapras"] .pokemon-sprite,
 .monart.skill-strike[data-species="lapras"] .pokemon-sprite,
-.monart.attack-lunge[data-species="seel"] .pokemon-sprite{animation:dk-water-surge .68s ease-out}
+.monart.attack-lunge[data-species="seel"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-water-surge .68s ease-out}
 .monart.attack-lunge[data-species="pidgey"] .pokemon-sprite,
 .monart.skill-strike[data-species="pidgey"] .pokemon-sprite,
-.monart.attack-lunge[data-species="spearow"] .pokemon-sprite{animation:dk-wing-dive .56s ease-in-out}
+.monart.attack-lunge[data-species="spearow"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-wing-dive .56s ease-in-out}
 .monart.attack-lunge[data-species="rattata"] .pokemon-sprite,
-.monart.skill-strike[data-species="rattata"] .pokemon-sprite{animation:dk-bite-lunge .46s cubic-bezier(.2,.9,.25,1)}
+.monart.skill-strike[data-species="rattata"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-bite-lunge .46s cubic-bezier(.2,.9,.25,1)}
 .monart.attack-lunge[data-species="caterpie"] .pokemon-sprite,
-.monart.skill-strike[data-species="caterpie"] .pokemon-sprite{animation:dk-cocoon-pulse .65s ease-out}
+.monart.skill-strike[data-species="caterpie"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-cocoon-pulse .65s ease-out}
 .monart.attack-lunge[data-species="psyduck"] .pokemon-sprite,
 .monart.skill-strike[data-species="psyduck"] .pokemon-sprite,
 .monart.attack-lunge[data-species="mewtwo"] .pokemon-sprite,
-.monart.skill-strike[data-species="mewtwo"] .pokemon-sprite{animation:dk-psychic-float .72s ease-in-out}
+.monart.skill-strike[data-species="mewtwo"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-psychic-float .72s ease-in-out}
 .monart.attack-lunge[data-species="geodude"] .pokemon-sprite,
 .monart.skill-strike[data-species="geodude"] .pokemon-sprite,
-.monart.attack-lunge[data-species="sandshrew"] .pokemon-sprite{animation:dk-earth-slam .62s cubic-bezier(.2,.8,.25,1)}
-.monart.attack-lunge[data-species="zubat"] .pokemon-sprite{animation:dk-bat-swoop .52s ease-in-out}
-.monart.attack-lunge[data-species="diglett"] .pokemon-sprite{animation:dk-burrow-pop .6s ease-out}
+.monart.attack-lunge[data-species="sandshrew"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-earth-slam .62s cubic-bezier(.2,.8,.25,1)}
+.monart.attack-lunge[data-species="zubat"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-bat-swoop .52s ease-in-out}
+.monart.attack-lunge[data-species="diglett"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-burrow-pop .6s ease-out}
 .monart.attack-lunge[data-species="dratini"] .pokemon-sprite,
-.monart.skill-strike[data-species="dratini"] .pokemon-sprite{animation:dk-dragon-coil .7s ease-in-out}
+.monart.skill-strike[data-species="dratini"] .pokemon-sprite{animation:dk-sprite-idle .82s steps(4,end) infinite,dk-dragon-coil .7s ease-in-out}
 @keyframes dk-vine-strike{0%{transform:translateX(0) rotate(0)}28%{transform:translateX(15px) rotate(-9deg) scale(1.08)}52%{transform:translateX(-5px) rotate(7deg) scale(1.02)}100%{transform:translateX(0) rotate(0)}}
 @keyframes dk-flame-dash{0%{transform:translateX(0) scale(1);filter:brightness(1)}32%{transform:translateX(25px) translateY(-7px) scale(1.16);filter:brightness(1.7) saturate(1.5)}62%{transform:translateX(8px) scale(1.08);filter:brightness(1.25)}100%{transform:translateX(0) scale(1);filter:brightness(1)}}
 @keyframes dk-water-surge{0%{transform:translateY(0) scale(1)}25%{transform:translateY(-12px) scale(.92,1.12)}58%{transform:translateY(5px) scale(1.12,.94)}100%{transform:translateY(0) scale(1)}}
