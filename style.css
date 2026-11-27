@@ -29,3 +29,13 @@
 
 .audio-toggle{background:#173d38;color:#c7ffe4;border:1px solid #61b991;border-radius:7px;padding:5px 7px;font-size:9px;font-weight:800;white-space:nowrap}
 @media(max-width:440px){.audio-toggle{font-size:8px;padding:4px 5px}.resources{gap:3px}}
+
+.dex-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:48vh;overflow:auto}
+.dex-card{display:flex;align-items:center;gap:8px;min-width:0;background:#0c1c2c;border:1px solid #36536a;border-radius:8px;padding:7px}
+.dex-card>span{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.dex-card img{width:40px;height:40px;object-fit:contain}
+.dex-card b{font-size:11px}.dex-card small{display:block;font-size:9px;color:#9eb5c7}
+.dex-card.unseen{opacity:.65}
+.badge-status{background:#172f42;border:1px solid #c9a44d;color:#f6d77f;border-radius:7px;padding:10px;margin:8px 0;font-size:12px;font-weight:800}
+.primary:disabled{opacity:.55;filter:grayscale(.5);cursor:not-allowed}
+@media(max-width:390px){.quick button{font-size:8px;padding:0 4px}.dex-grid{gap:5px}.dex-card{padding:5px}}
