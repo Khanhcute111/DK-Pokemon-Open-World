@@ -641,3 +641,24 @@ footer{display:contents}
   #battle .battlefield{height:40vh!important}
   #battle .battletext{right:10px!important}
 }
+
+
+/* Battle utility actions: compact controls, never become an oversized frame */
+#battle .battlebox .battle-extra{
+  position:absolute!important;top:44px!important;left:12px!important;
+  z-index:7!important;width:auto!important;height:29px!important;min-width:82px;
+  margin:0!important;padding:5px 8px!important;border-radius:999px!important;
+  border:1px solid #b8d8e8!important;background:#102d40dd!important;
+  color:#effaff!important;font-size:9px!important;font-weight:850!important;
+  line-height:1!important;box-shadow:0 2px 9px #0006!important;
+  backdrop-filter:blur(5px)!important;
+}
+#battle .battlebox #battlePotion{left:102px!important;min-width:74px}
+#battle .battlebox .battle-extra:active{transform:scale(.96);filter:brightness(1.2)}
+@media(orientation:landscape) and (max-height:520px){
+  #battle .battlebox .battle-extra{top:35px!important;height:26px!important;padding:4px 7px!important}
+}
+@media(orientation:portrait){
+  #battle .battlebox .battle-extra{top:48px!important;left:10px!important;height:28px!important}
+  #battle .battlebox #battlePotion{left:100px!important}
+}
