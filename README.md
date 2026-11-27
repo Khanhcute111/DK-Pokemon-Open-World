@@ -204,3 +204,7 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Bộ chọn Pokémon cân nhắc đồng thời lợi thế tấn công, khả năng chống chịu, HP, sức tấn công và độ bổ sung vai trò so với Pokémon đang hoạt động; ưu tiên đội hình có độ phủ hệ và vai trò đa dạng thay vì chỉ chọn hệ có sát thương cao nhất.
 - Khi đổi Pokémon giữa trận, AI hiển thị vai trò được chọn trong nhật ký chiến đấu. Vai trò cũng tác động đến xu hướng chọn chiến thuật phòng thủ, áp đảo hoặc thiết lập.
 - Đây là AI chiến thuật dựa trên luật và chỉ số trong game, không phải mô hình học máy; không dùng API. Pokémon dự bị không tự hồi máu hoặc tung đòn khi chưa ra sân.
+
+- **Combo hỗ trợ → khắc chế:** Pokémon mang vai trò hỗ trợ ưu tiên chiêu đặc trưng khi có thể gây trạng thái; nếu gây trạng thái thành công, Pokémon mang vai trò khắc chế có thể tận dụng trạng thái đó ở lượt sau.
+- Khi mục tiêu đang chịu trạng thái và Pokémon khắc chế ra sân, AI tăng ưu tiên chiêu đặc trưng và nhận thêm 18% sát thương cho đòn phối hợp. Nhật ký trận đấu thông báo rõ lúc mở combo và lúc kích hoạt combo.
+- Combo chỉ áp dụng cho đội huấn luyện viên; trạng thái vẫn tuân theo thời hạn và quy tắc hiện có. Đây là cơ chế chiến thuật theo luật, không phải học máy.
