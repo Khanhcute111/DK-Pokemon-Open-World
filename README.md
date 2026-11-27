@@ -259,3 +259,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Pokémon tính cách bình tĩnh có thể dừng uống nước khi ở gần Hồ Xanh; hành vi chỉ kích hoạt trong vùng hồ.
 - Một số Pokémon hiếm có cơ hội xuất hiện theo điều kiện môi trường: Dratini ban đêm ở Hồ Xanh, Lapras khi mưa/giông ở Đảo San Hô, Oddish lúc bình minh ở Rừng/Đường 1 và Zubat ban đêm trong khu hang.
 - Pokémon hiếm có kích thước và ánh sáng nhận diện riêng; hệ thống vẫn dùng cơ chế chạm để bắt đầu trận chiến hiện có.
+
+### Thời tiết động và hiệu ứng môi trường
+- Giông bão có chớp sáng toàn màn hình theo nhịp ngẫu nhiên và rung camera nhẹ; hiệu ứng chỉ hoạt động ngoài trời.
+- Mưa có hướng xiên theo gió, tốc độ hạt tăng khi giông; các vòng gợn/vũng nước xuất hiện ngẫu nhiên rồi tan dần.
+- Gió thoảng làm lá bay nhanh hơn ở rừng, Đường 1 và khu thành phố; sương mù phủ nhẹ cảnh quan ngoài trời khi thời tiết chuyển sang sương.
+- Các lớp hiệu ứng được gắn theo camera, cập nhật theo vùng và trạng thái thời tiết; không thay đổi va chạm, tốc độ nhân vật hay logic chiến đấu.
+- Thời gian ngày/đêm và chu kỳ thời tiết tự động tiếp tục cập nhật, đồng thời lưu trạng thái như trước.
