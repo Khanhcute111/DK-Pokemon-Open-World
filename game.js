@@ -524,16 +524,45 @@ function drawSeaIsland(s){
 }
 function createWorldClock(s){
  const shade=s.add.rectangle(0,0,900,560,0x08152f,0).setOrigin(0).setScrollFactor(0).setDepth(99990);
- const label=s.add.text(12,34,'09:00 · TRỜI QUANG',{fontFamily:'monospace',fontSize:'11px',color:'#fff7d6',backgroundColor:'#102b3dcc',padding:{x:7,y:5}}).setScrollFactor(0).setDepth(99991);
- const rain=[];for(let i=0;i<34;i++){const line=s.add.rectangle(Math.random()*900,Math.random()*560,1.5,12,0xb9e8ff,.55).setScrollFactor(0).setDepth(99989);rain.push(line)}
+ const fogVeil=s.add.rectangle(0,0,900,560,0xc8dce0,0).setOrigin(0).setScrollFactor(0).setDepth(99984);
+ const lightning=s.add.rectangle(0,0,900,560,0xeaf7ff,0).setOrigin(0).setScrollFactor(0).setDepth(100002).setAlpha(0);
+ const label=s.add.text(12,34,'09:00 · TRỜI QUANG',{fontFamily:'monospace',fontSize:'11px',color:'#fff7d6',backgroundColor:'#102b3dcc',padding:{x:7,y:5}}).setScrollFactor(0).setDepth(100003);
+ const rain=[];for(let i=0;i<42;i++){const line=s.add.rectangle(Math.random()*900,Math.random()*560,1.5,13,0xb9e8ff,.58).setScrollFactor(0).setDepth(99989);rain.push(line)}
+ const puddles=[];for(let i=0;i<9;i++){const ring=s.add.ellipse(Math.random()*900,Math.random()*560,4,2,0x9feaff,0).setScrollFactor(0).setDepth(99988);ring.setStrokeStyle(1,0xb9edff,.55);puddles.push(ring)}
  const caveMist=[];for(let i=0;i<14;i++){const puff=s.add.ellipse(Math.random()*900,Math.random()*560,20+Math.random()*24,5+Math.random()*5,0x9ad8d0,.0).setScrollFactor(0).setDepth(99986);caveMist.push(puff);s.tweens.add({targets:puff,x:puff.x+65,alpha:.22,duration:3600+Math.random()*1800,yoyo:true,repeat:-1,delay:Math.random()*1800,ease:'Sine.easeInOut'})}
  const seaGlints=[];for(let i=0;i<18;i++){const glint=s.add.ellipse(Math.random()*900,Math.random()*560,7,2,0xc4f5ff,.0).setScrollFactor(0).setDepth(99985);seaGlints.push(glint);s.tweens.add({targets:glint,alpha:.8,scaleX:1.7,duration:700+Math.random()*800,yoyo:true,repeat:-1,delay:Math.random()*1200,ease:'Sine.easeInOut'})}
  const fireflies=[];for(let i=0;i<18;i++){const dot=s.add.circle(Math.random()*900,Math.random()*560,1.5+Math.random()*1.5,0xc9ff9b,.0).setScrollFactor(0).setDepth(99988);fireflies.push(dot);s.tweens.add({targets:dot,alpha:.85,y:dot.y-12,duration:900+Math.random()*1300,yoyo:true,repeat:-1,delay:Math.random()*1500,ease:'Sine.easeInOut'})}
- const leafMotes=[];for(let i=0;i<12;i++){const leaf=s.add.ellipse(Math.random()*900,Math.random()*560,5,2,0xb6df83,.0).setScrollFactor(0).setDepth(99987);leafMotes.push(leaf);s.tweens.add({targets:leaf,alpha:.5,angle:360,x:leaf.x+45,y:leaf.y+24,duration:4200+Math.random()*2400,repeat:-1,delay:Math.random()*3000,ease:'Sine.easeInOut'})}
- const refresh=()=>{const mins=state.worldMinutes%1440,h=Math.floor(mins/60),m=mins%60;const night=h<6||h>=19,dusk=h>=17&&h<19||h>=6&&h<7;shade.setFillStyle(night?0x07152f:0x13243c);shade.setAlpha(night?.42:dusk?.18:.02);label.setText(String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+' · '+(night?'BAN ĐÊM':dusk?'HOÀNG HÔN':'BAN NGÀY')+(state.weather==='storm'?' · GIÔNG BÃO':state.weather==='rain'?' · MƯA':state.weather==='fog'?' · SƯƠNG MÙ':' · TRỜI QUANG'));const zone=state.zone||'route',openAir=['route','forest','lake','viridian','island','pallet'].includes(zone);rain.forEach(p=>p.setVisible((state.weather==='rain'||state.weather==='storm')&&!night&&openAir));fireflies.forEach(p=>p.setVisible(night&&state.weather!=='rain'&&(zone==='forest'||zone==='route'||zone==='island')));leafMotes.forEach(p=>p.setVisible(!night&&(zone==='forest'||zone==='viridian'||zone==='pallet')));caveMist.forEach(p=>p.setVisible(zone==='cave'||zone==='caveInterior'||(state.weather==='fog'&&(zone==='forest'||zone==='lake'))));seaGlints.forEach(p=>p.setVisible(zone==='island'||zone==='lake'));};
- s.scale.on('resize',(size)=>{shade.setSize(size.width,size.height);});
- s.events.on('update',()=>{const zone=state.zone||'route';const openAir=['route','forest','lake','viridian','island','pallet'].includes(zone);if((state.weather==='rain'||state.weather==='storm')&&openAir)rain.forEach(p=>{p.y+=state.weather==='storm'?8:zone==='island'?6:5;if(p.y>600){p.y=-12;p.x=Math.random()*1000}})});
-
+ const leafMotes=[];for(let i=0;i<16;i++){const leaf=s.add.ellipse(Math.random()*900,Math.random()*560,5,2,0xb6df83,.0).setScrollFactor(0).setDepth(99987);leafMotes.push(leaf);s.tweens.add({targets:leaf,alpha:.5,angle:360,x:leaf.x+45,y:leaf.y+24,duration:4200+Math.random()*2400,repeat:-1,delay:Math.random()*3000,ease:'Sine.easeInOut'})}
+ let lastPuddle=0,windUntil=0;
+ const refresh=()=>{
+  const mins=state.worldMinutes%1440,h=Math.floor(mins/60),m=mins%60,night=h<6||h>=19,dusk=h>=17&&h<19||h>=6&&h<7;
+  const zone=state.zone||'route',openAir=['route','forest','lake','viridian','island','pallet'].includes(zone),wet=state.weather==='rain'||state.weather==='storm';
+  shade.setFillStyle(night?0x07152f:0x13243c);shade.setAlpha(night?.42:dusk?.18:.02);
+  label.setText(String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+' · '+(night?'BAN ĐÊM':dusk?'HOÀNG HÔN':'BAN NGÀY')+(state.weather==='storm'?' · GIÔNG BÃO':state.weather==='rain'?' · MƯA':state.weather==='fog'?' · SƯƠNG MÙ':' · TRỜI QUANG'));
+  rain.forEach(p=>p.setVisible(wet&&!night&&openAir));puddles.forEach(p=>p.setVisible(wet&&!night&&openAir));
+  fogVeil.setAlpha(state.weather==='fog'&&openAir?.17:0);
+  fireflies.forEach(p=>p.setVisible(night&&state.weather!=='rain'&&state.weather!=='storm'&&(zone==='forest'||zone==='route'||zone==='island')));
+  leafMotes.forEach(p=>p.setVisible(!night&&(zone==='forest'||zone==='viridian'||zone==='pallet')));
+  caveMist.forEach(p=>p.setVisible(zone==='cave'||zone==='caveInterior'||(state.weather==='fog'&&(zone==='forest'||zone==='lake'))));
+  seaGlints.forEach(p=>p.setVisible(zone==='island'||zone==='lake'));
+ };
+ s.scale.on('resize',(size)=>{shade.setSize(size.width,size.height);fogVeil.setSize(size.width,size.height);lightning.setSize(size.width,size.height)});
+ s.events.on('update',(_time,delta)=>{
+  const zone=state.zone||'route',openAir=['route','forest','lake','viridian','island','pallet'].includes(zone),wet=state.weather==='rain'||state.weather==='storm',dt=Math.min(50,delta||16)/16;
+  if(wet&&openAir&&!((state.worldMinutes%1440)<360||Math.floor((state.worldMinutes%1440)/60)>=19)){
+   const gust=state.weather==='storm'?3.1:1.15;
+   rain.forEach(p=>{p.y+= (state.weather==='storm'?8:5)*dt;p.x+=gust*dt;if(p.y>600){p.y=-12;p.x=Math.random()*1000}if(p.x>940)p.x=-20});
+   if(Date.now()-lastPuddle>420){lastPuddle=Date.now();const p=puddles[Math.floor(Math.random()*puddles.length)];p.setPosition(Math.random()*900,Math.random()*560).setScale(.5);p.setAlpha(.7);s.tweens.add({targets:p,scaleX:3.2,scaleY:2.2,alpha:0,duration:720,ease:'Sine.easeOut'})}
+  }
+  if(Date.now()>windUntil&&openAir&&(zone==='forest'||zone==='route'||zone==='viridian'))windUntil=Date.now()+1800+Math.random()*2600;
+  const windy=Date.now()<windUntil;
+  leafMotes.forEach(p=>{if(p.visible&&windy){p.x+=2.4*dt;if(p.x>940)p.x=-15}});
+ });
+ s.time.addEvent({delay:10500,loop:true,callback:()=>{
+  if(state.weather!=='storm'||!['route','forest','lake','viridian','island','pallet'].includes(state.zone||'route'))return;
+  lightning.setAlpha(.72);s.tweens.add({targets:lightning,alpha:0,duration:310,ease:'Quad.easeOut'});
+  if(s.cameras&&s.cameras.main){s.cameras.main.shake(170,.0025);s.cameras.main.flash(100,220,235,255,false)}
+ }});
  s.time.addEvent({delay:60000,loop:true,callback:()=>{state.worldMinutes=(state.worldMinutes+30)%1440;if(Math.random()<.22){const roll=Math.random();state.weather=roll<.52?'clear':roll<.82?'rain':roll<.92?'storm':'fog';}refresh();save()}});
  state.weather=['rain','storm','fog'].includes(state.weather)?state.weather:'clear';refresh();
 }
