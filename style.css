@@ -358,3 +358,21 @@
 @media(prefers-reduced-motion:reduce){
  #battle[data-boss-phase="3"] .battlefield{animation:none}
 }
+
+
+/* Boss ultimate: readable three-beat telegraph, surge and impact */
+.boss-ultimate-sequence{position:absolute;inset:0;z-index:8;pointer-events:none;display:grid;place-items:center;overflow:hidden}
+.boss-ultimate-stage{position:absolute;width:18%;aspect-ratio:1;border:3px solid #e8d9ff;border-radius:50%;opacity:0;box-shadow:0 0 22px #b78cff,inset 0 0 20px #a77aff}
+.boss-ultimate-stage.stage-1{animation:dk-ultimate-charge .42s ease-out forwards}
+.boss-ultimate-stage.stage-2{animation:dk-ultimate-surge .48s .38s ease-out forwards}
+.boss-ultimate-stage.stage-3{animation:dk-ultimate-impact .52s .78s ease-out forwards}
+.boss-ultimate-label{position:absolute;top:12%;padding:5px 10px;border:1px solid #e9d8ff;border-radius:999px;background:#281344df;color:#fff0c7;font-size:clamp(9px,2vw,13px);font-weight:1000;letter-spacing:.13em;text-shadow:0 0 12px #d8aaff;animation:dk-ultimate-label 1.35s ease-out forwards}
+.boss-ultimate-sequence.earth .boss-ultimate-stage{border-color:#ffe0a0;box-shadow:0 0 25px #bd8750,inset 0 0 20px #a77a3f}
+.boss-ultimate-sequence.grass .boss-ultimate-stage{border-color:#c8ff9b;box-shadow:0 0 25px #6dcc72,inset 0 0 20px #6dcc72}
+@keyframes dk-ultimate-charge{0%{opacity:0;transform:scale(.2)}100%{opacity:.9;transform:scale(1.15)}}
+@keyframes dk-ultimate-surge{0%{opacity:.9;transform:scale(.35)}100%{opacity:.95;transform:scale(2.8)}}
+@keyframes dk-ultimate-impact{0%{opacity:1;transform:scale(.3)}65%{opacity:1;transform:scale(4.8)}100%{opacity:0;transform:scale(5.4)}}
+@keyframes dk-ultimate-label{0%,65%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-16px)}}
+#battle .battlemon.enemy.dodge{animation:dk-boss-dodge .42s ease-out}
+@keyframes dk-boss-dodge{0%{transform:translateX(0) scale(1)}35%{transform:translateX(24px) scale(.88)}70%{transform:translateX(-8px) scale(.94)}100%{transform:translateX(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.boss-ultimate-stage,.boss-ultimate-label,#battle .battlemon.enemy.dodge{animation:none!important}.boss-ultimate-stage{opacity:.55}.boss-ultimate-label{opacity:0}}
