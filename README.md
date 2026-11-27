@@ -197,3 +197,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Hệ thống vẫn dùng AI chiến thuật luật cục bộ hiện có cho từng Pokémon đang xuất trận; chưa phải AI học máy hoặc cơ chế phối hợp đòn đánh đồng đội.
 
 - AI đội hình huấn luyện viên: trước khi tung Pokémon dự bị, hệ thống chấm điểm các lựa chọn còn lại theo tương khắc hệ, tỷ lệ HP và sức tấn công; Pokémon phù hợp nhất với Pokémon người chơi đang dùng sẽ được ưu tiên. Danh sách dự bị được cập nhật sau khi chọn, bộ đếm vẫn giữ tổng quân số ban đầu. Đây là chiến thuật luật cục bộ, không dùng API hoặc mô hình học máy.
+
+
+### AI phối hợp đội hình huấn luyện viên
+- Mỗi Pokémon dự bị được AI phân vai theo tương quan hệ với Pokémon người chơi: **khắc chế** (ưu tiên tấn công), **phòng thủ** (giảm rủi ro nhận sát thương) hoặc **hỗ trợ chiến thuật** (ưu tiên nhịp thiết lập/chiêu đặc trưng).
+- Bộ chọn Pokémon cân nhắc đồng thời lợi thế tấn công, khả năng chống chịu, HP, sức tấn công và độ bổ sung vai trò so với Pokémon đang hoạt động; ưu tiên đội hình có độ phủ hệ và vai trò đa dạng thay vì chỉ chọn hệ có sát thương cao nhất.
+- Khi đổi Pokémon giữa trận, AI hiển thị vai trò được chọn trong nhật ký chiến đấu. Vai trò cũng tác động đến xu hướng chọn chiến thuật phòng thủ, áp đảo hoặc thiết lập.
+- Đây là AI chiến thuật dựa trên luật và chỉ số trong game, không phải mô hình học máy; không dùng API. Pokémon dự bị không tự hồi máu hoặc tung đòn khi chưa ra sân.
