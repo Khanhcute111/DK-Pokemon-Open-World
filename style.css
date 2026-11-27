@@ -74,3 +74,8 @@
 .battlefield.impact{animation:dk-arena-impact .38s ease-out}
 @keyframes dk-arena-impact{0%,100%{transform:translateX(0)}18%{transform:translateX(-5px) rotate(-.4deg)}38%{transform:translateX(5px) rotate(.4deg)}58%{transform:translateX(-3px)}78%{transform:translateX(2px)}}
 @media(prefers-reduced-motion:reduce){.battlefield.impact{animation:none}}
+
+/* Overworld companion and enemy counterattack motion */
+.monart.enemy-lunge img{animation:dk-enemy-lunge .3s ease-out}
+@keyframes dk-enemy-lunge{0%{transform:translateX(0) scale(1)}42%{transform:translateX(-23px) translateY(-7px) scale(1.09)}100%{transform:translateX(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.monart.enemy-lunge img{animation:none}}
