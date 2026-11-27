@@ -61,3 +61,11 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Đòn đánh có xác suất chí mạng; hiệu quả hệ tiếp tục tác động lên sát thương.
 - Bắt Pokémon dễ hơn khi HP đối thủ thấp, nhưng vẫn có xác suất thất bại.
 - Rút lui có xác suất thành công; nếu thất bại, đối thủ được phản công.
+
+
+## Mở rộng Hang Thạch Anh và thế giới sống động
+- Chu kỳ ngày/đêm chạy theo thời gian trong game; thời gian và thời tiết được lưu trong tiến trình.
+- Mưa xuất hiện ngẫu nhiên với hiệu ứng hạt mưa và lớp ánh sáng thay đổi theo thời điểm.
+- Nhà Nghiên Cứu trong Hang Thạch Anh giao nhiệm vụ thu thập ba tinh thể cổ.
+- Thu thập đủ ba tinh thể sẽ mở khóa trận đấu Mewtwo cấp 18 với phần thưởng 900 vàng.
+- Tiến trình tinh thể, nhiệm vụ và thời gian được lưu tự động.
