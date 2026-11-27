@@ -323,3 +323,14 @@
 .signature-vfx.dragon-tail i{width:36px;height:10px;border-radius:50%;background:linear-gradient(90deg,#fff,#f0a2ff,#7a63db);box-shadow:0 0 12px #c69aff}
 .signature-vfx.type-burst i{background:#fff;border-radius:50%;box-shadow:0 0 14px #fff}
 @media(prefers-reduced-motion:reduce){.signature-vfx,.signature-vfx i,.signature-vfx b{animation:none!important;opacity:0!important}}
+
+/* DK tactical battle conditions */
+.battle-status{display:none;width:max-content;max-width:100%;margin:4px auto 0;padding:4px 8px;border:1px solid #71879b;border-radius:999px;background:#102334;color:#fff;font-size:9px;font-weight:900;letter-spacing:.3px}
+.battle-status.active{display:block;animation:dk-status-pulse 1.1s ease-in-out infinite alternate}
+.battle-status[data-status="burn"]{border-color:#ff9a56;color:#ffd0a7;background:#542719}
+.battle-status[data-status="poison"]{border-color:#d49bff;color:#edcaff;background:#3b2350}
+.battle-status[data-status="freeze"]{border-color:#9beaff;color:#d7f8ff;background:#16465a}
+.battle-status[data-status="stun"]{border-color:#ffe27c;color:#fff1ae;background:#594719}
+.battle-status[data-status="bind"]{border-color:#9bdd9b;color:#d8ffd8;background:#1b4932}
+@keyframes dk-status-pulse{from{filter:brightness(.9);transform:translateY(0)}to{filter:brightness(1.2);transform:translateY(-1px)}}
+@media(prefers-reduced-motion:reduce){.battle-status.active{animation:none}}
