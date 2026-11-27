@@ -376,3 +376,12 @@
 #battle .battlemon.enemy.dodge{animation:dk-boss-dodge .42s ease-out}
 @keyframes dk-boss-dodge{0%{transform:translateX(0) scale(1)}35%{transform:translateX(24px) scale(.88)}70%{transform:translateX(-8px) scale(.94)}100%{transform:translateX(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.boss-ultimate-stage,.boss-ultimate-label,#battle .battlemon.enemy.dodge{animation:none!important}.boss-ultimate-stage{opacity:.55}.boss-ultimate-label{opacity:0}}
+
+
+/* Individual boss identities */
+.boss-ultimate-sequence.grass .boss-ultimate-stage{border-color:#c8ff9b;box-shadow:0 0 28px #6dcc72,inset 0 0 22px #6dcc72}
+.boss-ultimate-sequence.psychic .boss-ultimate-stage{border-color:#e7c7ff;box-shadow:0 0 30px #c48aff,inset 0 0 24px #a77aff}
+.boss-ultimate-sequence.earth .boss-ultimate-stage{border-color:#ffe0a0;box-shadow:0 0 28px #bd8750,inset 0 0 22px #a77a3f}
+.boss-ultimate-sequence.grass .boss-ultimate-label{background:#173d22ed;border-color:#b8f58c}
+.boss-ultimate-sequence.earth .boss-ultimate-label{background:#493019ed;border-color:#ffe0a0}
+.boss-ultimate-sequence.psychic .boss-ultimate-label{background:#281344ed;border-color:#e9d8ff}
