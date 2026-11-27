@@ -1,0 +1,78 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'game.js'
+      - 'style.css'
+      - 'assets/**'
+      - 'package.json'
+      - 'capacitor.config.json'
+      - 'build.mjs'
+      - '.github/workflows/android-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-debug-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build local game bundle
+        run: npm run build
+
+      - name: Create Android project
+        run: npx cap add android
+
+      - name: Set landscape orientation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          manifest = Path('android/app/src/main/AndroidManifest.xml')
+          ET.register_namespace('android', 'http://schemas.android.com/apk/res/android')
+          tree = ET.parse(manifest)
+          root = tree.getroot()
+          ns = '{http://schemas.android.com/apk/res/android}'
+          activity = next((node for node in root.iter('activity') if node.get(ns + 'name', '').endswith('MainActivity')), None)
+          if activity is None:
+              raise SystemExit('MainActivity not found in AndroidManifest.xml')
+          activity.set(ns + 'screenOrientation', 'landscape')
+          tree.write(manifest, encoding='utf-8', xml_declaration=True)
+          PY
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Assemble debug APK
+        working-directory: android
+        run: ./gradlew --no-daemon assembleDebug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DK-Pokemon-Open-World-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
