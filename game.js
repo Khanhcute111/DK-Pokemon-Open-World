@@ -313,7 +313,7 @@ function addAmbientWildlife(s){
   const sprite=s.add.text(x,y,look[0],{fontSize:'23px'}).setOrigin(.5).setDepth(y+1);
   sprite.setData('species',look[1]);
   s.tweens.add({targets:sprite,y:y-3,duration:550+Math.random()*450,yoyo:true,repeat:-1,ease:'Sine.easeInOut',delay:Math.random()*500});
-  const roam=()=>{if(!sprite.active)return;const nx=Phaser.Math.Clamp(x+(Math.random()-.5)*Math.min(90,a.w*.45),a.x+18,a.x+a.w-18);const ny=Phaser.Math.Clamp(y+(Math.random()-.5)*Math.min(70,a.h*.4),a.y+18,a.y+a.h-18);s.tweens.add({targets:[sprite,shadow],x:nx,y:ny,duration:2200+Math.random()*2200,ease:'Sine.easeInOut',onUpdate:()=>{sprite.setDepth(sprite.y+1);shadow.setDepth(sprite.y-1)},onComplete:()=>s.time.delayedCall(350+Math.random()*900,roam)})};
+  const roam=()=>{if(!sprite.active)return;const nx=Phaser.Math.Clamp(x+(Math.random()-.5)*Math.min(90,a.w*.45),a.x+18,a.x+a.w-18);const ny=Phaser.Math.Clamp(y+(Math.random()-.5)*Math.min(70,a.h*.4),a.y+18,a.y+a.h-18);s.tweens.add({targets:sprite,x:nx,y:ny,duration:2200+Math.random()*2200,ease:'Sine.easeInOut',onUpdate:()=>sprite.setDepth(sprite.y+1),onComplete:()=>s.time.delayedCall(350+Math.random()*900,roam)});s.tweens.add({targets:shadow,x:nx,y:ny+12,duration:2200+Math.random()*2200,ease:'Sine.easeInOut',onUpdate:()=>shadow.setDepth(sprite.y-1)})};
   s.time.delayedCall(500+i*260,roam);
  }
 }
