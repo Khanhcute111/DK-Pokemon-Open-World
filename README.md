@@ -245,3 +245,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Pokémon hoang dã nghiêng người theo hướng chạy, đổi tỷ lệ khung hình nhẹ khi bước, bóng đổ phản hồi theo nhịp.
 - Nhân vật người chơi có biên độ bước chân, độ nghiêng thân và nhịp chạy rõ hơn; bụi bước chân dày và lớn hơn khi giữ nút chạy.
 - Không thay đổi tốc độ di chuyển, vùng va chạm, xác suất gặp Pokémon hoặc logic nhiệm vụ.
+
+
+### NPC phản ứng và tương tác gần
+- Khi người chơi đến gần NPC, vòng sáng đổi màu và biểu tượng hội thoại xuất hiện phía trên nhân vật; rời khỏi vùng tương tác thì dấu hiệu tự ẩn.
+- Khi nhấn tương tác, NPC có nhịp bật người và lời chào ngắn theo vai trò (Giáo sư Oak, người câu cá, người dẫn đường, nhà nghiên cứu, người giữ đảo, cửa hàng, y tá và huấn luyện viên).
+- Lời chào chỉ là lớp trình bày; các nhiệm vụ, phần thưởng, điều kiện chiến đấu và tiến trình lưu hiện có không bị thay đổi.
+- Hiệu ứng được cập nhật theo khoảng cách trong thế giới mở và dùng tween sẵn có của Phaser.
