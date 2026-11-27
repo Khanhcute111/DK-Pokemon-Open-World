@@ -87,3 +87,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Đòn đánh thường và chiêu đặc biệt có trạng thái chuyển động riêng; chiêu đặc biệt có cú lao, nhấn sáng và quầng năng lượng rõ hơn.
 - Tôn trọng cài đặt giảm chuyển động của thiết bị.
 - Các sprite-sheet hiện tại vẫn là bộ 4 khung idle được biến đổi nhẹ; đây chưa phải bộ pose walk/run/attack vẽ riêng cho từng loài.
+
+
+## Bộ sprite chuyển động đồng hành
+- Bổ sung 18 sprite-sheet chuyển động riêng theo từng loài, mỗi sheet có 4 khung hình và được tải trực tiếp khi Pokémon trở thành bạn đồng hành.
+- Hoạt ảnh có nhịp riêng cho đứng yên, đi bộ và chạy; chạy tăng tốc phát khung hình.
+- Sprite-sheet idle cũ vẫn được giữ cho giao diện đội hình, Pokédex và khung chiến đấu.
+- Các khung chuyển động hiện là biến thể tư thế bằng biến đổi hình học từ artwork gốc, chưa phải hoạt ảnh khớp xương hoặc vẽ lại từng chi tiết giải phẫu.
