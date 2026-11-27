@@ -516,7 +516,7 @@ function startBattle(mode=false){const gym=mode&&typeof mode==='object'&&mode.ki
   const meaningfulUpgrade=bestScore>=currentScore+28;
   const candidateCounters=typeEffect(bestMon.type,ally.type).multiplier>=1.5;
   if(!meaningfulUpgrade||(!clearDisadvantage&&!candidateCounters))return false;
-  trainerTeam.splice(bestIndex,1);
+  trainerTeam.splice(bestIndex,1);trainerTeamIndex++;updateTeamCounter();
   const outgoing=wild.name;
   wild=bestMon;wild.current=wild.maxHp;battleStatuses.enemy=null;enemyGuard=false;
   enemyStrategy='balanced';trainerSwitchUsed=true;
