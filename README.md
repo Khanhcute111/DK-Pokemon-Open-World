@@ -77,4 +77,5 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Người Giữ Đảo giao nhiệm vụ tìm ba viên ngọc trai; hoàn thành nhận 700 vàng, 4 bóng Poké và mở khóa cưỡi Lapras.
 - Nút cưỡi Lapras tăng tốc độ di chuyển; có thể xuống bất cứ lúc nào.
 - HUD hiển thị đúng tên khu vực Đảo San Hô khi người chơi cập bến.
+- Thanh nhiệm vụ ưu tiên hiển thị tiến độ nhiệm vụ phụ đang thực hiện: ngọc trai Đảo San Hô hoặc tinh thể Hang Thạch Anh.
 - Pokémon mới: Seel, Lapras, Dratini và Sandshrew.
