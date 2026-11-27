@@ -123,3 +123,10 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - The quest journal now separates the Kanto story from the Crystal Cave and Coral Island side quests, and shows collection progress.
 - First discovery of each major travel region (excluding Pallet) grants **35 gold and 1 Potion**. The region is recorded in the existing saved discovery list, so its exploration reward cannot be farmed by leaving and returning.
 - Exploration reward is granted once per newly discovered major region; previously saved regions do not retroactively grant rewards.
+
+
+### Living overworld, regional weather and surprise events
+- Ambient wild Pokémon now appear inside tall-grass encounter patches and wander short distances with a bobbing idle motion and a separate ground shadow. These are visual overworld creatures; entering grass still uses the existing encounter/battle system.
+- NPCs have extra idle sway and breathing-like shadow movement while their quest markers remain synchronized.
+- The world clock supports clear weather, rain, storms and fog. Storm rain falls faster; fog is shown in forest/lake areas and the existing cave mist remains active underground.
+- Walking through tall grass can trigger a surprise exploration event (once per 90 seconds): find 45 gold, a Potion, two Poké Balls, or a small mixed reward. Claiming the reward pauses movement until the player collects it; the cooldown timestamp is saved.
