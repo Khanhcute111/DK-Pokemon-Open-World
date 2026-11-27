@@ -168,3 +168,12 @@ Game nhập vai pixel-art tiếng Việt, thiết kế ưu tiên điện thoại
 - Chiêu đặc trưng của từng loài có cơ hội gây trạng thái phù hợp: chiêu Lửa gây bỏng, chiêu Độc gây độc, chiêu Băng gây đóng băng, chiêu Tâm linh/âm thanh gây choáng, dây leo/đất đá gây trói chân.
 - Pokémon đối thủ cũng có xác suất gây trạng thái dựa trên hệ khi phản công.
 - Trạng thái được hiển thị trực tiếp dưới Pokémon trong trận đấu, có màu nhận diện riêng và tự hết sau số lượt quy định. Đây là hiệu ứng trong trận, không làm thay đổi dữ liệu lưu đội hình sau khi kết thúc.
+
+
+### AI chiến thuật cho Pokémon đối thủ
+- Đối thủ đánh giá tương quan hệ, HP của hai bên và trạng thái đang có để chọn nhịp chiến đấu: cân bằng, tấn công áp đảo, gây áp lực hoặc phòng thủ.
+- Khi có lợi thế hệ hoặc người chơi sắp hết HP, AI tăng tần suất dùng chiêu đặc trưng thay vì chỉ đánh thường.
+- Chiêu đặc trưng của đối thủ có thể gây bỏng, độc, đóng băng, choáng hoặc trói chân theo hồ sơ loài/hệ.
+- Khi HP thấp và đang bất lợi về hệ, đối thủ có cơ hội dựng thế phòng thủ; đòn kế tiếp của người chơi bị giảm sát thương rồi thế thủ tự tiêu hao.
+- AI là hệ luật chiến thuật cục bộ, không dùng mô hình học máy hoặc kết nối API.
+- Cân bằng sát thương hiện tại được giữ trong phạm vi hệ thống chiến đấu hiện có; cần kiểm thử thực tế để tinh chỉnh xác suất và độ khó.
