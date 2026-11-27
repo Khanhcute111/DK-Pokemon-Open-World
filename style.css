@@ -607,3 +607,37 @@ footer{display:contents}
  #battle .moba-controls .run-btn{width:46px;height:46px;right:104px;bottom:96px}
  #battle .battletext{bottom:158px}
 }
+
+
+/* Remove oversized battle panels: keep only floating HUD and controls */
+#battle.overlay{background:transparent!important;backdrop-filter:none!important;padding:0!important}
+#battle .battlebox{
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;outline:0!important;overflow:visible!important;
+  padding:clamp(42px,7vh,58px) 10px 8px!important;
+}
+#battle .battlefield{
+  width:100%!important;height:clamp(150px,48vh,360px)!important;
+  min-height:0!important;margin:4px 0 0!important;padding:4px 8px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;backdrop-filter:none!important;overflow:visible!important;
+}
+#battle .battlehead{
+  left:10px!important;right:auto!important;width:max-content;max-width:calc(100% - 20px);
+  padding:5px 9px!important;background:#071b2b8a!important;border:0!important;
+  border-radius:8px!important;backdrop-filter:blur(3px)!important;
+}
+#battle .battletext{
+  left:10px!important;right:clamp(150px,22vw,220px)!important;
+  background:#07182788!important;border:0!important;box-shadow:none!important;
+  backdrop-filter:blur(3px)!important;
+}
+@media(max-width:620px) and (orientation:landscape){
+  #battle .battlefield{width:100%!important;height:clamp(140px,48vh,230px)!important}
+  #battle .battletext{right:190px!important}
+}
+@media(orientation:portrait){
+  #battle .battlebox{padding:48px 8px 8px!important}
+  #battle .battlefield{height:40vh!important}
+  #battle .battletext{right:10px!important}
+}
